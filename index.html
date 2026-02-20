@@ -213,7 +213,7 @@
   .announce strong { color: var(--gold-light); }
 
   /* ── NAV ── */
-  nav {
+  header nav, body > nav, .site-nav {
     background: var(--white);
     border-bottom: 1px solid var(--border);
     padding: 1rem 2rem;
@@ -224,6 +224,14 @@
     top: 0;
     z-index: 100;
     box-shadow: 0 1px 12px rgba(0,0,0,0.05);
+  }
+  footer nav {
+    background: none;
+    border: none;
+    padding: 0;
+    display: block;
+    position: static;
+    box-shadow: none;
   }
 
   .nav-brand {
@@ -1043,6 +1051,8 @@
   }
 
   footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  footer a:hover { color: #fff; }
+  footer .footer-brand { font-family: 'Playfair Display', serif; font-size: 1rem; color: #fff; margin-bottom: 8px; display: block; }
 
   /* ── ANIMATIONS ── */
   @keyframes fadeDown {
@@ -1131,10 +1141,10 @@
 <div class="announce">🔥 Launch Special: <strong>Save $60</strong> — Only $37 today (regular $97). Ends soon.</div>
 
 <!-- NAV -->
-<nav>
+<header><nav>
   <a class="nav-brand" href="#"><span>Credit</span> Fast Track <em style="font-style:italic; color:var(--gold);">10X</em></a>
   <a class="nav-cta" href="#" onclick="openModal(); return false;">Get Instant Access — $37</a>
-</nav>
+</nav></header>
 
 <!-- ══════════════════════════════════════════
      HERO
