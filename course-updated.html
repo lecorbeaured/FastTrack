@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Credit Fast Track | Course</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-<script src="https://js.stripe.com/v3/"></script>
+<script src="https://js.stripe.com/v3/">  document.getElementById('footer-year').textContent = new Date().getFullYear();
+</script>
 <style>
   :root {
     --bg: #0a0d14;
@@ -497,6 +498,19 @@
   .scroll-top.visible { opacity: 1; transform: translateY(0); }
   .scroll-top:hover { background: rgba(26,107,60,1); }
 
+  /* ── FOOTER ── */
+  footer {
+    background: #0e0e0e;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 36px 24px;
+    font-size: 13px;
+    line-height: 2;
+  }
+  footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  footer a:hover { color: #fff; }
+  footer .footer-brand { font-family: 'Playfair Display', serif; color: #fff; font-size: 1rem; margin-bottom: 8px; display: block; }
+  footer nav { background: none !important; border: none !important; padding: 0 !important; display: block !important; position: static !important; box-shadow: none !important; margin-bottom: 4px; }
 </style>
 </head>
 <body>
@@ -1399,6 +1413,25 @@ document.addEventListener('DOMContentLoaded', () => {
   if(btn){ window.addEventListener('scroll', function(){ btn.classList.toggle('visible', window.scrollY > 400); }, {passive:true}); }
 })();
 </script>
+
+<footer>
+  <p class="footer-brand">Credit Fast Track 10X</p>
+  <nav>
+    <a href="/">Home</a> &nbsp;·&nbsp;
+    <a href="/credit-repair.html">Credit Repair Course</a> &nbsp;·&nbsp;
+    <a href="/business-credit.html">Business Credit Course</a>
+  </nav>
+  <p>
+    <a href="/privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="/advertiser-disclosure.html">Advertiser Disclosure</a> &nbsp;·&nbsp;
+    <a href="/editorial-disclosure.html">Editorial Disclosure</a> &nbsp;·&nbsp;
+    <a href="/contact.html">Contact</a>
+  </p>
+  <p style="margin-top:10px;">© <span id="footer-year"></span> Credit Fast Track 10X · creditfasttrack10x.live</p>
+  <p style="margin-top:12px; font-size:11px; max-width:600px; margin-left:auto; margin-right:auto; opacity:0.6;">
+    Educational content only. Results vary. This site may contain affiliate links.
+  </p>
+</footer>
 
 </body>
 </html>

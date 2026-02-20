@@ -195,23 +195,6 @@
   a { color: var(--accent); }
 
   /* FOOTER */
-  footer {
-    background: var(--ink);
-    color: rgba(255,255,255,0.5);
-    text-align: center;
-    padding: 2rem;
-    font-size: 0.8rem;
-  }
-
-  footer a {
-    color: rgba(255,255,255,0.5);
-    text-decoration: none;
-    margin: 0 0.5rem;
-  }
-
-  footer a:hover { color: #fff; }
-
-  .footer-links { margin-top: 0.5rem; }
 
   .scroll-top {
     position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px;
@@ -224,6 +207,19 @@
   .scroll-top.visible { opacity: 1; transform: translateY(0); }
   .scroll-top:hover { background: rgba(26,107,60,1); }
 
+  /* ── FOOTER ── */
+  footer {
+    background: #0e0e0e;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 36px 24px;
+    font-size: 13px;
+    line-height: 2;
+  }
+  footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  footer a:hover { color: #fff; }
+  footer .footer-brand { font-family: 'Playfair Display', serif; color: #fff; font-size: 1rem; margin-bottom: 8px; display: block; }
+  footer nav { background: none !important; border: none !important; padding: 0 !important; display: block !important; position: static !important; box-shadow: none !important; margin-bottom: 4px; }
 </style>
 </head>
 <body>
@@ -379,13 +375,22 @@
 </div>
 
 <footer>
-  <p>© <span id="footer-year"></span> Credit Fast Track 10X. All rights reserved.</p>
-  <div class="footer-links">
-    <a href="/privacy">Privacy Policy</a>
-    <a href="/advertiser-disclosure">Advertiser Disclosure</a>
-    <a href="/editorial-disclosure">Editorial Disclosure</a>
-    <a href="mailto:support@creditfasttrack10x.live">Contact</a>
-  </div>
+  <p class="footer-brand">Credit Fast Track 10X</p>
+  <nav>
+    <a href="/">Home</a> &nbsp;·&nbsp;
+    <a href="/credit-repair.html">Credit Repair Course</a> &nbsp;·&nbsp;
+    <a href="/business-credit.html">Business Credit Course</a>
+  </nav>
+  <p>
+    <a href="/privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="/advertiser-disclosure.html">Advertiser Disclosure</a> &nbsp;·&nbsp;
+    <a href="/editorial-disclosure.html">Editorial Disclosure</a> &nbsp;·&nbsp;
+    <a href="/contact.html">Contact</a>
+  </p>
+  <p style="margin-top:10px;">© <span id="footer-year"></span> Credit Fast Track 10X · creditfasttrack10x.live</p>
+  <p style="margin-top:12px; font-size:11px; max-width:600px; margin-left:auto; margin-right:auto; opacity:0.6;">
+    Educational content only. Results vary. This site may contain affiliate links.
+  </p>
 </footer>
 
 <script>
