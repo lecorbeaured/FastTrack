@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editorial Disclosure — Credit Fast Track 10X</title>
+<meta name="description" content="Editorial Disclosure for Credit Fast Track 10X. How we research, write, and maintain our content standards.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="/editorial-disclosure">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f3;
+    --white: #ffffff;
+    --ink: #1a1814;
+    --ink2: #3d3a34;
+    --muted: #7a7060;
+    --border: #e5e0d6;
+    --accent: #1a6b3c;
+    --accent-pale: #eef6f1;
+    --blue: #1d4ed8;
+    --blue-pale: #eff6ff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink2);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-brand span { color: var(--accent); }
+  .nav-brand em { font-style: italic; color: #c9922a; }
+
+  .nav-back {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .nav-back:hover { text-decoration: underline; }
+
+  .page-header {
+    background: var(--blue);
+    padding: 3.5rem 2rem;
+    text-align: center;
+  }
+
+  .page-header .label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-header h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-header .meta {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .content-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3.5rem 2rem 5rem;
+  }
+
+  .top-box {
+    background: var(--blue-pale);
+    border: 2px solid rgba(29,78,216,0.2);
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .top-box .td-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.75rem;
+  }
+
+  .top-box p {
+    font-size: 0.95rem;
+    color: var(--ink2);
+    line-height: 1.75;
+  }
+
+  .section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-child { border-bottom: none; margin-bottom: 0; }
+
+  .section h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .section p { margin-bottom: 1rem; color: var(--ink2); }
+  .section p:last-child { margin-bottom: 0; }
+
+  .section ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .section li { color: var(--ink2); font-size: 0.95rem; }
+
+  /* Standards grid */
+  .standards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  @media (max-width: 560px) { .standards-grid { grid-template-columns: 1fr; } }
+
+  .standard-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+
+  .standard-card h4 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .standard-card p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Process steps */
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 1.25rem;
+    position: relative;
+  }
+
+  .process-step {
+    display: flex;
+    gap: 1.25rem;
+    padding-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .process-step:last-child { padding-bottom: 0; }
+
+  .step-num-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .step-num {
+    width: 32px; height: 32px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    font-family: 'Lora', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-line {
+    width: 2px;
+    flex: 1;
+    background: var(--border);
+    margin-top: 4px;
+  }
+
+  .process-step:last-child .step-line { display: none; }
+
+  .step-content { padding-top: 0.3rem; }
+
+  .step-content h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .step-content p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .divider-note {
+    background: var(--accent-pale);
+    border: 1px solid rgba(26,107,62,0.2);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    font-size: 0.875rem;
+    color: var(--ink2);
+    margin: 1.5rem 0;
+  }
+
+  .divider-note strong { color: var(--accent); }
+
+  a { color: var(--accent); }
+
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+  }
+
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 0.5rem; }
+  footer a:hover { color: #fff; }
+  .footer-links { margin-top: 0.5rem; }
+
+  .scroll-top {
+    position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px;
+    border-radius: 50%; background: rgba(26,107,60,0.8); color: #fff;
+    border: none; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; font-size: 1rem; opacity: 0;
+    transform: translateY(10px); transition: opacity 0.3s, transform 0.3s, background 0.2s;
+    z-index: 999; backdrop-filter: blur(4px); box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .scroll-top.visible { opacity: 1; transform: translateY(0); }
+  .scroll-top:hover { background: rgba(26,107,60,1); }
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-brand"><span>Credit</span> Fast Track <em>10X</em></a>
+  <a href="/" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page-header">
+  <div class="label">Our Standards</div>
+  <h1>Editorial Disclosure</h1>
+  <div class="meta">Last updated: <span id="last-updated"></span></div>
+</div>
+
+<div class="content-wrap">
+
+  <div class="top-box">
+    <div class="td-label">📝 Our Editorial Promise</div>
+    <p>All content on Credit Fast Track 10X — including course materials, product recommendations, comparisons, and educational articles — is written and maintained to meet specific accuracy and integrity standards. Our content is not written or edited by advertisers. Compensation we receive from affiliate relationships may influence which products we feature, but does not influence our editorial assessments or factual accuracy standards.</p>
+  </div>
+
+  <div class="section">
+    <h2>Who Creates Our Content</h2>
+    <p>Credit Fast Track 10X content is created by the site's founder and operator — a web developer and digital marketer with hands-on experience in the personal finance and credit-building space. Content is based on:</p>
+    <ul>
+      <li>Direct research into product terms, features, and limitations</li>
+      <li>Review of published data from credit bureaus, financial institutions, and product companies</li>
+      <li>Analysis of publicly available user feedback and third-party reviews</li>
+      <li>General financial literacy knowledge and credit industry standards</li>
+    </ul>
+    <p>We are not licensed financial advisors, credit counselors, or attorneys. Content on this site is for educational purposes only and should not be construed as personalized financial advice. See our disclaimer below.</p>
+  </div>
+
+  <div class="section">
+    <h2>Our Editorial Standards</h2>
+    <div class="standards-grid">
+      <div class="standard-card">
+        <h4>✓ Accuracy First</h4>
+        <p>All factual claims — including product pricing, credit bureau reporting, score improvement statistics — are sourced from the product companies or verified third-party data.</p>
+      </div>
+      <div class="standard-card">
+        <h4>✓ No Paid Editorial</h4>
+        <p>Advertisers and affiliate partners do not write, edit, review, or approve any editorial content on this site before or after publication.</p>
+      </div>
+      <div class="standard-card">
+        <h4>✓ Honest Assessments</h4>
+        <p>We disclose both the benefits and limitations of products we recommend. A product with an affiliate relationship is not automatically presented as superior to alternatives.</p>
+      </div>
+      <div class="standard-card">
+        <h4>✓ Regular Updates</h4>
+        <p>Product details — pricing, terms, features — change over time. We review and update our content regularly to maintain accuracy.</p>
+      </div>
+      <div class="standard-card">
+        <h4>✓ Results Transparency</h4>
+        <p>Score improvements shown are based on published averages. We always note that individual results vary and do not guarantee specific outcomes.</p>
+      </div>
+      <div class="standard-card">
+        <h4>✓ Affiliate Clarity</h4>
+        <p>Pages containing affiliate links include visible disclosure notices. We do not disguise commercial recommendations as purely editorial content.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>How We Research & Recommend Products</h2>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num-wrap">
+          <div class="step-num">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h4>Identify the audience need</h4>
+          <p>We start with what our readers actually need — in this case, affordable, low-barrier ways to build credit from scratch. Products are evaluated against this specific need.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num-wrap">
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h4>Research product details</h4>
+          <p>We review the product's official terms, pricing, credit bureau reporting policies, approval requirements, and any fees. We also review third-party analysis and user feedback.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num-wrap">
+          <div class="step-num">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h4>Assess fit for our audience</h4>
+          <p>We evaluate whether the product genuinely serves a reader who is new to credit or rebuilding — considering cost, ease of access, and realistic outcomes.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num-wrap">
+          <div class="step-num">4</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h4>Write balanced content</h4>
+          <p>We include both the strengths and limitations of products we feature. We compare alternatives where relevant so readers can make informed decisions.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num-wrap">
+          <div class="step-num">5</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h4>Disclose commercial relationships</h4>
+          <p>If we have an affiliate relationship with a product we're writing about, we disclose that clearly at the top of the page or in a visible disclosure section.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num-wrap">
+          <div class="step-num">6</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h4>Update when things change</h4>
+          <p>Product terms change. When we're notified of a material change — pricing, features, bureau reporting — we update the relevant content promptly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>What We Will Not Do</h2>
+    <p>Regardless of affiliate compensation, we maintain the following editorial limits:</p>
+    <ul>
+      <li>We will not fabricate or exaggerate credit score results</li>
+      <li>We will not recommend a product we believe is predatory, misleading, or harmful to financially vulnerable users</li>
+      <li>We will not allow advertisers to write or edit content about their own products</li>
+      <li>We will not remove or suppress negative information about a product because of an affiliate relationship</li>
+      <li>We will not present paid content as independent editorial content without clear disclosure</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Financial Disclaimer</h2>
+    <div class="divider-note">
+      <strong>Important:</strong> Credit Fast Track 10X is an educational resource, not a licensed financial advisory service. The content on this site — including course materials, product recommendations, and strategy guides — is for informational and educational purposes only. It does not constitute personalized financial, legal, or credit advice. Credit score outcomes vary by individual. Past results shown on this site are not guarantees of future performance. For personalized financial guidance, consult a licensed financial advisor or credit counselor.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Corrections Policy</h2>
+    <p>If you believe any content on this site contains a factual error, outdated information, or a misleading claim, we want to know. Please email us at <a href="mailto:support@creditfasttrack10x.live">support@creditfasttrack10x.live</a> with the specific page URL, the information you believe is incorrect, and any supporting source. We review all correction requests and will update content if an error is confirmed, typically within 5 business days.</p>
+  </div>
+
+  <div class="section">
+    <h2>Contact</h2>
+    <p>Questions about our editorial standards, content accuracy, or commercial relationships:</p>
+    <p>
+      <strong>Credit Fast Track 10X</strong><br>
+      Email: <a href="mailto:support@creditfasttrack10x.live">support@creditfasttrack10x.live</a><br>
+      Website: <a href="https://creditfasttrack10x.live">creditfasttrack10x.live</a>
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  <p>© <span id="footer-year"></span> Credit Fast Track 10X. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/advertiser-disclosure">Advertiser Disclosure</a>
+    <a href="/editorial-disclosure">Editorial Disclosure</a>
+    <a href="mailto:support@creditfasttrack10x.live">Contact</a>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  document.getElementById('last-updated').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+</script>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+<script>
+(function(){
+  var btn = document.getElementById('scrollTopBtn');
+  if(btn){ window.addEventListener('scroll', function(){ btn.classList.toggle('visible', window.scrollY > 400); }, {passive:true}); }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Credit Fast Track 10X</title>
+<meta name="description" content="Privacy Policy for Credit Fast Track 10X. Learn how we collect, use, and protect your information.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="/privacy">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f3;
+    --white: #ffffff;
+    --ink: #1a1814;
+    --ink2: #3d3a34;
+    --muted: #7a7060;
+    --border: #e5e0d6;
+    --accent: #1a6b3c;
+    --accent-pale: #eef6f1;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink2);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  /* NAV */
+  .nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-brand span { color: var(--accent); }
+  .nav-brand em { font-style: italic; color: #c9922a; }
+
+  .nav-back {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .nav-back:hover { text-decoration: underline; }
+
+  /* PAGE HEADER */
+  .page-header {
+    background: var(--ink);
+    padding: 3.5rem 2rem;
+    text-align: center;
+  }
+
+  .page-header .label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-header h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-header .meta {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* CONTENT */
+  .content-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3.5rem 2rem 5rem;
+  }
+
+  .toc {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 3rem;
+  }
+
+  .toc-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .toc ol {
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .toc a {
+    font-size: 0.875rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .toc a:hover { text-decoration: underline; }
+
+  .section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section h2 .num {
+    background: var(--accent);
+    color: #fff;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .section p { margin-bottom: 1rem; color: var(--ink2); }
+  .section p:last-child { margin-bottom: 0; }
+
+  .section ul, .section ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .section li { color: var(--ink2); font-size: 0.95rem; }
+
+  .highlight-box {
+    background: var(--accent-pale);
+    border: 1px solid rgba(26,107,62,0.2);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.25rem 0;
+    font-size: 0.9rem;
+    color: var(--ink2);
+  }
+
+  .highlight-box strong { color: var(--accent); }
+
+  a { color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+  }
+
+  footer a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    margin: 0 0.5rem;
+  }
+
+  footer a:hover { color: #fff; }
+
+  .footer-links { margin-top: 0.5rem; }
+
+  .scroll-top {
+    position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px;
+    border-radius: 50%; background: rgba(26,107,60,0.8); color: #fff;
+    border: none; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; font-size: 1rem; opacity: 0;
+    transform: translateY(10px); transition: opacity 0.3s, transform 0.3s, background 0.2s;
+    z-index: 999; backdrop-filter: blur(4px); box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .scroll-top.visible { opacity: 1; transform: translateY(0); }
+  .scroll-top:hover { background: rgba(26,107,60,1); }
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-brand"><span>Credit</span> Fast Track <em>10X</em></a>
+  <a href="/" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page-header">
+  <div class="label">Legal</div>
+  <h1>Privacy Policy</h1>
+  <div class="meta">Last updated: <span id="last-updated"></span> &nbsp;·&nbsp; Effective immediately upon publication</div>
+</div>
+
+<div class="content-wrap">
+
+  <div class="toc">
+    <div class="toc-title">Table of Contents</div>
+    <ol>
+      <li><a href="#information-collected">Information We Collect</a></li>
+      <li><a href="#how-we-use">How We Use Your Information</a></li>
+      <li><a href="#third-parties">Third-Party Services & Affiliate Links</a></li>
+      <li><a href="#cookies">Cookies & Tracking Technologies</a></li>
+      <li><a href="#data-sharing">Data Sharing & Disclosure</a></li>
+      <li><a href="#data-security">Data Security</a></li>
+      <li><a href="#your-rights">Your Rights & Choices</a></li>
+      <li><a href="#children">Children's Privacy</a></li>
+      <li><a href="#changes">Changes to This Policy</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </div>
+
+  <div class="highlight-box">
+    <strong>Plain English Summary:</strong> Credit Fast Track 10X is an educational website. We don't sell your personal data. We use standard web tools like Google Fonts that may set cookies. Some links on this site are affiliate links — we may earn a commission if you sign up for a product, at no extra cost to you.
+  </div>
+
+  <div class="section" id="information-collected">
+    <h2><span class="num">1</span> Information We Collect</h2>
+    <p>Credit Fast Track 10X ("we," "us," or "our") operates the website located at creditfasttrack10x.live (the "Site"). We collect the following types of information:</p>
+    <p><strong>Information You Provide Directly:</strong></p>
+    <ul>
+      <li>Email address and name if you subscribe to our email list or contact us</li>
+      <li>Payment information processed through Stripe when purchasing our course (we do not store card details — Stripe handles all payment data)</li>
+      <li>Any information you voluntarily submit through contact forms</li>
+    </ul>
+    <p><strong>Information Collected Automatically:</strong></p>
+    <ul>
+      <li>IP address and approximate geographic location</li>
+      <li>Browser type, device type, and operating system</li>
+      <li>Pages visited, time spent on pages, and referring URL</li>
+      <li>Click data including affiliate link clicks</li>
+    </ul>
+    <p><strong>Information We Do Not Collect:</strong> We do not collect Social Security numbers, government ID information, credit report data, or any sensitive financial account information.</p>
+  </div>
+
+  <div class="section" id="how-we-use">
+    <h2><span class="num">2</span> How We Use Your Information</h2>
+    <p>We use the information we collect to:</p>
+    <ul>
+      <li>Deliver course content and confirm purchase transactions</li>
+      <li>Send email communications you have opted into, including course updates and financial education content</li>
+      <li>Respond to your questions and provide customer support</li>
+      <li>Analyze site traffic and improve our content and user experience</li>
+      <li>Track affiliate link performance as required by our affiliate network agreements</li>
+      <li>Comply with legal obligations</li>
+    </ul>
+    <p>We will not use your email address for unsolicited commercial messages unrelated to the content you signed up for. You may unsubscribe at any time.</p>
+  </div>
+
+  <div class="section" id="third-parties">
+    <h2><span class="num">3</span> Third-Party Services & Affiliate Links</h2>
+    <p>Our site uses and links to third-party services. Each operates under its own privacy policy:</p>
+    <ul>
+      <li><strong>Google Fonts</strong> — Loads typography assets. Google may collect IP address data. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy →</a></li>
+      <li><strong>Stripe</strong> — Processes course payments. Stripe collects and stores payment data. <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe Privacy Policy →</a></li>
+      <li><strong>FlexOffers / Affiliate Networks</strong> — We participate in affiliate programs. When you click an affiliate link, the affiliate network may place tracking cookies on your device to attribute any resulting signup or purchase to our account.</li>
+      <li><strong>Email Service Provider</strong> — If you subscribe to our email list, your email is stored with our email service provider and subject to their privacy policy.</li>
+    </ul>
+    <p>Links to third-party websites are provided for convenience. We are not responsible for the privacy practices or content of those sites. We encourage you to review the privacy policy of any site you visit.</p>
+    <div class="highlight-box">
+      <strong>Affiliate Disclosure:</strong> Some links on this site are affiliate links. If you click through and sign up for or purchase a product, we may earn a commission — at no additional cost to you. See our full <a href="/advertiser-disclosure">Advertiser Disclosure</a> for details.
+    </div>
+  </div>
+
+  <div class="section" id="cookies">
+    <h2><span class="num">4</span> Cookies & Tracking Technologies</h2>
+    <p>Cookies are small text files stored on your device by your browser. Our site uses the following types:</p>
+    <ul>
+      <li><strong>Functional cookies:</strong> Used to remember course access status after payment (stored in sessionStorage — cleared when you close the browser)</li>
+      <li><strong>Third-party cookies:</strong> Set by Google Fonts, Stripe, and affiliate networks when you interact with those elements. These are governed by the respective third party's cookie policy.</li>
+      <li><strong>Analytics cookies:</strong> If we implement analytics tools, these may set cookies to track aggregate traffic patterns. No personally identifiable information is shared with analytics providers.</li>
+    </ul>
+    <p>You can control or disable cookies through your browser settings. Note that disabling cookies may affect site functionality, including course access after payment.</p>
+  </div>
+
+  <div class="section" id="data-sharing">
+    <h2><span class="num">5</span> Data Sharing & Disclosure</h2>
+    <p>We do not sell, rent, or trade your personal information to third parties for their marketing purposes. We may share your information only in the following limited circumstances:</p>
+    <ul>
+      <li><strong>Service providers:</strong> We share data with vendors who help us operate the site (Stripe for payments, email providers for communications). These parties are contractually obligated to keep your data confidential.</li>
+      <li><strong>Legal requirements:</strong> We may disclose information if required by law, court order, or governmental authority.</li>
+      <li><strong>Business transfers:</strong> If Credit Fast Track 10X is acquired or merged, user data may be transferred as part of that transaction. We will notify users via site notice before data becomes subject to a different privacy policy.</li>
+      <li><strong>With your consent:</strong> In any other circumstance, we will ask for your explicit consent before sharing your information.</li>
+    </ul>
+  </div>
+
+  <div class="section" id="data-security">
+    <h2><span class="num">6</span> Data Security</h2>
+    <p>We implement reasonable technical and organizational measures to protect your information against unauthorized access, alteration, disclosure, or destruction. Specifically:</p>
+    <ul>
+      <li>The site is served over HTTPS with SSL/TLS encryption</li>
+      <li>Payment processing is handled entirely by Stripe — we never handle or store raw card data</li>
+      <li>Access to any stored user data is restricted to authorized personnel only</li>
+    </ul>
+    <p>No method of transmission over the Internet is 100% secure. While we strive to protect your data, we cannot guarantee absolute security. If you believe your information has been compromised, please contact us immediately.</p>
+  </div>
+
+  <div class="section" id="your-rights">
+    <h2><span class="num">7</span> Your Rights & Choices</h2>
+    <p>Depending on your location, you may have the following rights regarding your personal data:</p>
+    <ul>
+      <li><strong>Access:</strong> Request a copy of the personal data we hold about you</li>
+      <li><strong>Correction:</strong> Request correction of inaccurate data</li>
+      <li><strong>Deletion:</strong> Request deletion of your personal data ("right to be forgotten")</li>
+      <li><strong>Opt-out:</strong> Unsubscribe from marketing emails at any time via the unsubscribe link in any email we send</li>
+      <li><strong>California residents (CCPA):</strong> You have the right to know what personal information we collect, to opt out of the sale of personal information (we do not sell personal information), and to non-discrimination for exercising your rights</li>
+      <li><strong>EEA/UK residents (GDPR):</strong> You have the rights listed above plus the right to data portability and the right to lodge a complaint with your supervisory authority</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at <a href="mailto:support@creditfasttrack10x.live">support@creditfasttrack10x.live</a>. We will respond within 30 days.</p>
+  </div>
+
+  <div class="section" id="children">
+    <h2><span class="num">8</span> Children's Privacy</h2>
+    <p>Credit Fast Track 10X is intended for adults aged 18 and older. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided personal information to us, please contact us and we will delete that information promptly.</p>
+  </div>
+
+  <div class="section" id="changes">
+    <h2><span class="num">9</span> Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. When we make material changes, we will update the "Last Updated" date at the top of this page. We encourage you to review this policy periodically. Continued use of the Site after changes are posted constitutes your acceptance of the updated policy.</p>
+  </div>
+
+  <div class="section" id="contact">
+    <h2><span class="num">10</span> Contact Us</h2>
+    <p>If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:</p>
+    <p>
+      <strong>Credit Fast Track 10X</strong><br>
+      Email: <a href="mailto:support@creditfasttrack10x.live">support@creditfasttrack10x.live</a><br>
+      Website: <a href="https://creditfasttrack10x.live">creditfasttrack10x.live</a>
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  <p>© <span id="footer-year"></span> Credit Fast Track 10X. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/advertiser-disclosure">Advertiser Disclosure</a>
+    <a href="/editorial-disclosure">Editorial Disclosure</a>
+    <a href="mailto:support@creditfasttrack10x.live">Contact</a>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  document.getElementById('last-updated').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+</script>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+<script>
+(function(){
+  var btn = document.getElementById('scrollTopBtn');
+  if(btn){ window.addEventListener('scroll', function(){ btn.classList.toggle('visible', window.scrollY > 400); }, {passive:true}); }
+})();
+</script>
+
+</body>
+</html>

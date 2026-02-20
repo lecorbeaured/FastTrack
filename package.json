@@ -1,0 +1,19 @@
+{
+  "name": "creditfasttrack10x",
+  "version": "1.0.0",
+  "description": "Credit Fast Track 10X — Course Platform",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "stripe": "^14.0.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "scripts": {
+    "dev": "netlify dev",
+    "deploy": "netlify deploy --prod"
+  }
+}

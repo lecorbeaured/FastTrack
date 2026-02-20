@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advertiser Disclosure — Credit Fast Track 10X</title>
+<meta name="description" content="Advertiser Disclosure for Credit Fast Track 10X. We believe in full transparency about how we earn revenue and how that may affect our content.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="/advertiser-disclosure">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f3;
+    --white: #ffffff;
+    --ink: #1a1814;
+    --ink2: #3d3a34;
+    --muted: #7a7060;
+    --border: #e5e0d6;
+    --accent: #1a6b3c;
+    --accent-pale: #eef6f1;
+    --amber: #b45309;
+    --amber-pale: #fef3c7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink2);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-brand span { color: var(--accent); }
+  .nav-brand em { font-style: italic; color: #c9922a; }
+
+  .nav-back {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .nav-back:hover { text-decoration: underline; }
+
+  .page-header {
+    background: var(--amber);
+    padding: 3.5rem 2rem;
+    text-align: center;
+  }
+
+  .page-header .label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-header h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-header .meta {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .content-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3.5rem 2rem 5rem;
+  }
+
+  /* TOP DISCLOSURE BOX — prominent, can't miss it */
+  .top-disclosure {
+    background: var(--amber-pale);
+    border: 2px solid rgba(180,83,9,0.25);
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .top-disclosure .td-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .top-disclosure p {
+    font-size: 0.95rem;
+    color: var(--ink2);
+    line-height: 1.75;
+  }
+
+  .section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-child { border-bottom: none; margin-bottom: 0; }
+
+  .section h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .section p { margin-bottom: 1rem; color: var(--ink2); }
+  .section p:last-child { margin-bottom: 0; }
+
+  .section ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .section li { color: var(--ink2); font-size: 0.95rem; }
+
+  /* Partner table */
+  .partner-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.875rem;
+  }
+
+  .partner-table th {
+    background: var(--bg);
+    padding: 0.65rem 1rem;
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .partner-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink2);
+    vertical-align: top;
+  }
+
+  .partner-table tr:last-child td { border-bottom: none; }
+  .partner-table td strong { color: var(--ink); }
+
+  .badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+
+  .badge-green { background: var(--accent-pale); color: var(--accent); }
+  .badge-amber { background: var(--amber-pale); color: var(--amber); }
+
+  .principles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .principle {
+    display: flex;
+    gap: 1rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .principle-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+  .principle h4 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+
+  .principle p { font-size: 0.82rem; color: var(--muted); margin: 0; }
+
+  a { color: var(--accent); }
+
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+  }
+
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 0.5rem; }
+  footer a:hover { color: #fff; }
+  .footer-links { margin-top: 0.5rem; }
+
+  .scroll-top {
+    position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px;
+    border-radius: 50%; background: rgba(26,107,60,0.8); color: #fff;
+    border: none; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; font-size: 1rem; opacity: 0;
+    transform: translateY(10px); transition: opacity 0.3s, transform 0.3s, background 0.2s;
+    z-index: 999; backdrop-filter: blur(4px); box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .scroll-top.visible { opacity: 1; transform: translateY(0); }
+  .scroll-top:hover { background: rgba(26,107,60,1); }
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-brand"><span>Credit</span> Fast Track <em>10X</em></a>
+  <a href="/" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page-header">
+  <div class="label">Transparency</div>
+  <h1>Advertiser Disclosure</h1>
+  <div class="meta">Last updated: <span id="last-updated"></span></div>
+</div>
+
+<div class="content-wrap">
+
+  <div class="top-disclosure">
+    <div class="td-label">⚡ Required Disclosure</div>
+    <p>Credit Fast Track 10X participates in affiliate marketing programs. This means that some links on this website are affiliate links — if you click through and sign up for or purchase a product or service, we may earn a commission or referral fee. <strong>This comes at no additional cost to you.</strong> We only recommend products we believe are genuinely useful to our audience.</p>
+  </div>
+
+  <div class="section">
+    <h2>How We Make Money</h2>
+    <p>Credit Fast Track 10X generates revenue through two primary sources:</p>
+    <ul>
+      <li><strong>Course sales:</strong> We sell the Credit Fast Track 10X course directly through this website. The course is a one-time purchase priced at $37.</li>
+      <li><strong>Affiliate commissions:</strong> We earn commissions when visitors click affiliate links on this site and complete qualifying actions — such as signing up for a credit-building service or opening an account — with our partner companies.</li>
+    </ul>
+    <p>Affiliate commissions are paid to us by the advertiser or affiliate network, not by you. The price you pay for any product or service is the same whether or not you use our affiliate link.</p>
+  </div>
+
+  <div class="section">
+    <h2>Our Affiliate Partners</h2>
+    <p>We currently maintain affiliate relationships with or have applied to programs run by the following types of companies. Specific partners may change over time as we add or remove recommendations.</p>
+
+    <table class="partner-table">
+      <thead>
+        <tr>
+          <th>Partner Category</th>
+          <th>Examples</th>
+          <th>Commission Type</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Credit Builder Tools</strong></td>
+          <td>Kikoff, Self Inc.</td>
+          <td>CPA per account opened</td>
+          <td><span class="badge badge-green">Active</span></td>
+        </tr>
+        <tr>
+          <td><strong>Credit Monitoring</strong></td>
+          <td>Credit Karma, Experian</td>
+          <td>CPA per signup</td>
+          <td><span class="badge badge-amber">Applied</span></td>
+        </tr>
+        <tr>
+          <td><strong>Banking / Fintech</strong></td>
+          <td>Chime</td>
+          <td>CPA per enrollment</td>
+          <td><span class="badge badge-amber">Applied</span></td>
+        </tr>
+        <tr>
+          <td><strong>Affiliate Networks</strong></td>
+          <td>FlexOffers</td>
+          <td>Network platform</td>
+          <td><span class="badge badge-green">Active</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>We do not accept payment from advertisers to guarantee positive reviews or favorable placement. Compensation may influence which products we choose to feature, but never influences our honest assessment of a product's merits or drawbacks.</p>
+  </div>
+
+  <div class="section">
+    <h2>How Compensation May Affect Our Content</h2>
+    <p>We want to be straightforward with you about the relationship between affiliate compensation and our content:</p>
+    <ul>
+      <li>Products with active affiliate relationships may receive more prominent placement or be recommended more frequently than comparable products without affiliate relationships.</li>
+      <li>We may not feature every product available in the market — only those we have reviewed and believe offer genuine value to our audience.</li>
+      <li>Where we compare products (e.g., "Kikoff vs. secured credit card"), the affiliate relationship may influence which product is featured first or most prominently, even when alternatives are mentioned.</li>
+    </ul>
+    <p>However, we do not fabricate results, invent testimonials, or misrepresent a product's features or limitations to increase conversions. Our editorial content reflects our genuine research and assessment.</p>
+  </div>
+
+  <div class="section">
+    <h2>Our Commitment to You</h2>
+    <div class="principles-list">
+      <div class="principle">
+        <div class="principle-icon">🔍</div>
+        <div>
+          <h4>We research before we recommend</h4>
+          <p>We only recommend credit-building products we have researched thoroughly, including reviewing terms, user feedback, and third-party analysis.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-icon">💬</div>
+        <div>
+          <h4>We disclose affiliate relationships clearly</h4>
+          <p>Pages and content containing affiliate links include disclosure notices. We do not hide the commercial nature of our recommendations.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-icon">🚫</div>
+        <div>
+          <h4>We don't recommend harmful products</h4>
+          <p>We will not recommend predatory financial products — high-fee credit repair services, payday lenders, or any product we believe could harm our audience's financial health — regardless of commission rates.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-icon">📊</div>
+        <div>
+          <h4>We represent results accurately</h4>
+          <p>Credit score improvements shown on this site are based on published data from the respective companies. Individual results vary. We do not guarantee any specific outcome.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>FTC Compliance</h2>
+    <p>This disclosure is made in accordance with the Federal Trade Commission's guidelines concerning the use of endorsements and testimonials in advertising (16 CFR Part 255) and the FTC's Disclosure Guidelines for Digital Advertising.</p>
+    <p>If you have questions about any specific recommendation or affiliate relationship on this site, please <a href="mailto:support@creditfasttrack10x.live">contact us</a> and we will respond transparently.</p>
+  </div>
+
+  <div class="section">
+    <h2>Questions?</h2>
+    <p>If you have questions about our advertiser relationships, how we make recommendations, or anything else related to how we earn revenue, we are happy to answer them.</p>
+    <p>Email: <a href="mailto:support@creditfasttrack10x.live">support@creditfasttrack10x.live</a></p>
+  </div>
+
+</div>
+
+<footer>
+  <p>© <span id="footer-year"></span> Credit Fast Track 10X. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/advertiser-disclosure">Advertiser Disclosure</a>
+    <a href="/editorial-disclosure">Editorial Disclosure</a>
+    <a href="mailto:support@creditfasttrack10x.live">Contact</a>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  document.getElementById('last-updated').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+</script>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+<script>
+(function(){
+  var btn = document.getElementById('scrollTopBtn');
+  if(btn){ window.addEventListener('scroll', function(){ btn.classList.toggle('visible', window.scrollY > 400); }, {passive:true}); }
+})();
+</script>
+
+</body>
+</html>

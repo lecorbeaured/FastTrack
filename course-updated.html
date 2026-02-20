@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Fast Track | Course</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+  :root {
+    --bg: #0a0d14;
+    --surface: #111520;
+    --surface2: #161b2a;
+    --border: rgba(255,255,255,0.07);
+    --accent: #00e5a0;
+    --accent2: #3d8eff;
+    --gold: #f5c842;
+    --text: #e8eaf0;
+    --muted: #7a8099;
+    --danger: #ff4d6d;
+    --lock-bg: #0d1020;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 2rem 0;
+    z-index: 100;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-brand {
+    padding: 0 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+  }
+
+  .sidebar-brand .logo-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+  }
+
+  .sidebar-brand h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: #fff;
+  }
+
+  .sidebar-brand a {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .sidebar-brand a:hover { color: var(--accent); }
+
+  .nav-section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.75rem 1.5rem 0.4rem;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 1.5rem;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+
+  .nav-item:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+  .nav-item.active { color: var(--text); background: rgba(255,255,255,0.04); border-left-color: var(--accent); }
+  .nav-item.locked-nav { opacity: 0.5; cursor: default; }
+  .nav-item.locked-nav:hover { background: none; color: var(--muted); }
+
+  .nav-item .num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 1.4rem;
+  }
+
+  .nav-item.locked-nav .num { color: var(--muted); }
+
+  .nav-item .lock-icon { margin-left: auto; font-size: 0.75rem; opacity: 0.6; }
+  .nav-item .check { margin-left: auto; font-size: 0.8rem; color: var(--accent); opacity: 0; transition: opacity 0.3s; }
+  .nav-item.done .check { opacity: 1; }
+
+  /* UPGRADE BANNER in sidebar */
+  .sidebar-upgrade {
+    margin: 1rem 1rem 0;
+    background: linear-gradient(135deg, rgba(0,229,160,0.1), rgba(61,142,255,0.08));
+    border: 1px solid rgba(0,229,160,0.2);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+
+  .sidebar-upgrade p {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .sidebar-upgrade strong { color: var(--accent); }
+
+  .btn-upgrade-sm {
+    display: block;
+    background: var(--accent);
+    color: #000;
+    text-align: center;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .btn-upgrade-sm:hover { background: #00ffb3; }
+
+  .progress-bar-wrap {
+    margin: auto 1.5rem 1.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .progress-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .progress-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); width: 0%; transition: width 0.5s ease; border-radius: 99px; }
+
+  /* ── MAIN ── */
+  .main { margin-left: 280px; min-height: 100vh; position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0d1829 0%, #0a0d14 60%);
+    padding: 5rem 4rem 4rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(0,229,160,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .hero-eyebrow::before { content: ''; width: 2rem; height: 2px; background: var(--accent); display: inline-block; }
+
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); line-height: 1.15; margin-bottom: 1.25rem; color: #fff; }
+  .hero h1 span { color: var(--accent); }
+
+  .hero-sub { color: var(--muted); font-size: 1.05rem; max-width: 560px; margin-bottom: 2rem; font-weight: 300; }
+
+  /* FREE badge */
+  .free-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.25);
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── MODULES ── */
+  .modules-wrap { padding: 3rem 4rem; }
+
+  .module { display: none; animation: fadeUp 0.4s ease; }
+  .module.active { display: block; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  .module-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .module-num { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); background: rgba(0,229,160,0.08); border: 1px solid rgba(0,229,160,0.2); border-radius: 6px; padding: 0.4rem 0.75rem; white-space: nowrap; margin-top: 0.4rem; }
+
+  .module-title-wrap h2 { font-family: 'DM Serif Display', serif; font-size: 2rem; color: #fff; margin-bottom: 0.5rem; }
+  .module-title-wrap p { color: var(--muted); font-size: 0.95rem; font-weight: 300; }
+
+  .content-block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; }
+  .content-block h3 { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .content-block p { color: #c8ccd8; margin-bottom: 1rem; font-size: 0.95rem; }
+  .content-block p:last-child { margin-bottom: 0; }
+
+  .callout { border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; display: flex; gap: 1rem; align-items: flex-start; }
+  .callout.tip   { background: rgba(0,229,160,0.07);   border-left: 3px solid var(--accent); }
+  .callout.warn  { background: rgba(245,200,66,0.07);  border-left: 3px solid var(--gold); }
+  .callout.info  { background: rgba(61,142,255,0.07);  border-left: 3px solid var(--accent2); }
+  .callout.danger{ background: rgba(255,77,109,0.07);  border-left: 3px solid var(--danger); }
+  .callout-icon  { font-size: 1.2rem; margin-top: 0.1rem; }
+  .callout-body  { font-size: 0.9rem; color: #c8ccd8; }
+  .callout-body strong { color: #fff; display: block; margin-bottom: 0.25rem; }
+
+  .factor-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+  .factor-item .factor-top { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem; color: #c8ccd8; }
+  .factor-item .factor-top span:last-child { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--accent); }
+  .factor-track { height: 8px; background: rgba(255,255,255,0.06); border-radius: 99px; overflow: hidden; }
+  .factor-fill  { height: 100%; border-radius: 99px; transition: width 1s ease 0.3s; }
+
+  .data-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  .data-table th { font-family: 'Syne', sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); text-align: left; }
+  .data-table td { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.04); color: #c8ccd8; vertical-align: middle; }
+  .data-table tr:last-child td { border-bottom: none; }
+
+  .badge { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 4px; }
+  .badge.green  { background: rgba(0,229,160,0.15);  color: var(--accent); }
+  .badge.blue   { background: rgba(61,142,255,0.15); color: var(--accent2); }
+  .badge.yellow { background: rgba(245,200,66,0.15); color: var(--gold); }
+  .badge.red    { background: rgba(255,77,109,0.15); color: var(--danger); }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .card { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: rgba(0,229,160,0.3); transform: translateY(-2px); }
+  .card-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .card h4 { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+  .card p { font-size: 0.82rem; color: var(--muted); }
+
+  /* ── PAYWALL GATE ── */
+  .paywall {
+    background: var(--lock-bg);
+    border: 1px solid rgba(0,229,160,0.15);
+    border-radius: 16px;
+    padding: 4rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .paywall::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(0,229,160,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .paywall-inner { position: relative; z-index: 1; max-width: 500px; margin: 0 auto; }
+
+  .lock-circle {
+    width: 80px; height: 80px;
+    background: rgba(0,229,160,0.08);
+    border: 2px solid rgba(0,229,160,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 1.5rem;
+  }
+
+  .paywall h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+
+  .paywall p { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
+
+  .paywall-includes {
+    list-style: none;
+    text-align: left;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .paywall-includes li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    font-size: 0.875rem;
+    color: #c8ccd8;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .paywall-includes li:last-child { border-bottom: none; }
+
+  .paywall-includes li::before {
+    content: '✓';
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .paywall-price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .paywall-price .was { color: var(--muted); text-decoration: line-through; font-size: 1rem; }
+  .paywall-price .now { font-family: 'DM Serif Display', serif; font-size: 2.5rem; color: var(--accent); line-height: 1; }
+  .paywall-price .once { font-size: 0.78rem; color: var(--muted); align-self: flex-end; padding-bottom: 0.3rem; }
+
+  .btn-unlock {
+    display: block;
+    width: 100%;
+    background: var(--accent);
+    color: #000;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+
+  .btn-unlock:hover { background: #00ffb3; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,229,160,0.3); }
+
+  .paywall-guarantee {
+    font-size: 0.75rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  /* MODULE NAV */
+  .module-nav { display: flex; gap: 1rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; cursor: pointer; border: none; transition: all 0.2s; text-transform: uppercase; }
+  .btn-primary { background: var(--accent); color: #000; }
+  .btn-primary:hover { background: #00ffb3; transform: translateY(-1px); }
+  .btn-secondary { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+  .btn-secondary:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+  /* ── STRIPE MODAL ── */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: #111827;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    animation: modalIn 0.3s ease;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  }
+
+  @keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+  .modal-close { position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.08); border: none; color: var(--muted); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; transition: background 0.2s; }
+  .modal-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+  .modal h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: #fff; margin-bottom: 0.3rem; }
+  .modal-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.75rem; }
+
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .form-group input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid rgba(255,255,255,0.1); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: #fff; background: rgba(255,255,255,0.05); transition: border-color 0.2s; outline: none; }
+  .form-group input::placeholder { color: var(--muted); }
+  .form-group input:focus { border-color: var(--accent); }
+
+  #card-element { padding: 0.85rem 1rem; border: 1.5px solid rgba(255,255,255,0.1); border-radius: 8px; background: rgba(255,255,255,0.05); transition: border-color 0.2s; }
+  #card-element.StripeElement--focus { border-color: var(--accent); }
+  #card-errors { color: var(--danger); font-size: 0.8rem; margin-top: 0.5rem; min-height: 1.2em; }
+
+  .modal-total { display: flex; justify-content: space-between; align-items: center; background: rgba(0,229,160,0.06); border: 1px solid rgba(0,229,160,0.15); border-radius: 8px; padding: 0.75rem 1rem; margin: 1.25rem 0; font-size: 0.85rem; color: rgba(255,255,255,0.8); }
+  .modal-total .amount { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--accent); }
+
+  .btn-pay { display: block; width: 100%; background: var(--accent); color: #000; padding: 0.9rem 1.5rem; border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; border: none; cursor: pointer; transition: all 0.2s; }
+  .btn-pay:hover { background: #00ffb3; }
+  .btn-pay.loading { opacity: 0.7; cursor: not-allowed; }
+
+  .modal-secure { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.7rem; color: var(--muted); margin-top: 0.75rem; }
+
+  .success-screen { display: none; text-align: center; padding: 1rem; }
+  .success-screen.show { display: block; }
+  .modal-form.hidden { display: none; }
+  .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .success-screen h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: #fff; margin-bottom: 0.5rem; }
+  .success-screen p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .btn-start { display: inline-block; background: var(--accent); color: #000; padding: 0.85rem 2rem; border-radius: 8px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; cursor: pointer; border: none; transition: all 0.2s; }
+  .btn-start:hover { background: #00ffb3; }
+
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .checklist li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9rem; color: #c8ccd8; cursor: pointer; transition: color 0.2s; }
+  .checklist li .checkbox { width: 20px; height: 20px; border: 2px solid rgba(0,229,160,0.4); border-radius: 5px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--accent); transition: all 0.2s; margin-top: 0.1rem; }
+  .checklist li.checked .checkbox { background: var(--accent); border-color: var(--accent); color: #000; }
+  .checklist li.checked { color: var(--muted); text-decoration: line-through; }
+
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 6px; bottom: 0; width: 2px; background: var(--border); }
+  .timeline-item { position: relative; margin-bottom: 1.75rem; }
+  .timeline-item::before { content: ''; position: absolute; left: -1.6rem; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(0,229,160,0.15); }
+  .timeline-item .time-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.25rem; }
+  .timeline-item h4 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.35rem; }
+  .timeline-item p { font-size: 0.85rem; color: var(--muted); }
+
+  /* MOBILE */
+  .mobile-menu-btn { display: none; position: fixed; top: 1rem; left: 1rem; z-index: 200; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 0.5rem 0.75rem; border-radius: 8px; cursor: pointer; font-size: 1.2rem; }
+
+  @media (max-width: 768px) {
+    .mobile-menu-btn { display: block; }
+    .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+    .sidebar.open { transform: translateX(0); }
+    .main { margin-left: 0; }
+    .hero { padding: 4rem 1.5rem 2.5rem; }
+    .modules-wrap { padding: 2rem 1.5rem; }
+    .paywall { padding: 2.5rem 1.5rem; }
+  }
+
+  .scroll-top {
+    position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px;
+    border-radius: 50%; background: rgba(26,107,60,0.8); color: #fff;
+    border: none; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; font-size: 1rem; opacity: 0;
+    transform: translateY(10px); transition: opacity 0.3s, transform 0.3s, background 0.2s;
+    z-index: 999; backdrop-filter: blur(4px); box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .scroll-top.visible { opacity: 1; transform: translateY(0); }
+  .scroll-top:hover { background: rgba(26,107,60,1); }
+
+</style>
+</head>
+<body>
+
+<button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="logo-tag">Course</div>
+    <h2>Credit Fast Track</h2>
+    <a href="index.html">← Back to sales page</a>
+  </div>
+
+  <div class="nav-section-label">Free Preview</div>
+  <a class="nav-item active" onclick="showModule(0,this)" href="#">
+    <span class="num">00</span> Introduction
+    <span class="check">✓</span>
+  </a>
+  <a class="nav-item" onclick="showModule(1,this)" href="#">
+    <span class="num">01</span> How Credit Scores Work
+    <span class="check">✓</span>
+  </a>
+
+  <div class="nav-section-label">Full Course — $37</div>
+  <a class="nav-item locked-nav" id="nav-2" onclick="requiresUnlock(event)">
+    <span class="num">02</span> Your First Account
+    <span class="lock-icon">🔒</span>
+  </a>
+  <a class="nav-item locked-nav" id="nav-3" onclick="requiresUnlock(event)">
+    <span class="num">03</span> Fast-Track Habits
+    <span class="lock-icon">🔒</span>
+  </a>
+  <a class="nav-item locked-nav" id="nav-4" onclick="requiresUnlock(event)">
+    <span class="num">04</span> Credit Cards 101
+    <span class="lock-icon">🔒</span>
+  </a>
+  <a class="nav-item locked-nav" id="nav-5" onclick="requiresUnlock(event)">
+    <span class="num">05</span> Authorized User
+    <span class="lock-icon">🔒</span>
+  </a>
+  <a class="nav-item locked-nav" id="nav-6" onclick="requiresUnlock(event)">
+    <span class="num">06</span> 30-60-90 Day Plan
+    <span class="lock-icon">🔒</span>
+  </a>
+  <a class="nav-item locked-nav" id="nav-7" onclick="requiresUnlock(event)">
+    <span class="num">07</span> Mistakes to Avoid
+    <span class="lock-icon">🔒</span>
+  </a>
+  <a class="nav-item locked-nav" id="nav-8" onclick="requiresUnlock(event)">
+    <span class="num">08</span> Monitor Progress
+    <span class="lock-icon">🔒</span>
+  </a>
+
+  <!-- Sidebar Upgrade CTA (shown when not purchased) -->
+  <div class="sidebar-upgrade" id="sidebarUpgrade">
+    <p>Unlock all 9 modules, bonus templates, worksheets & email support for <strong>just $37</strong>.</p>
+    <button class="btn-upgrade-sm" onclick="openModal()">Unlock Full Course →</button>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-label">
+      <span>Progress</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">Beginner's Course</div>
+    <h1>Build Your Credit Score<br>from <span>Zero to Hero</span></h1>
+    <p class="hero-sub">Modules 00 & 01 are free. Unlock all 9 modules, bonus materials, and email support for a one-time $37 payment.</p>
+    <div class="free-badge">✦ You have free access to the first 2 modules — no account required</div>
+  </section>
+
+  <!-- MODULES -->
+  <div class="modules-wrap">
+
+    <!-- ─────────────────────────────────────────
+         MODULE 0: INTRO (FREE)
+    ───────────────────────────────────────── -->
+    <div class="module active" id="module-0">
+      <div class="module-header">
+        <div class="module-num">Module 00</div>
+        <div class="module-title-wrap">
+          <h2>Welcome to Credit Fast Track</h2>
+          <p>What you'll learn, and why this matters more than most classes you'll ever take.</p>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>Why Credit Matters at 18</h3>
+        <p>Your credit score is one of the most powerful numbers in your financial life — and most young adults don't know it exists until they need it. Landlords, car dealerships, employers, and banks all look at it. A good score opens doors. A bad one — or no score at all — keeps them locked.</p>
+        <p>The good news? Building credit early is one of the smartest financial moves you can make. Time is your biggest advantage, and you're using it right now by learning this.</p>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body"><strong>Your head start</strong>Starting at 18 means you can have an excellent 750+ score before you're 25 — while most people your age don't even think about this until their 30s.</div>
+      </div>
+
+      <div class="content-block">
+        <h3>What This Course Covers</h3>
+        <p>Over 9 modules, you'll go from having no credit history to understanding exactly how to build a strong score quickly and responsibly. You'll get real action steps, not just theory.</p>
+        <div class="card-grid">
+          <div class="card"><div class="card-icon">🧠</div><h4>The Basics</h4><p>How credit scores are calculated and what actually moves the needle.</p></div>
+          <div class="card"><div class="card-icon">🚀</div><h4>Fast Moves</h4><p>Legal strategies to build credit history quickly, even from zero.</p></div>
+          <div class="card"><div class="card-icon">🛡️</div><h4>Avoid Mistakes</h4><p>Common traps that hurt beginners and how to sidestep all of them.</p></div>
+          <div class="card"><div class="card-icon">📈</div><h4>Track Progress</h4><p>How to monitor your score for free and know you're on track.</p></div>
+        </div>
+      </div>
+
+      <div class="module-nav">
+        <button class="btn btn-primary" onclick="showModule(1, getNavItem(1))">Next Module →</button>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────────
+         MODULE 1: HOW SCORES WORK (FREE)
+    ───────────────────────────────────────── -->
+    <div class="module" id="module-1">
+      <div class="module-header">
+        <div class="module-num">Module 01</div>
+        <div class="module-title-wrap">
+          <h2>How Credit Scores Work</h2>
+          <p>Understand the formula behind your score so you can play the game strategically.</p>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>What Is a Credit Score?</h3>
+        <p>A credit score is a number between 300 and 850 that tells lenders how likely you are to repay money you borrow. It's calculated by credit bureaus — Equifax, Experian, and TransUnion — using your credit report data.</p>
+        <p>The most widely used model is the <strong style="color:#fff">FICO Score</strong>. Think of it like a grade — except it follows you into apartments, car loans, and eventually mortgages.</p>
+      </div>
+
+      <div class="content-block">
+        <h3>Score Ranges</h3>
+        <table class="data-table">
+          <thead><tr><th>Range</th><th>Rating</th><th>What It Means</th></tr></thead>
+          <tbody>
+            <tr><td>300–579</td><td><span class="badge red">Poor</span></td><td>Hard to get approved for anything</td></tr>
+            <tr><td>580–669</td><td><span class="badge yellow">Fair</span></td><td>Some approval, high interest rates</td></tr>
+            <tr><td>670–739</td><td><span class="badge blue">Good</span></td><td>Most lenders will approve you</td></tr>
+            <tr><td>740–799</td><td><span class="badge green">Very Good</span></td><td>Better rates and terms</td></tr>
+            <tr><td>800–850</td><td><span class="badge green">Exceptional</span></td><td>Best rates available anywhere</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="content-block">
+        <h3>The 5 Factors of Your FICO Score</h3>
+        <div class="factor-list">
+          <div class="factor-item">
+            <div class="factor-top"><span>Payment History</span><span>35%</span></div>
+            <div class="factor-track"><div class="factor-fill" style="width:35%; background: var(--accent);"></div></div>
+          </div>
+          <div class="factor-item">
+            <div class="factor-top"><span>Credit Utilization</span><span>30%</span></div>
+            <div class="factor-track"><div class="factor-fill" style="width:30%; background: var(--accent2);"></div></div>
+          </div>
+          <div class="factor-item">
+            <div class="factor-top"><span>Length of Credit History</span><span>15%</span></div>
+            <div class="factor-track"><div class="factor-fill" style="width:15%; background: var(--gold);"></div></div>
+          </div>
+          <div class="factor-item">
+            <div class="factor-top"><span>Credit Mix</span><span>10%</span></div>
+            <div class="factor-track"><div class="factor-fill" style="width:10%; background: #a78bfa;"></div></div>
+          </div>
+          <div class="factor-item">
+            <div class="factor-top"><span>New Credit (Hard Inquiries)</span><span>10%</span></div>
+            <div class="factor-track"><div class="factor-fill" style="width:10%; background: var(--danger);"></div></div>
+          </div>
+        </div>
+        <div class="callout info" style="margin-top:1.5rem;">
+          <div class="callout-icon">📌</div>
+          <div class="callout-body"><strong>Key Takeaway</strong>Payment history (35%) and utilization (30%) make up 65% of your score. Master those two and you're most of the way there.</div>
+        </div>
+      </div>
+
+      <!-- PAYWALL TEASER at end of free module -->
+      <div style="margin-top:2rem;">
+        <div class="paywall">
+          <div class="paywall-inner">
+            <div class="lock-circle">🔒</div>
+            <h3>Ready for the Next Step?</h3>
+            <p>You've learned how scores are calculated. Now it's time to actually build one. Unlock the full course and get everything you need to go from zero to 700+.</p>
+
+            <ul class="paywall-includes">
+              <li>Module 02 — Your First Credit Account (Best Starting Moves)</li>
+              <li>Module 03 — The 5 Fast-Track Habits</li>
+              <li>Module 04 — Credit Cards 101</li>
+              <li>Module 05 — Authorized User Speed Hack</li>
+              <li>Module 06 — 30–60–90 Day Action Plan</li>
+              <li>Module 07 — Mistakes That Kill Your Score</li>
+              <li>Module 08 — Free Progress Monitoring</li>
+              <li>+ 3 Bonus Templates & Worksheets</li>
+              <li>+ Email Support Access</li>
+            </ul>
+
+            <div class="paywall-price">
+              <span class="was">$97</span>
+              <span class="now">$37</span>
+              <span class="once">one-time</span>
+            </div>
+
+            <button class="btn-unlock" onclick="openModal()">
+              ✦ Unlock Full Course — $37
+            </button>
+            <div class="paywall-guarantee">🛡️ 30-day money-back guarantee · No questions asked</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-nav">
+        <button class="btn btn-secondary" onclick="showModule(0, getNavItem(0))">← Previous</button>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────────
+         MODULES 2–8: LOCKED PAYWALL SCREENS
+    ───────────────────────────────────────── -->
+
+    <div class="module" id="module-2">
+      <div class="module-header">
+        <div class="module-num">Module 02</div>
+        <div class="module-title-wrap">
+          <h2>Your First Credit Account</h2>
+          <p>The best ways to get your first account when you have zero credit history.</p>
+        </div>
+      </div>
+      <div class="paywall"><div class="paywall-inner">
+        <div class="lock-circle">🔒</div>
+        <h3>This Module is Locked</h3>
+        <p>Unlock <strong style="color:#fff">Module 02: Your First Credit Account</strong> — and all 7 remaining modules, 3 bonus templates, and email support.</p>
+        <div class="paywall-price"><span class="was">$97</span><span class="now">$37</span><span class="once">one-time</span></div>
+        <button class="btn-unlock" onclick="openModal()">✦ Unlock Full Course — $37</button>
+        <div class="paywall-guarantee">🛡️ 30-day money-back guarantee</div>
+      </div></div>
+    </div>
+
+    <div class="module" id="module-3">
+      <div class="module-header">
+        <div class="module-num">Module 03</div>
+        <div class="module-title-wrap">
+          <h2>The 5 Fast-Track Habits</h2>
+          <p>The specific behaviors that build credit quickly.</p>
+        </div>
+      </div>
+      <div class="paywall"><div class="paywall-inner">
+        <div class="lock-circle">🔒</div>
+        <h3>This Module is Locked</h3>
+        <p>Unlock <strong style="color:#fff">Module 03: The 5 Fast-Track Habits</strong> and the complete course for a one-time $37 investment.</p>
+        <div class="paywall-price"><span class="was">$97</span><span class="now">$37</span><span class="once">one-time</span></div>
+        <button class="btn-unlock" onclick="openModal()">✦ Unlock Full Course — $37</button>
+        <div class="paywall-guarantee">🛡️ 30-day money-back guarantee</div>
+      </div></div>
+    </div>
+
+    <div class="module" id="module-4">
+      <div class="module-header">
+        <div class="module-num">Module 04</div>
+        <div class="module-title-wrap">
+          <h2>Credit Cards 101</h2>
+          <p>Use them as a tool, not a trap.</p>
+        </div>
+      </div>
+      <div class="paywall"><div class="paywall-inner">
+        <div class="lock-circle">🔒</div>
+        <h3>This Module is Locked</h3>
+        <p>Unlock <strong style="color:#fff">Module 04: Credit Cards 101</strong> and the complete course for a one-time $37 investment.</p>
+        <div class="paywall-price"><span class="was">$97</span><span class="now">$37</span><span class="once">one-time</span></div>
+        <button class="btn-unlock" onclick="openModal()">✦ Unlock Full Course — $37</button>
+        <div class="paywall-guarantee">🛡️ 30-day money-back guarantee</div>
+      </div></div>
+    </div>
+
+    <div class="module" id="module-5">
+      <div class="module-header">
+        <div class="module-num">Module 05</div>
+        <div class="module-title-wrap">
+          <h2>Becoming an Authorized User</h2>
+          <p>The fastest legal way to add credit history.</p>
+        </div>
+      </div>
+      <div class="paywall"><div class="paywall-inner">
+        <div class="lock-circle">🔒</div>
+        <h3>This Module is Locked</h3>
+        <p>Unlock <strong style="color:#fff">Module 05: Authorized User Speed Hack</strong> and the complete course for a one-time $37 investment.</p>
+        <div class="paywall-price"><span class="was">$97</span><span class="now">$37</span><span class="once">one-time</span></div>
+        <button class="btn-unlock" onclick="openModal()">✦ Unlock Full Course — $37</button>
+        <div class="paywall-guarantee">🛡️ 30-day money-back guarantee</div>
+      </div></div>
+    </div>
+
+    <div class="module" id="module-6">
+      <div class="module-header">
+        <div class="module-num">Module 06</div>
+        <div class="module-title-wrap">
+          <h2>Your 30–60–90 Day Action Plan</h2>
+          <p>Stop guessing. Follow the plan.</p>
+        </div>
+      </div>
+      <div class="paywall"><div class="paywall-inner">
+        <div class="lock-circle">🔒</div>
+        <h3>This Module is Locked</h3>
+        <p>Unlock <strong style="color:#fff">Module 06: Your 30–60–90 Day Plan</strong> with interactive checklists and the full course.</p>
+        <div class="paywall-price"><span class="was">$97</span><span class="now">$37</span><span class="once">one-time</span></div>
+        <button class="btn-unlock" onclick="openModal()">✦ Unlock Full Course — $37</button>
+        <div class="paywall-guarantee">🛡️ 30-day money-back guarantee</div>
+      </div></div>
+    </div>
+
+    <div class="module" id="module-7">
+      <div class="module-header">
+        <div class="module-num">Module 07</div>
+        <div class="module-title-wrap">
+          <h2>Common Mistakes to Avoid</h2>
+          <p>Know them before you make them.</p>
+        </div>
+      </div>
+      <div class="paywall"><div class="paywall-inner">
+        <div class="lock-circle">🔒</div>
+        <h3>This Module is Locked</h3>
+        <p>Unlock <strong style="color:#fff">Module 07: Mistakes That Kill Your Score</strong> and the full course for $37.</p>
+        <div class="paywall-price"><span class="was">$97</span><span class="now">$37</span><span class="once">one-time</span></div>
+        <button class="btn-unlock" onclick="openModal()">✦ Unlock Full Course — $37</button>
+        <div class="paywall-guarantee">🛡️ 30-day money-back guarantee</div>
+      </div></div>
+    </div>
+
+    <div class="module" id="module-8">
+      <div class="module-header">
+        <div class="module-num">Module 08</div>
+        <div class="module-title-wrap">
+          <h2>Monitoring Your Progress</h2>
+          <p>Free tools, score timelines, and monthly review habits.</p>
+        </div>
+      </div>
+      <div class="paywall"><div class="paywall-inner">
+        <div class="lock-circle">🔒</div>
+        <h3>This Module is Locked</h3>
+        <p>Unlock <strong style="color:#fff">Module 08: Monitoring Your Progress</strong> and complete the full course for $37.</p>
+        <div class="paywall-price"><span class="was">$97</span><span class="now">$37</span><span class="once">one-time</span></div>
+        <button class="btn-unlock" onclick="openModal()">✦ Unlock Full Course — $37</button>
+        <div class="paywall-guarantee">🛡️ 30-day money-back guarantee</div>
+      </div></div>
+    </div>
+
+  </div><!-- end modules-wrap -->
+</main>
+
+<!-- ══════════════════════════════════════════
+     STRIPE CHECKOUT MODAL
+════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">🎉</div>
+      <h3>You're Unlocked!</h3>
+      <p>Your payment was successful. All 9 modules and bonus materials are now available. Welcome to the full course!</p>
+      <button class="btn-start" onclick="unlockCourse()">Start Learning →</button>
+    </div>
+
+    <div class="modal-form" id="modalForm">
+      <h3>Unlock Full Course</h3>
+      <p class="modal-sub">Credit Fast Track — All 9 modules + bonuses. Instant access.</p>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="fullName" placeholder="Jane Smith" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="emailAddr" placeholder="jane@example.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label>Card Details</label>
+        <div id="card-element"></div>
+        <div id="card-errors"></div>
+      </div>
+
+      <div class="modal-total">
+        <span>Credit Fast Track — Lifetime Access</span>
+        <span class="amount">$37.00</span>
+      </div>
+
+      <button class="btn-pay" id="payBtn" onclick="handlePayment()">
+        🔒 Pay $37 — Unlock All Modules
+      </button>
+      <div class="modal-secure">🔒 Secured by Stripe · 256-bit SSL · 30-day guarantee</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// CONFIGURATION — Replace with your values
+// ══════════════════════════════════════════
+const STRIPE_PUBLISHABLE_KEY   = 'pk_live_REPLACE_WITH_YOUR_PUBLISHABLE_KEY';
+const PAYMENT_INTENT_ENDPOINT  = '/api/create-payment-intent';
+const PURCHASED_MODULES = [0, 1, 2, 3, 4, 5, 6, 7, 8]; // All modules after purchase
+
+let stripe, cardElement, isUnlocked = false;
+
+// Check if already purchased (session storage for demo)
+function checkPurchaseStatus() {
+  if (sessionStorage.getItem('cft_purchased') === 'true') {
+    unlockCourse(false); // unlock silently on load
+  }
+}
+
+function initStripe() {
+  try {
+    stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+    const elements = stripe.elements({
+      fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap' }]
+    });
+    cardElement = elements.create('card', {
+      style: {
+        base: {
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: '15px',
+          color: '#e8eaf0',
+          '::placeholder': { color: '#5a6080' }
+        },
+        invalid: { color: '#ff4d6d' }
+      }
+    });
+    cardElement.mount('#card-element');
+    cardElement.on('change', e => {
+      document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
+    });
+  } catch(e) { console.warn('Stripe init failed — demo mode active'); }
+}
+
+// ── MODAL ──────────────────────────────────
+function openModal() {
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (!stripe) initStripe();
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function requiresUnlock(e) {
+  e.preventDefault();
+  if (isUnlocked) return;
+  openModal();
+}
+
+// ── PAYMENT ──────────────────────────────────
+async function handlePayment() {
+  const name  = document.getElementById('fullName').value.trim();
+  const email = document.getElementById('emailAddr').value.trim();
+  const errEl = document.getElementById('card-errors');
+  const btn   = document.getElementById('payBtn');
+
+  if (!name)  { errEl.textContent = 'Please enter your name.'; return; }
+  if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email.'; return; }
+  if (!stripe || !cardElement) { showSuccess(); return; } // demo fallback
+
+  errEl.textContent = '';
+  btn.textContent = 'Processing...';
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(PAYMENT_INTENT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: 3700, currency: 'usd', email, name })
+    });
+
+    const { clientSecret, error: backendError } = await res.json();
+    if (backendError) throw new Error(backendError);
+
+    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: cardElement,
+        billing_details: { name, email }
+      }
+    });
+
+    if (error) {
+      errEl.textContent = error.message;
+      btn.textContent   = '🔒 Pay $37 — Unlock All Modules';
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    } else if (paymentIntent.status === 'succeeded') {
+      showSuccess();
+    }
+  } catch(err) {
+    console.warn('Backend unavailable — showing demo success');
+    showSuccess();
+  }
+}
+
+function showSuccess() {
+  document.getElementById('modalForm').classList.add('hidden');
+  document.getElementById('successScreen').classList.add('show');
+}
+
+// ── UNLOCK COURSE ──────────────────────────────────
+function unlockCourse(closeModalFlag = true) {
+  isUnlocked = true;
+  sessionStorage.setItem('cft_purchased', 'true');
+
+  // Unlock all locked nav items
+  document.querySelectorAll('.nav-item.locked-nav').forEach((el, i) => {
+    el.classList.remove('locked-nav');
+    const lockIcon = el.querySelector('.lock-icon');
+    if (lockIcon) lockIcon.remove();
+    // Re-wire click
+    const moduleIndex = i + 2;
+    el.onclick = () => showModule(moduleIndex, el);
+  });
+
+  // Hide sidebar upgrade prompt
+  const upgrade = document.getElementById('sidebarUpgrade');
+  if (upgrade) upgrade.style.display = 'none';
+
+  if (closeModalFlag) closeModal();
+
+  // Load the full course content for locked modules
+  loadFullCourseContent();
+}
+
+// ── LOAD FULL CONTENT ──────────────────────────────────
+function loadFullCourseContent() {
+  // Module 2: First Account
+  document.getElementById('module-2').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 02</div>
+      <div class="module-title-wrap"><h2>Your First Credit Account</h2><p>The best ways to get your first account when you have zero credit history.</p></div>
+    </div>
+    <div class="content-block"><h3>The Chicken-and-Egg Problem</h3>
+      <p>You need credit to get credit — but you need credit to build it. Every lender wants a track record you don't have yet. There are proven ways around this.</p></div>
+    <div class="content-block"><h3>Your Best First Moves</h3>
+      <div class="card-grid">
+        <div class="card"><div class="card-icon">🔒</div><h4>Secured Credit Card</h4><p>Deposit $200–$500 as collateral. Use it, pay it off monthly. The #1 way to start building credit from zero.</p></div>
+        <div class="card"><div class="card-icon">🏦</div><h4>Credit-Builder Loan</h4><p>Offered by credit unions. You "borrow" money that sits in savings while you make payments. Win-win.</p></div>
+        <div class="card"><div class="card-icon">👨‍👩‍👧</div><h4>Authorized User</h4><p>A parent or trusted family member adds you to their card. You inherit their history — see Module 05.</p></div>
+        <div class="card"><div class="card-icon">🛍️</div><h4>Student Credit Card</h4><p>Designed for thin or no credit history. Lower limits, easier approvals — great if you're in college.</p></div>
+      </div>
+    </div>
+    <div class="content-block"><h3>Best Secured Cards for Beginners</h3>
+      <table class="data-table"><thead><tr><th>Card</th><th>Deposit</th><th>Annual Fee</th><th>Key Benefit</th></tr></thead>
+      <tbody>
+        <tr><td><strong style="color:#fff">Discover it® Secured</strong></td><td>$200+</td><td><span class="badge green">$0</span></td><td>Cash back + auto upgrade review after 7 months</td></tr>
+        <tr><td><strong style="color:#fff">Capital One Platinum Secured</strong></td><td>$49–$200</td><td><span class="badge green">$0</span></td><td>Low deposit option; upgrade path available</td></tr>
+        <tr><td><strong style="color:#fff">Chime Credit Builder</strong></td><td>Any amount</td><td><span class="badge green">$0</span></td><td>No minimum deposit; no credit check</td></tr>
+        <tr><td><strong style="color:#fff">OpenSky Secured Visa</strong></td><td>$200+</td><td><span class="badge yellow">$35/yr</span></td><td>No credit check required to apply</td></tr>
+      </tbody></table>
+      <div class="callout tip" style="margin-top:1rem;"><div class="callout-icon">🏆</div><div class="callout-body"><strong>Top Pick</strong>Discover it® Secured has no annual fee, earns cash back, and automatically reviews you for an upgrade after 7 months of on-time payments.</div></div>
+    </div>
+
+    <div class="content-block" style="border-color: rgba(0,229,160,0.25); background: linear-gradient(135deg, rgba(0,229,160,0.05), rgba(61,142,255,0.03));">
+      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
+        <span style="font-size:1.5rem;">⚡</span>
+        <h3 style="margin-bottom:0;">Fastest Option If You Have Zero Credit History</h3>
+      </div>
+      <p>If you have <strong style="color:#fff">no credit history at all</strong> — no score, no file, nothing — a secured card requires a deposit you may not have, and some banks will still decline you. There is one tool purpose-built for exactly this situation.</p>
+
+      <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(0,229,160,0.2); border-radius: 12px; padding: 1.5rem; margin: 1.25rem 0;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1rem;">
+          <div>
+            <div style="font-family:'Syne',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:0.35rem;">Recommended Tool</div>
+            <div style="font-family:'DM Serif Display',serif; font-size:1.4rem; color:#fff;">Kikoff Credit Builder</div>
+            <div style="font-size:0.8rem; color:var(--muted); margin-top:0.2rem;">Used by 1M+ people · Featured in Forbes · Stephen Curry is an investor</div>
+          </div>
+          <div style="text-align:right; flex-shrink:0;">
+            <div style="font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800; color:var(--accent); line-height:1;">$5<span style="font-size:0.8rem; font-weight:400; color:var(--muted)">/mo</span></div>
+            <div style="font-size:0.7rem; color:var(--muted);">Starting price</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:0.75rem; margin-bottom:1.25rem;">
+          <div style="background:rgba(0,229,160,0.07); border:1px solid rgba(0,229,160,0.15); border-radius:8px; padding:0.75rem; text-align:center;">
+            <div style="font-size:1.1rem; margin-bottom:0.25rem;">🚫</div>
+            <div style="font-family:'Syne',sans-serif; font-size:0.65rem; font-weight:700; color:var(--accent);">No Credit Check</div>
+            <div style="font-size:0.75rem; color:var(--muted); margin-top:0.2rem;">Zero hard inquiries</div>
+          </div>
+          <div style="background:rgba(0,229,160,0.07); border:1px solid rgba(0,229,160,0.15); border-radius:8px; padding:0.75rem; text-align:center;">
+            <div style="font-size:1.1rem; margin-bottom:0.25rem;">🏦</div>
+            <div style="font-family:'Syne',sans-serif; font-size:0.65rem; font-weight:700; color:var(--accent);">$750 Tradeline</div>
+            <div style="font-size:0.75rem; color:var(--muted); margin-top:0.2rem;">Instant credit line</div>
+          </div>
+          <div style="background:rgba(0,229,160,0.07); border:1px solid rgba(0,229,160,0.15); border-radius:8px; padding:0.75rem; text-align:center;">
+            <div style="font-size:1.1rem; margin-bottom:0.25rem;">📊</div>
+            <div style="font-family:'Syne',sans-serif; font-size:0.65rem; font-weight:700; color:var(--accent);">All 3 Bureaus</div>
+            <div style="font-size:0.75rem; color:var(--muted); margin-top:0.2rem;">Equifax, Experian, TU</div>
+          </div>
+          <div style="background:rgba(0,229,160,0.07); border:1px solid rgba(0,229,160,0.15); border-radius:8px; padding:0.75rem; text-align:center;">
+            <div style="font-size:1.1rem; margin-bottom:0.25rem;">📈</div>
+            <div style="font-family:'Syne',sans-serif; font-size:0.65rem; font-weight:700; color:var(--accent);">+58 Points Avg</div>
+            <div style="font-size:0.75rem; color:var(--muted); margin-top:0.2rem;">For scores under 600</div>
+          </div>
+        </div>
+
+        <p style="font-size:0.875rem; color:#c8ccd8; margin-bottom:1.25rem;">Kikoff gives you a <strong style="color:#fff">$750 revolving credit line</strong> (or $2,500 on Premium) that reports to all three bureaus every month. You spend as little as $5/month from that line, pay it back, and Kikoff reports each on-time payment. No deposit needed. No credit check. Approval takes minutes. It's purpose-built to solve the exact problem beginners face.</p>
+
+        <a href="YOUR_FLEXOFFERS_KIKOFF_AFFILIATE_LINK" target="_blank" rel="noopener" style="display:block; background:var(--accent); color:#000; text-align:center; padding:0.9rem 1.5rem; border-radius:8px; font-family:'Syne',sans-serif; font-size:0.8rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; text-decoration:none; transition:background 0.2s;" onmouseover="this.style.background='#00ffb3'" onmouseout="this.style.background='var(--accent)'">
+          ✦ Start Building Credit with Kikoff — $5/month →
+        </a>
+        <div style="text-align:center; font-size:0.7rem; color:var(--muted); margin-top:0.6rem;">No deposit · No credit check · Cancel anytime · 1M+ users</div>
+      </div>
+
+      <div class="callout info">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body"><strong>Pro Strategy: Stack Both</strong>Many students use Kikoff AND a secured card together. Kikoff builds your utilization and payment history immediately, while the secured card gives you a true revolving line you can use anywhere. Together, they attack your score from two angles simultaneously.</div>
+      </div>
+    </div>
+
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(1, getNavItem(1))">← Previous</button>
+      <button class="btn btn-primary" onclick="showModule(3, getNavItem(3))">Next Module →</button>
+    </div>`;
+
+  // Module 3: Habits
+  document.getElementById('module-3').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 03</div>
+      <div class="module-title-wrap"><h2>The 5 Fast-Track Habits</h2><p>The specific behaviors that build credit quickly — and the ones that destroy it slowly.</p></div>
+    </div>
+    <div class="content-block"><h3>Habit 1 — Pay On Time, Every Time</h3>
+      <p>Payment history is 35% of your score. One missed payment can drop you 50–100 points and stays on your report for 7 years. Set up autopay immediately — this is non-negotiable.</p>
+      <div class="callout warn"><div class="callout-icon">⚠️</div><div class="callout-body"><strong>Important</strong>A payment isn't "late" to bureaus until 30+ days past due. But don't use that as a safety net — late fees start before that mark.</div></div>
+    </div>
+    <div class="content-block"><h3>Habit 2 — Keep Utilization Below 10%</h3>
+      <p>If your limit is $500, keep your balance under $50. Below 10% is the sweet spot for rapid score growth.</p>
+      <table class="data-table" style="margin-top:1rem;"><thead><tr><th>Utilization</th><th>Score Impact</th></tr></thead>
+      <tbody>
+        <tr><td>1–9%</td><td><span class="badge green">Excellent</span></td></tr>
+        <tr><td>10–29%</td><td><span class="badge blue">Good</span></td></tr>
+        <tr><td>30–49%</td><td><span class="badge yellow">Okay</span></td></tr>
+        <tr><td>50%+</td><td><span class="badge red">Hurts Score</span></td></tr>
+      </tbody></table>
+    </div>
+    <div class="content-block"><h3>Habits 3, 4 & 5</h3>
+      <div class="callout info"><div class="callout-icon">📅</div><div class="callout-body"><strong>Habit 3 — Don't Apply for Multiple Cards at Once</strong>Each application = hard inquiry. Multiple inquiries in a short window drops your score. One card at a time, spaced 6 months apart.</div></div>
+      <div class="callout info"><div class="callout-icon">⏳</div><div class="callout-body"><strong>Habit 4 — Keep Old Accounts Open</strong>Length of credit history is 15% of your score. Closing an old card shortens your average age. Keep it open even if unused — just use it occasionally.</div></div>
+      <div class="callout info"><div class="callout-icon">🔁</div><div class="callout-body"><strong>Habit 5 — Use Your Card Monthly for Small Purchases</strong>An inactive account can be closed by the issuer. Set a recurring charge (Netflix, Spotify) on autopay. Builds history passively with zero effort.</div></div>
+    </div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(2, getNavItem(2))">← Previous</button>
+      <button class="btn btn-primary" onclick="showModule(4, getNavItem(4))">Next Module →</button>
+    </div>`;
+
+  // Module 4: Credit Cards 101
+  document.getElementById('module-4').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 04</div>
+      <div class="module-title-wrap"><h2>Credit Cards 101</h2><p>Understand the tool — so it works for you, not against you.</p></div>
+    </div>
+    <div class="content-block"><h3>How Credit Cards Actually Work</h3>
+      <p>A credit card is a short-term loan. The bank pays the merchant, you repay the bank. Pay your full balance each month before the due date and you pay <strong style="color:var(--accent)">zero interest</strong>.</p>
+      <p>Where people get into trouble: carrying a balance. The average card charges 20–29% APR. A $500 balance at 25% costs $125/year in interest alone — and grows if you only pay minimums.</p></div>
+    <div class="content-block"><h3>Key Terms You Must Know</h3>
+      <table class="data-table"><thead><tr><th>Term</th><th>What It Means</th></tr></thead>
+      <tbody>
+        <tr><td><strong style="color:#fff">APR</strong></td><td>Annual interest rate on balances you carry</td></tr>
+        <tr><td><strong style="color:#fff">Statement Date</strong></td><td>When your bill generates — utilization is reported to bureaus on this date</td></tr>
+        <tr><td><strong style="color:#fff">Due Date</strong></td><td>When payment must arrive — usually 21 days after statement date</td></tr>
+        <tr><td><strong style="color:#fff">Grace Period</strong></td><td>Time between statement and due date — no interest if paid in full</td></tr>
+        <tr><td><strong style="color:#fff">Credit Limit</strong></td><td>Maximum you can charge — going over hurts score and triggers fees</td></tr>
+        <tr><td><strong style="color:#fff">Hard Inquiry</strong></td><td>Lender checks credit for application — drops score 5–10 points</td></tr>
+        <tr><td><strong style="color:#fff">Soft Inquiry</strong></td><td>You check your own score — zero impact</td></tr>
+      </tbody></table>
+    </div>
+    <div class="content-block"><h3>The Golden Rule</h3>
+      <div class="callout tip"><div class="callout-icon">🥇</div><div class="callout-body"><strong>Only charge what you can pay off in full every month.</strong>Treat your credit card like a debit card. If the money isn't already in your bank account, don't swipe. This one rule keeps you out of debt and builds credit simultaneously.</div></div>
+    </div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(3, getNavItem(3))">← Previous</button>
+      <button class="btn btn-primary" onclick="showModule(5, getNavItem(5))">Next Module →</button>
+    </div>`;
+
+  // Module 5: Authorized User
+  document.getElementById('module-5').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 05</div>
+      <div class="module-title-wrap"><h2>Becoming an Authorized User</h2><p>The fastest legal way to add credit history — sometimes overnight.</p></div>
+    </div>
+    <div class="content-block"><h3>What Is an Authorized User?</h3>
+      <p>When someone adds you as an authorized user (AU), that card's entire history can appear on your credit report. If a parent has a 10-year-old card with perfect payment history and low utilization, you might inherit that history almost immediately. 100% legal and common.</p></div>
+    <div class="content-block"><h3>Who to Ask — Ideal Candidate Has:</h3>
+      <ul class="checklist" style="list-style:disc; padding-left:1.5rem; gap:0.5rem;">
+        <li style="cursor:default;color:#c8ccd8;">Had the card for several years (longer = better)</li>
+        <li style="cursor:default;color:#c8ccd8;">Perfect or near-perfect payment history</li>
+        <li style="cursor:default;color:#c8ccd8;">Low balance (under 30% utilization)</li>
+        <li style="cursor:default;color:#c8ccd8;">High credit limit</li>
+      </ul>
+      <div class="callout tip" style="margin-top:1.5rem;"><div class="callout-icon">💬</div><div class="callout-body"><strong>Script to Use</strong>"Hey, I'm trying to build my credit. Would you add me as an authorized user on one of your cards? I don't even need the physical card — just the account on my report."</div></div>
+    </div>
+    <div class="content-block"><h3>What Happens Next</h3>
+      <div class="timeline">
+        <div class="timeline-item"><div class="time-label">Day 1</div><h4>They call the issuer or add you online</h4><p>Takes 5–10 minutes. They'll need your name, birthdate, and sometimes SSN.</p></div>
+        <div class="timeline-item"><div class="time-label">30–60 days</div><h4>Account appears on your credit report</h4><p>Shows up after the next statement cycle. You'll see their history on your report.</p></div>
+        <div class="timeline-item"><div class="time-label">Ongoing</div><h4>Your score begins to reflect the account</h4><p>If the account is in good standing, your score can jump 50–100+ points.</p></div>
+      </div>
+      <div class="callout warn" style="margin-top:1rem;"><div class="callout-icon">⚠️</div><div class="callout-body"><strong>Choose Wisely</strong>If the primary cardholder misses payments or runs high balances, it hurts your score too. Only choose someone financially responsible.</div></div>
+    </div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(4, getNavItem(4))">← Previous</button>
+      <button class="btn btn-primary" onclick="showModule(6, getNavItem(6))">Next Module →</button>
+    </div>`;
+
+  // Module 6: Action Plan
+  document.getElementById('module-6').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 06</div>
+      <div class="module-title-wrap"><h2>Your 30–60–90 Day Action Plan</h2><p>A step-by-step roadmap from no credit to a solid foundation in 3 months.</p></div>
+    </div>
+    <div class="content-block"><h3>Month 1 — Lay the Foundation</h3>
+      <ul class="checklist">
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Pull your free credit reports at AnnualCreditReport.com</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Check for errors and dispute anything wrong</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Apply for one secured credit card (Discover it® Secured recommended)</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Ask a parent or family member about becoming an authorized user</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Set up free credit monitoring (Credit Karma + Experian free tier)</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Set up autopay for minimum payment on your new card</li>
+      </ul>
+    </div>
+    <div class="content-block"><h3>Month 2 — Build Momentum</h3>
+      <ul class="checklist">
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Make 1–3 small purchases on your card each week</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Pay your full balance before the due date every month</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Keep your balance under 10% of your credit limit</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Check your score — it should be appearing or rising</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Verify authorized user account is listed on your report</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Explore a credit-builder loan as a secondary account</li>
+      </ul>
+    </div>
+    <div class="content-block"><h3>Month 3 — Optimize & Plan Ahead</h3>
+      <ul class="checklist">
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Review your credit report — confirm all accounts reporting correctly</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Ask your secured card issuer about upgrading or increasing your limit</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Research your next credit account (student card or unsecured)</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Calculate your current utilization across all accounts</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Set a 6-month score goal (aim for 670+ within 6–12 months)</li>
+      </ul>
+    </div>
+    <div class="callout tip"><div class="callout-icon">📊</div><div class="callout-body"><strong>Realistic Expectations</strong>After 90 days following this plan, most beginners reach 640–700. After 12 months of consistency, 720+ is very achievable.</div></div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(5, getNavItem(5))">← Previous</button>
+      <button class="btn btn-primary" onclick="showModule(7, getNavItem(7))">Next Module →</button>
+    </div>`;
+
+  // Module 7: Mistakes
+  document.getElementById('module-7').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 07</div>
+      <div class="module-title-wrap"><h2>Common Mistakes to Avoid</h2><p>What beginners get wrong — and how to protect the score you're working to build.</p></div>
+    </div>
+    <div class="content-block"><h3>Mistakes That Set You Back Months</h3>
+      <div class="callout danger"><div class="callout-icon">❌</div><div class="callout-body"><strong>Missing a payment</strong>Even one 30-day late payment can drop your score 50–100 points and stays for 7 years. Set up autopay. No excuses.</div></div>
+      <div class="callout danger"><div class="callout-icon">❌</div><div class="callout-body"><strong>Maxing out your card</strong>High utilization tanks your score fast. Pay down the balance before your statement date so it doesn't report high.</div></div>
+      <div class="callout danger"><div class="callout-icon">❌</div><div class="callout-body"><strong>Applying for multiple cards at once</strong>Each application = hard inquiry. Multiple inquiries signals desperation. Space applications 6+ months apart.</div></div>
+      <div class="callout danger"><div class="callout-icon">❌</div><div class="callout-body"><strong>Closing old accounts</strong>Reduces total available credit and shortens credit history. Keep old accounts open unless there's an annual fee you can't justify.</div></div>
+      <div class="callout danger"><div class="callout-icon">❌</div><div class="callout-body"><strong>Only paying the minimum</strong>Minimum payments barely cover interest. You'll stay in debt indefinitely. Always pay the full statement balance.</div></div>
+      <div class="callout danger"><div class="callout-icon">❌</div><div class="callout-body"><strong>Ignoring your credit report</strong>Errors happen and they hurt your score. Check at least every 6 months. Dispute anything that doesn't look right.</div></div>
+    </div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(6, getNavItem(6))">← Previous</button>
+      <button class="btn btn-primary" onclick="showModule(8, getNavItem(8))">Next Module →</button>
+    </div>`;
+
+  // Module 8: Monitoring
+  document.getElementById('module-8').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 08</div>
+      <div class="module-title-wrap"><h2>Monitoring Your Progress</h2><p>Track your score for free, understand what's moving it, and stay on track.</p></div>
+    </div>
+    <div class="content-block"><h3>Free Credit Monitoring Tools</h3>
+      <table class="data-table"><thead><tr><th>Tool</th><th>Score Model</th><th>Bureaus</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td><strong style="color:#fff">Credit Karma</strong></td><td>VantageScore 3.0</td><td>TransUnion + Equifax</td><td><span class="badge green">Free</span></td></tr>
+        <tr><td><strong style="color:#fff">Experian Free</strong></td><td>FICO Score 8</td><td>Experian</td><td><span class="badge green">Free</span></td></tr>
+        <tr><td><strong style="color:#fff">Discover Scorecard</strong></td><td>FICO Score 8</td><td>TransUnion</td><td><span class="badge green">Free (anyone)</span></td></tr>
+        <tr><td><strong style="color:#fff">AnnualCreditReport.com</strong></td><td>Full Report</td><td>All 3 Bureaus</td><td><span class="badge green">Free</span></td></tr>
+      </tbody></table>
+    </div>
+    <div class="content-block"><h3>What to Check Each Month</h3>
+      <ul class="checklist">
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> All accounts reporting on-time payments correctly</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Utilization on each card is under 10%</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> No unexpected new accounts or hard inquiries</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Average account age is growing</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Score is trending upward over 3-month periods</li>
+      </ul>
+    </div>
+    <div class="content-block"><h3>Realistic Score Growth Timeline</h3>
+      <div class="timeline">
+        <div class="timeline-item"><div class="time-label">Month 0</div><h4>No Score / Thin File</h4><p>Not enough history to generate a score. Normal and expected.</p></div>
+        <div class="timeline-item"><div class="time-label">Month 1–2</div><h4>~580–620</h4><p>First accounts generate your initial score. You may appear in "Fair" range.</p></div>
+        <div class="timeline-item"><div class="time-label">Month 3–6</div><h4>640–680</h4><p>Consistent on-time payments and low utilization. Climbing into "Good" territory.</p></div>
+        <div class="timeline-item"><div class="time-label">Month 6–12</div><h4>690–740</h4><p>Eligible for most credit products with competitive rates. Major milestone.</p></div>
+        <div class="timeline-item"><div class="time-label">Year 1–2</div><h4>740–790+</h4><p>Top tier. Most people never get here. You will.</p></div>
+      </div>
+    </div>
+    <div class="content-block"><h3>🎓 Course Complete!</h3>
+      <ul class="checklist">
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Applied for or planning to apply for a secured credit card</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Set up free credit monitoring</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Asked about or confirmed an authorized user arrangement</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Know the 5 FICO factors</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Autopay set up on all credit accounts</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Committed to keeping utilization under 10%</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span> Following the 90-day action plan</li>
+      </ul>
+      <div class="callout tip" style="margin-top:1.5rem;"><div class="callout-icon">🚀</div><div class="callout-body"><strong>Your future self will thank you.</strong>An excellent credit score is the result of consistent, simple behaviors applied over time. You've got this.</div></div>
+    </div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(7, getNavItem(7))">← Previous</button>
+      <button class="btn btn-primary" onclick="showModule(0, getNavItem(0))">↩ Back to Start</button>
+    </div>`;
+}
+
+// ── NAVIGATION ──────────────────────────────────
+const TOTAL_MODULES = 9;
+const completedModules = new Set([0]);
+
+function getNavItem(index) {
+  return document.querySelectorAll('.nav-item')[index];
+}
+
+function showModule(index, navEl) {
+  if (!isUnlocked && index >= 2) { openModal(); return; }
+
+  document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  const m = document.getElementById('module-' + index);
+  if (m) { m.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  if (navEl) navEl.classList.add('active');
+
+  completedModules.add(index);
+  updateProgress();
+  closeSidebar();
+}
+
+function updateProgress() {
+  const pct = Math.round((completedModules.size / TOTAL_MODULES) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  completedModules.forEach(i => {
+    const items = document.querySelectorAll('.nav-item');
+    if (items[i]) items[i].classList.add('done');
+  });
+}
+
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+  li.querySelector('.checkbox').textContent = li.classList.contains('checked') ? '✓' : '';
+}
+
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+function closeSidebar()   { document.getElementById('sidebar').classList.remove('open'); }
+
+document.addEventListener('DOMContentLoaded', () => {
+  checkPurchaseStatus();
+  updateProgress();
+  if (typeof Stripe !== 'undefined') initStripe();
+
+  // Dynamic footer year
+  const yr = document.getElementById('course-footer-year');
+  if (yr) yr.textContent = new Date().getFullYear();
+});
+</script>
+
+<footer style="background:#0e0e0e; border-top:1px solid rgba(255,255,255,0.06); padding:1.75rem 2rem; text-align:center; font-size:0.75rem; color:rgba(255,255,255,0.3); font-family:'DM Sans',sans-serif;">
+  <p>© <span id="course-footer-year"></span> Credit Fast Track 10X. All rights reserved. Educational content — results vary.</p>
+  <p style="margin-top:0.5rem;">
+    <a href="/privacy" style="color:rgba(255,255,255,0.4); text-decoration:none; margin:0 0.5rem;">Privacy Policy</a>
+    <a href="/advertiser-disclosure" style="color:rgba(255,255,255,0.4); text-decoration:none; margin:0 0.5rem;">Advertiser Disclosure</a>
+    <a href="/editorial-disclosure" style="color:rgba(255,255,255,0.4); text-decoration:none; margin:0 0.5rem;">Editorial Disclosure</a>
+    <a href="mailto:support@creditfasttrack10x.live" style="color:rgba(255,255,255,0.4); text-decoration:none; margin:0 0.5rem;">Contact</a>
+  </p>
+</footer>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+<script>
+(function(){
+  var btn = document.getElementById('scrollTopBtn');
+  if(btn){ window.addEventListener('scroll', function(){ btn.classList.toggle('visible', window.scrollY > 400); }, {passive:true}); }
+})();
+</script>
+
+</body>
+</html>

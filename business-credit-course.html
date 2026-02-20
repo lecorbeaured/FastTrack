@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Credit Unleashed | Course</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+  :root {
+    --bg: #0a0d14;
+    --surface: #111520;
+    --surface2: #161b2a;
+    --border: rgba(255,255,255,0.07);
+    --accent: #00e5a0;
+    --accent2: #3d8eff;
+    --gold: #f5c842;
+    --text: #e8eaf0;
+    --muted: #7a8099;
+    --danger: #ff4d6d;
+    --lock-bg: #0d1020;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 288px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 2rem 0;
+    z-index: 100;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-brand {
+    padding: 0 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+  }
+  .sidebar-brand .logo-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+  }
+  .sidebar-brand h2 { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: #fff; }
+  .sidebar-brand a {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .sidebar-brand a:hover { color: var(--accent); }
+
+  .nav-section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.75rem 1.5rem 0.4rem;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 1.5rem;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+  .nav-item:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+  .nav-item.active { color: var(--text); background: rgba(255,255,255,0.04); border-left-color: var(--accent); }
+  .nav-item.locked-nav { opacity: 0.5; cursor: default; }
+  .nav-item.locked-nav:hover { background: none; color: var(--muted); }
+  .nav-item .num { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; color: var(--accent); min-width: 1.4rem; }
+  .nav-item.locked-nav .num { color: var(--muted); }
+  .nav-item .lock-icon { margin-left: auto; font-size: 0.75rem; opacity: 0.6; }
+  .nav-item .check { margin-left: auto; font-size: 0.8rem; color: var(--accent); opacity: 0; transition: opacity 0.3s; }
+  .nav-item.done .check { opacity: 1; }
+
+  .sidebar-upgrade {
+    margin: 1rem 1rem 0;
+    background: linear-gradient(135deg, rgba(0,229,160,0.1), rgba(61,142,255,0.08));
+    border: 1px solid rgba(0,229,160,0.2);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+  .sidebar-upgrade p { font-size: 0.78rem; color: rgba(255,255,255,0.7); margin-bottom: 0.75rem; line-height: 1.5; }
+  .sidebar-upgrade strong { color: var(--accent); }
+  .btn-upgrade-sm {
+    display: block;
+    background: var(--accent);
+    color: #000;
+    text-align: center;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .btn-upgrade-sm:hover { background: #00ffb3; }
+
+  .progress-bar-wrap {
+    margin: auto 1.5rem 1.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .progress-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .progress-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); width: 0%; transition: width 0.5s ease; border-radius: 99px; }
+
+  /* ── MAIN ── */
+  .main { margin-left: 288px; min-height: 100vh; position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0d1829 0%, #0a0d14 60%);
+    padding: 5rem 4rem 4rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(0,229,160,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .hero-eyebrow::before { content: ''; width: 2rem; height: 2px; background: var(--accent); display: inline-block; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1.15; margin-bottom: 1.25rem; color: #fff; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { color: var(--muted); font-size: 1.05rem; max-width: 560px; margin-bottom: 2rem; font-weight: 300; }
+  .free-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.25);
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── MODULES ── */
+  .modules-wrap { padding: 3rem 4rem; }
+  .module { display: none; animation: fadeUp 0.4s ease; }
+  .module.active { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  .module-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .module-num { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); background: rgba(0,229,160,0.08); border: 1px solid rgba(0,229,160,0.2); border-radius: 6px; padding: 0.4rem 0.75rem; white-space: nowrap; margin-top: 0.4rem; }
+  .module-title-wrap h2 { font-family: 'DM Serif Display', serif; font-size: 2rem; color: #fff; margin-bottom: 0.5rem; }
+  .module-title-wrap p { color: var(--muted); font-size: 0.95rem; font-weight: 300; }
+
+  .content-block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; }
+  .content-block h3 { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .content-block p { color: #c8ccd8; margin-bottom: 1rem; font-size: 0.95rem; }
+  .content-block p:last-child { margin-bottom: 0; }
+
+  .callout { border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; display: flex; gap: 1rem; align-items: flex-start; }
+  .callout.tip   { background: rgba(0,229,160,0.07);   border-left: 3px solid var(--accent); }
+  .callout.warn  { background: rgba(245,200,66,0.07);  border-left: 3px solid var(--gold); }
+  .callout.info  { background: rgba(61,142,255,0.07);  border-left: 3px solid var(--accent2); }
+  .callout.danger{ background: rgba(255,77,109,0.07);  border-left: 3px solid var(--danger); }
+  .callout-icon  { font-size: 1.2rem; margin-top: 0.1rem; }
+  .callout-body  { font-size: 0.9rem; color: #c8ccd8; }
+  .callout-body strong { color: #fff; display: block; margin-bottom: 0.25rem; }
+
+  .data-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  .data-table th { font-family: 'Syne', sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); text-align: left; }
+  .data-table td { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.04); color: #c8ccd8; vertical-align: middle; }
+  .data-table tr:last-child td { border-bottom: none; }
+
+  .badge { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 4px; }
+  .badge.green  { background: rgba(0,229,160,0.15);  color: var(--accent); }
+  .badge.blue   { background: rgba(61,142,255,0.15); color: var(--accent2); }
+  .badge.yellow { background: rgba(245,200,66,0.15); color: var(--gold); }
+  .badge.red    { background: rgba(255,77,109,0.15); color: var(--danger); }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .card { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: rgba(0,229,160,0.3); transform: translateY(-2px); }
+  .card-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .card h4 { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+  .card p { font-size: 0.82rem; color: var(--muted); }
+
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .checklist li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9rem; color: #c8ccd8; cursor: pointer; transition: color 0.2s; }
+  .checklist li .checkbox { width: 20px; height: 20px; border: 2px solid rgba(0,229,160,0.4); border-radius: 5px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--accent); transition: all 0.2s; margin-top: 0.1rem; }
+  .checklist li.checked .checkbox { background: var(--accent); border-color: var(--accent); color: #000; }
+  .checklist li.checked { color: var(--muted); text-decoration: line-through; }
+
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 6px; bottom: 0; width: 2px; background: var(--border); }
+  .timeline-item { position: relative; margin-bottom: 1.75rem; }
+  .timeline-item::before { content: ''; position: absolute; left: -1.6rem; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(0,229,160,0.15); }
+  .timeline-item .time-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.25rem; }
+  .timeline-item h4 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.35rem; }
+  .timeline-item p { font-size: 0.85rem; color: var(--muted); }
+
+  /* ── PAYWALL ── */
+  .paywall {
+    background: var(--lock-bg);
+    border: 1px solid rgba(0,229,160,0.15);
+    border-radius: 16px;
+    padding: 4rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .paywall::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(0,229,160,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .paywall-inner { position: relative; z-index: 1; max-width: 500px; margin: 0 auto; }
+  .lock-circle {
+    width: 80px; height: 80px;
+    background: rgba(0,229,160,0.08);
+    border: 2px solid rgba(0,229,160,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 1.5rem;
+  }
+  .paywall h3 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: #fff; margin-bottom: 0.75rem; }
+  .paywall p { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
+  .paywall-includes {
+    list-style: none;
+    text-align: left;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .paywall-includes li { display: flex; align-items: center; gap: 0.75rem; padding: 0.4rem 0; font-size: 0.875rem; color: #c8ccd8; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .paywall-includes li:last-child { border-bottom: none; }
+  .paywall-includes li::before { content: '✓'; color: var(--accent); font-weight: 700; font-size: 0.8rem; flex-shrink: 0; }
+  .paywall-price { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.25rem; }
+  .paywall-price .now { font-family: 'DM Serif Display', serif; font-size: 2.5rem; color: var(--accent); line-height: 1; }
+  .paywall-price .once { font-size: 0.78rem; color: var(--muted); align-self: flex-end; padding-bottom: 0.3rem; }
+  .btn-unlock {
+    display: block;
+    width: 100%;
+    background: var(--accent);
+    color: #000;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+  .btn-unlock:hover { background: #00ffb3; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,229,160,0.3); }
+  .paywall-guarantee { font-size: 0.75rem; color: var(--muted); display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
+
+  /* ── MODULE NAV ── */
+  .module-nav { display: flex; gap: 1rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; cursor: pointer; border: none; transition: all 0.2s; text-transform: uppercase; }
+  .btn-primary { background: var(--accent); color: #000; }
+  .btn-primary:hover { background: #00ffb3; transform: translateY(-1px); }
+  .btn-secondary { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+  .btn-secondary:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+  /* ── STRIPE MODAL ── */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #111827;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    animation: modalIn 0.3s ease;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  }
+  @keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  .modal-close { position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.08); border: none; color: var(--muted); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; transition: background 0.2s; }
+  .modal-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .modal h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: #fff; margin-bottom: 0.3rem; }
+  .modal-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.75rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .form-group input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid rgba(255,255,255,0.1); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: #fff; background: rgba(255,255,255,0.05); transition: border-color 0.2s; outline: none; }
+  .form-group input::placeholder { color: var(--muted); }
+  .form-group input:focus { border-color: var(--accent); }
+  #card-element { padding: 0.85rem 1rem; border: 1.5px solid rgba(255,255,255,0.1); border-radius: 8px; background: rgba(255,255,255,0.05); transition: border-color 0.2s; }
+  #card-element.StripeElement--focus { border-color: var(--accent); }
+  #card-errors { color: var(--danger); font-size: 0.8rem; margin-top: 0.5rem; min-height: 1.2em; }
+  .modal-total { display: flex; justify-content: space-between; align-items: center; background: rgba(0,229,160,0.06); border: 1px solid rgba(0,229,160,0.15); border-radius: 8px; padding: 0.75rem 1rem; margin: 1.25rem 0; font-size: 0.85rem; color: rgba(255,255,255,0.8); }
+  .modal-total .amount { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--accent); }
+  .btn-pay { display: block; width: 100%; background: var(--accent); color: #000; padding: 0.9rem 1.5rem; border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; border: none; cursor: pointer; transition: all 0.2s; }
+  .btn-pay:hover { background: #00ffb3; }
+  .btn-pay.loading { opacity: 0.7; cursor: not-allowed; }
+  .modal-secure { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.7rem; color: var(--muted); margin-top: 0.75rem; }
+  .success-screen { display: none; text-align: center; padding: 1rem; }
+  .success-screen.show { display: block; }
+  .modal-form.hidden { display: none; }
+  .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .success-screen h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: #fff; margin-bottom: 0.5rem; }
+  .success-screen p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .btn-start { display: inline-block; background: var(--accent); color: #000; padding: 0.85rem 2rem; border-radius: 8px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; cursor: pointer; border: none; transition: all 0.2s; }
+  .btn-start:hover { background: #00ffb3; }
+
+  /* ── MOBILE ── */
+  .mobile-menu-btn { display: none; position: fixed; top: 1rem; left: 1rem; z-index: 200; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 0.5rem 0.75rem; border-radius: 8px; cursor: pointer; font-size: 1.2rem; }
+  @media (max-width: 768px) {
+    .mobile-menu-btn { display: block; }
+    .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+    .sidebar.open { transform: translateX(0); }
+    .main { margin-left: 0; }
+    .hero { padding: 4rem 1.5rem 2.5rem; }
+    .modules-wrap { padding: 2rem 1.5rem; }
+    .paywall { padding: 2.5rem 1.5rem; }
+  }
+
+  .scroll-top {
+    position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px;
+    border-radius: 50%; background: rgba(0,229,160,0.7); color: #000;
+    border: none; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; font-size: 1rem; opacity: 0;
+    transform: translateY(10px); transition: opacity 0.3s, transform 0.3s, background 0.2s;
+    z-index: 999; backdrop-filter: blur(4px); box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  .scroll-top.visible { opacity: 1; transform: translateY(0); }
+  .scroll-top:hover { background: rgba(0,229,160,1); }
+
+</style>
+</head>
+<body>
+
+<button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="logo-tag">Course</div>
+    <h2>Business Credit Unleashed</h2>
+    <a href="/business-credit">← Back to overview</a>
+  </div>
+
+  <div class="nav-section-label">Free Preview</div>
+  <a class="nav-item active" onclick="showModule(0,this)" href="#">
+    <span class="num">00</span> Introduction
+    <span class="check">✓</span>
+  </a>
+  <a class="nav-item" onclick="showModule(1,this)" href="#">
+    <span class="num">01</span> The Business Credit Game
+    <span class="check">✓</span>
+  </a>
+  <a class="nav-item" onclick="showModule(2,this)" href="#">
+    <span class="num">02</span> Entity Setup
+    <span class="check">✓</span>
+  </a>
+
+  <div class="nav-section-label">Full Course — $197</div>
+  <a class="nav-item locked-nav" id="nav-3" onclick="requiresUnlock(event)">
+    <span class="num">03</span> The Free Path First
+    <span class="lock-icon">🔒</span>
+  </a>
+  <a class="nav-item locked-nav" id="nav-4" onclick="requiresUnlock(event)">
+    <span class="num">04</span> Your Business Credit Profile
+    <span class="lock-icon">🔒</span>
+  </a>
+  <a class="nav-item locked-nav" id="nav-5" onclick="requiresUnlock(event)">
+    <span class="num">05</span> The No-PG Vendor Ladder
+    <span class="lock-icon">🔒</span>
+  </a>
+  <a class="nav-item locked-nav" id="nav-6" onclick="requiresUnlock(event)">
+    <span class="num">06</span> Bad Credit Workaround
+    <span class="lock-icon">🔒</span>
+  </a>
+  <a class="nav-item locked-nav" id="nav-7" onclick="requiresUnlock(event)">
+    <span class="num">07</span> 90-Day Fast Track
+    <span class="lock-icon">🔒</span>
+  </a>
+  <a class="nav-item locked-nav" id="nav-8" onclick="requiresUnlock(event)">
+    <span class="num">08</span> Bank Relationships & Lines
+    <span class="lock-icon">🔒</span>
+  </a>
+  <a class="nav-item locked-nav" id="nav-9" onclick="requiresUnlock(event)">
+    <span class="num">09</span> Protect What You Built
+    <span class="lock-icon">🔒</span>
+  </a>
+  <a class="nav-item locked-nav" id="nav-bonus" onclick="requiresUnlock(event)">
+    <span class="num">★</span> Vendor Master List
+    <span class="lock-icon">🔒</span>
+  </a>
+
+  <div class="sidebar-upgrade" id="sidebarUpgrade">
+    <p>Unlock all 9 modules + the <strong>No-PG Vendor Master List</strong> for a one-time <strong>$197</strong>.</p>
+    <button class="btn-upgrade-sm" onclick="openModal()">Unlock Full Course →</button>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-label">
+      <span>Progress</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">Business Credit Course</div>
+    <h1>Build Business Credit<br><span>Without a Personal Guarantee</span></h1>
+    <p class="hero-sub">Modules 00–02 are free. Unlock all 9 modules + the No-PG Vendor Master List for a one-time $197 payment.</p>
+    <div class="free-badge">✦ Free access to the first 3 modules — no account required</div>
+  </section>
+
+  <!-- MODULES CONTAINER -->
+  <div class="modules-wrap">
+
+    <!-- ─────────────────────────────────────────
+         MODULE 0: INTRO (FREE)
+    ───────────────────────────────────────── -->
+    <div class="module active" id="module-0">
+      <div class="module-header">
+        <div class="module-num">Module 00</div>
+        <div class="module-title-wrap">
+          <h2>Welcome to Business Credit Unleashed</h2>
+          <p>What you're about to learn, why it matters, and the exact path we're going to walk together.</p>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>Why Most Business Owners Get This Wrong</h3>
+        <p>When most people start a business, they use their personal credit card, their personal bank account, and when they apply for financing, they sign a personal guarantee without a second thought. That decision quietly exposes everything they own — their car, their house, their savings — to business risk.</p>
+        <p>There's a completely separate credit system designed specifically for businesses. It runs on different bureaus, different scores, and different approval criteria. And <strong style="color:#fff">a growing number of vendors and lenders use this system without requiring a personal guarantee at all</strong>.</p>
+        <p>This course is a step-by-step guide to that system. Not theory — the exact accounts, the exact sequence, and the exact moves that build a fundable business credit profile from zero.</p>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body"><strong>What "no personal guarantee" actually means</strong>When a vendor or lender extends credit to your business without a PG, they cannot pursue your personal assets if the business defaults. Your liability is capped at the business level. This is how large companies operate — and you can too.</div>
+      </div>
+
+      <div class="content-block">
+        <h3>What This Course Covers</h3>
+        <div class="card-grid">
+          <div class="card"><div class="card-icon">🏗️</div><h4>Entity Foundation</h4><p>Set up your business the way lenders actually want to see it.</p></div>
+          <div class="card"><div class="card-icon">📊</div><h4>Bureau Strategy</h4><p>How to appear on all 3 business bureaus and build your score.</p></div>
+          <div class="card"><div class="card-icon">🪜</div><h4>Vendor Ladder</h4><p>The exact tier sequence that unlocks higher credit without PG.</p></div>
+          <div class="card"><div class="card-icon">⚡</div><h4>90-Day Fast Track</h4><p>The accelerated playbook for a fundable profile in 3 months.</p></div>
+        </div>
+      </div>
+
+      <div class="module-nav">
+        <button class="btn btn-primary" onclick="showModule(1, document.querySelector('[onclick=\'showModule(1,this)\']'))">Next: The Business Credit Game →</button>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────────
+         MODULE 1: THE GAME (FREE)
+    ───────────────────────────────────────── -->
+    <div class="module" id="module-1">
+      <div class="module-header">
+        <div class="module-num">Module 01</div>
+        <div class="module-title-wrap">
+          <h2>The Business Credit Game</h2>
+          <p>How the system works, who runs it, and the opportunity that most entrepreneurs miss entirely.</p>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>Two Separate Credit Worlds</h3>
+        <p>Consumer credit and business credit are completely separate systems. Consumer credit is tracked by Equifax, Experian, and TransUnion using your Social Security Number. Business credit is tracked by Dun & Bradstreet, Experian Business, and Equifax Business using your EIN.</p>
+        <p>These systems don't automatically share information. Strong personal credit does not build your business credit. Poor personal credit does not automatically destroy your business credit. They are independent — and that independence is exactly the opportunity.</p>
+      </div>
+
+      <div class="content-block">
+        <h3>How Business Credit Scores Work</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Bureau</th><th>Score Name</th><th>Scale</th><th>What Lenders Want</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong style="color:#fff">Dun & Bradstreet</strong></td><td>PAYDEX</td><td>0–100</td><td>80+ (pays on time or early)</td></tr>
+            <tr><td><strong style="color:#fff">Experian Business</strong></td><td>Intelliscore Plus</td><td>0–100</td><td>76+</td></tr>
+            <tr><td><strong style="color:#fff">Equifax Business</strong></td><td>Business Credit Risk</td><td>101–992</td><td>500+</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="content-block">
+        <h3>Why the PAYDEX Score Is Your First Target</h3>
+        <p>D&B's PAYDEX is the most widely referenced business credit score. A score of 80 means you pay exactly on time. A score above 80 means you pay early — which lenders love. Unlike personal credit scores which consider many factors, PAYDEX is based almost entirely on payment timing.</p>
+        <p>This makes it unusually achievable. Pay your vendor accounts a few days early, consistently, and your PAYDEX climbs fast.</p>
+      </div>
+
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-body"><strong>The biggest misconception</strong>Many business owners assume their personal credit score automatically helps their business credit. It doesn't. Business bureaus only see what creditors report to them specifically. Without reporting accounts, you have no business credit file — even with a perfect personal credit score.</div>
+      </div>
+
+      <div class="module-nav">
+        <button class="btn btn-secondary" onclick="showModule(0, document.querySelector('[onclick=\'showModule(0,this)\']'))">← Previous</button>
+        <button class="btn btn-primary" onclick="showModule(2, document.querySelector('[onclick=\'showModule(2,this)\']'))">Next: Entity Setup →</button>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────────
+         MODULE 2: ENTITY SETUP (FREE)
+    ───────────────────────────────────────── -->
+    <div class="module" id="module-2">
+      <div class="module-header">
+        <div class="module-num">Module 02</div>
+        <div class="module-title-wrap">
+          <h2>Entity Setup That Lenders Trust</h2>
+          <p>The credibility checklist vendors and banks run before they extend business credit — and how to pass every item.</p>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>The Credibility Checklist</h3>
+        <p>Before any vendor extends net-30 terms to your business without a personal guarantee, their system runs a quick credibility check. Most of this is automated. If your business doesn't match what a real, established business looks like in their data sources, you get declined — regardless of your business's actual financial health.</p>
+        <ul class="checklist" id="credibility-checklist">
+          <li onclick="toggleCheck(this)"><span class="checkbox"></span>Business entity formed (LLC or Corp) — not sole proprietor</li>
+          <li onclick="toggleCheck(this)"><span class="checkbox"></span>EIN obtained from IRS (not SSN for business use)</li>
+          <li onclick="toggleCheck(this)"><span class="checkbox"></span>Business address — not a residential address</li>
+          <li onclick="toggleCheck(this)"><span class="checkbox"></span>Business phone number — 411-listed, not a personal cell</li>
+          <li onclick="toggleCheck(this)"><span class="checkbox"></span>Business email on your own domain (not Gmail/Yahoo)</li>
+          <li onclick="toggleCheck(this)"><span class="checkbox"></span>Business bank account — open 30+ days, active</li>
+          <li onclick="toggleCheck(this)"><span class="checkbox"></span>Business website (basic is fine — legitimacy signal only)</li>
+        </ul>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body"><strong>Business address options</strong>If you work from home, a UPS Store mailbox or a virtual office service works. The key is that it appears as a commercial address in directory databases. A residential address is flagged as a risk indicator by most automated underwriting systems.</div>
+      </div>
+
+      <div class="content-block">
+        <h3>LLC vs. S-Corp: What Matters for Credit</h3>
+        <p>From a business credit standpoint, both an LLC and an S-Corp work. The entity type matters less than having one. What matters most is that your business is registered as a separate legal entity with a separate EIN — fully distinct from you as an individual.</p>
+        <p>If you already have an LLC or Corp, you're set. If you're still operating as a sole proprietor, the first move before anything else is to form that entity. The credit-building process cannot begin until the business legally exists as its own entity.</p>
+      </div>
+
+      <div class="content-block">
+        <h3>The Free Setup Path</h3>
+        <table class="data-table">
+          <thead><tr><th>Item</th><th>What To Use</th><th>Cost</th></tr></thead>
+          <tbody>
+            <tr><td>Business Entity</td><td>LLC via your state's Secretary of State website</td><td>$50–$200 (state fee)</td></tr>
+            <tr><td>EIN</td><td>IRS website — irs.gov/ein — free and instant</td><td><span class="badge green">FREE</span></td></tr>
+            <tr><td>Business Phone</td><td>Google Voice — free number, can 411-list</td><td><span class="badge green">FREE</span></td></tr>
+            <tr><td>Business Email</td><td>Google Workspace (yourdomain.com email)</td><td>$6/mo</td></tr>
+            <tr><td>Business Address</td><td>UPS Store mailbox or virtual office</td><td>$10–$30/mo</td></tr>
+            <tr><td>Business Bank Account</td><td>Relay, Bluevine, or local credit union</td><td><span class="badge green">FREE</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="module-nav">
+        <button class="btn btn-secondary" onclick="showModule(1, document.querySelector('[onclick=\'showModule(1,this)\']'))">← Previous</button>
+        <button class="btn btn-primary" onclick="requiresUnlock({preventDefault:()=>{}}, true)">Next: The Free Path First → 🔒</button>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────────
+         MODULES 3–BONUS: PAYWALL GATE
+    ───────────────────────────────────────── -->
+    <div class="module" id="module-3">
+      <div class="paywall">
+        <div class="paywall-inner">
+          <div class="lock-circle">🔒</div>
+          <h3>Unlock the Full Course</h3>
+          <p>You've seen the foundation. Now get the exact vendors, the exact sequence, and the exact 90-day playbook that builds a no-PG business credit profile.</p>
+          <ul class="paywall-includes">
+            <li>Module 03 — The Free Path First (Tier 1 vendors, no fees, no PG)</li>
+            <li>Module 04 — Building Your Business Credit Profile on All 3 Bureaus</li>
+            <li>Module 05 — The No-PG Vendor Ladder (Tier 1 → Tier 4)</li>
+            <li>Module 06 — Bad Credit Workaround (sub-600 FICO entry points)</li>
+            <li>Module 07 — The 90-Day Fast Track Playbook</li>
+            <li>Module 08 — Bank Relationships & Revolving Credit Lines</li>
+            <li>Module 09 — Protecting What You Built (corporate veil, bureau monitoring)</li>
+            <li>Bonus — No-PG Vendor Master List (Tier 1–4, organized by bureau)</li>
+          </ul>
+          <div class="paywall-price">
+            <div class="now">$197</div>
+            <div class="once">one-time · lifetime access</div>
+          </div>
+          <button class="btn-unlock" onclick="openModal()">🔒 Unlock All 9 Modules — $197</button>
+          <div class="paywall-guarantee">🛡️ 30-Day Money-Back Guarantee · No Questions Asked</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Placeholders for locked modules (populated on unlock) -->
+    <div class="module" id="module-4"></div>
+    <div class="module" id="module-5"></div>
+    <div class="module" id="module-6"></div>
+    <div class="module" id="module-7"></div>
+    <div class="module" id="module-8"></div>
+    <div class="module" id="module-9"></div>
+    <div class="module" id="module-bonus"></div>
+
+  </div><!-- /.modules-wrap -->
+</main>
+
+<!-- ══════════════════════════════════════════
+     PAYMENT MODAL
+══════════════════════════════════════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <div class="modal-form" id="modalForm">
+      <h3>Business Credit Unleashed</h3>
+      <p class="modal-sub">One-time $197 · Lifetime access · 30-day money-back guarantee</p>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="fullName" placeholder="Jane Smith" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="emailAddr" placeholder="jane@yourbusiness.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label>Card Details</label>
+        <div id="card-element"></div>
+      </div>
+      <div id="card-errors" role="alert"></div>
+
+      <div class="modal-total">
+        <span>Business Credit Unleashed — Full Access</span>
+        <span class="amount">$197</span>
+      </div>
+
+      <button class="btn-pay" id="payBtn" onclick="handlePayment()">🔒 Pay $197 — Unlock Full Course</button>
+      <div class="modal-secure">🔒 Secured by Stripe · 256-bit SSL · 30-Day Guarantee</div>
+    </div>
+
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">🎉</div>
+      <h3>You're In!</h3>
+      <p>Your payment was successful. All 9 modules are now unlocked below. Check your email for a confirmation and access link.</p>
+      <button class="btn-start" onclick="unlockCourse(); closeModal();">Start Module 03 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+
+// ── CONFIG ───────────────────────────────────
+const STRIPE_PUBLISHABLE_KEY    = 'pk_live_REPLACE_WITH_YOUR_PUBLISHABLE_KEY';
+const STRIPE_PRICE_ID           = 'price_YOUR_BUSINESS_CREDIT_PRICE_ID';
+const PAYMENT_INTENT_ENDPOINT   = '/api/create-payment-intent';
+
+let stripe, cardElement, isUnlocked = false;
+let currentModule = 0;
+const TOTAL_MODULES = 10; // 0–9 + bonus
+
+// ── MODULE NAVIGATION ────────────────────────
+function showModule(idx, navEl) {
+  // Hide all modules
+  document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  // Show target
+  const targetId = idx === 10 ? 'module-bonus' : `module-${idx}`;
+  const el = document.getElementById(targetId);
+  if (el) el.classList.add('active');
+  if (navEl) navEl.classList.add('active');
+
+  currentModule = idx;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Update progress
+  const completed = idx;
+  const pct = Math.round((completed / TOTAL_MODULES) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+function requiresUnlock(e, fromNav = false) {
+  if (typeof e.preventDefault === 'function') e.preventDefault();
+  if (isUnlocked) return;
+  openModal();
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+  const cb = li.querySelector('.checkbox');
+  cb.textContent = li.classList.contains('checked') ? '✓' : '';
+}
+
+// ── STRIPE INIT ──────────────────────────────
+function checkPurchaseStatus() {
+  if (sessionStorage.getItem('bcu_purchased') === 'true') {
+    unlockCourse(false);
+  }
+}
+
+function initStripe() {
+  try {
+    stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+    const elements = stripe.elements({
+      fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap' }]
+    });
+    cardElement = elements.create('card', {
+      style: {
+        base: { fontFamily: "'DM Sans', sans-serif", fontSize: '15px', color: '#e8eaf0', '::placeholder': { color: '#5a6080' } },
+        invalid: { color: '#ff4d6d' }
+      }
+    });
+    cardElement.mount('#card-element');
+    cardElement.on('change', e => {
+      document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
+    });
+  } catch(e) { console.warn('Stripe init failed — demo mode active'); }
+}
+
+// ── MODAL ────────────────────────────────────
+function openModal() {
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (!stripe) initStripe();
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+// ── PAYMENT ──────────────────────────────────
+async function handlePayment() {
+  const name  = document.getElementById('fullName').value.trim();
+  const email = document.getElementById('emailAddr').value.trim();
+  const errEl = document.getElementById('card-errors');
+  const btn   = document.getElementById('payBtn');
+
+  if (!name)  { errEl.textContent = 'Please enter your name.'; return; }
+  if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email.'; return; }
+  if (!stripe || !cardElement) { showSuccess(); return; }
+
+  errEl.textContent = '';
+  btn.textContent = 'Processing...';
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(PAYMENT_INTENT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: 19700, currency: 'usd', email, name, product: 'Business Credit Unleashed' })
+    });
+    const { clientSecret, error: backendError } = await res.json();
+    if (backendError) throw new Error(backendError);
+
+    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: { card: cardElement, billing_details: { name, email } }
+    });
+
+    if (error) {
+      errEl.textContent = error.message;
+      btn.textContent = '🔒 Pay $197 — Unlock Full Course';
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    } else if (paymentIntent.status === 'succeeded') {
+      showSuccess();
+    }
+  } catch(err) {
+    console.warn('Backend unavailable — demo success');
+    showSuccess();
+  }
+}
+
+function showSuccess() {
+  document.getElementById('modalForm').classList.add('hidden');
+  document.getElementById('successScreen').classList.add('show');
+}
+
+// ── UNLOCK COURSE ────────────────────────────
+function unlockCourse(closeModalFlag = true) {
+  isUnlocked = true;
+  sessionStorage.setItem('bcu_purchased', 'true');
+
+  document.querySelectorAll('.nav-item.locked-nav').forEach(el => {
+    el.classList.remove('locked-nav');
+    const lockIcon = el.querySelector('.lock-icon');
+    if (lockIcon) lockIcon.remove();
+  });
+
+  // Re-wire nav clicks
+  const navMap = [
+    { id: 'nav-3', idx: 3 }, { id: 'nav-4', idx: 4 }, { id: 'nav-5', idx: 5 },
+    { id: 'nav-6', idx: 6 }, { id: 'nav-7', idx: 7 }, { id: 'nav-8', idx: 8 },
+    { id: 'nav-9', idx: 9 }, { id: 'nav-bonus', idx: 10 }
+  ];
+  navMap.forEach(({ id, idx }) => {
+    const el = document.getElementById(id);
+    if (el) el.onclick = () => showModule(idx, el);
+  });
+
+  const upgrade = document.getElementById('sidebarUpgrade');
+  if (upgrade) upgrade.style.display = 'none';
+
+  if (closeModalFlag) closeModal();
+  loadFullCourseContent();
+}
+
+// ── FULL COURSE CONTENT ──────────────────────
+function loadFullCourseContent() {
+
+  // ── MODULE 3: FREE PATH FIRST ──
+  document.getElementById('module-3').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 03</div>
+      <div class="module-title-wrap"><h2>The Free Path First</h2><p>Net-30 vendor accounts that report to bureaus with zero cost and no personal guarantee.</p></div>
+    </div>
+    <div class="content-block">
+      <h3>Why Start With Net-30 Vendors</h3>
+      <p>A net-30 account means a vendor ships you product or provides services, and gives you 30 days to pay the invoice. When you pay on time, they report that payment history to business credit bureaus — and your business credit profile grows.</p>
+      <p>Critically, many Tier 1 net-30 vendors approve based on your <strong style="color:#fff">business entity information alone</strong> — no personal credit check, no deposit, no personal guarantee. This is your entry point into the business credit system at zero or near-zero cost.</p>
+    </div>
+    <div class="content-block">
+      <h3>How to Use Net-30 Accounts Correctly</h3>
+      <p>The goal isn't to maximize your credit line — it's to generate payment history that reports to bureaus. Buy a small amount each month (even $10–$50), pay the invoice early (before the 30-day mark), and let the reporting do its work.</p>
+      <p>Paying <strong style="color:#fff">early</strong> is what builds a PAYDEX score above 80. On-time payment = 80. Early payment = 90–100. The difference can determine whether Tier 2 vendors approve you at 60 days vs. 120 days.</p>
+    </div>
+    <div class="callout tip">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body"><strong>Free tier strategy</strong>Many Tier 1 vendors sell items you can actually use in your business — office supplies, shipping materials, cleaning supplies, industrial products. Buy small amounts of things you'd buy anyway, pay early, and the account reports as a positive tradeline. Cost: essentially zero.</div>
+    </div>
+    <div class="content-block">
+      <h3>What to Look For in a Tier 1 Vendor</h3>
+      <table class="data-table">
+        <thead><tr><th>Criteria</th><th>Why It Matters</th></tr></thead>
+        <tbody>
+          <tr><td><strong style="color:#fff">Reports to D&B, Experian, or Equifax Business</strong></td><td>Without bureau reporting, the account doesn't build your profile. Confirm this before applying.</td></tr>
+          <tr><td><strong style="color:#fff">No personal credit check</strong></td><td>You want approvals based on business entity, not personal FICO.</td></tr>
+          <tr><td><strong style="color:#fff">No personal guarantee required</strong></td><td>The entire point — your personal assets stay protected.</td></tr>
+          <tr><td><strong style="color:#fff">Net-30 terms (not net-60 or credit card)</strong></td><td>Net-30 generates faster payment history cycles than longer terms.</td></tr>
+          <tr><td><strong style="color:#fff">Minimum purchase requirement is low ($0–$50)</strong></td><td>You want to use the account regularly without unnecessary spend.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(2, document.getElementById('nav-3'))">← Module 02</button>
+      <button class="btn btn-primary" onclick="showModule(4, document.getElementById('nav-4'))">Next: Business Credit Profile →</button>
+    </div>
+  `;
+
+  // ── MODULE 4: BUSINESS CREDIT PROFILE ──
+  document.getElementById('module-4').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 04</div>
+      <div class="module-title-wrap"><h2>Building Your Business Credit Profile</h2><p>How to get listed on all three business bureaus, monitor your scores, and understand what lenders see.</p></div>
+    </div>
+    <div class="content-block">
+      <h3>The Three Business Credit Bureaus</h3>
+      <p>Each bureau maintains an independent file on your business. Lenders may check one, two, or all three. Your goal is to appear on all three with positive payment history. Here's how each one works and what you need to do.</p>
+      <div class="card-grid">
+        <div class="card"><div class="card-icon">📋</div><h4>Dun & Bradstreet</h4><p>Requires a free DUNS number registration. Without a DUNS, D&B can't track your accounts. Get yours at dnb.com — free, takes 1–5 days.</p></div>
+        <div class="card"><div class="card-icon">📊</div><h4>Experian Business</h4><p>Creates a file automatically when creditors report. Monitor your Intelliscore at businesscredit.experianplc.com. No registration required — just reporting.</p></div>
+        <div class="card"><div class="card-icon">📈</div><h4>Equifax Business</h4><p>Similar to Experian — file is created as accounts report. Monitor via equifax.com/business. Some lenders weight this more than others for larger credit decisions.</p></div>
+      </div>
+    </div>
+    <div class="callout warn">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body"><strong>Don't pay for bureau monitoring yet</strong>Paid monitoring services (CreditSafe, D&B Credit Monitor, etc.) cost $30–$150/month. In the early stages, they show you minimal information because your file is thin. Use free monitoring options first and invest in paid monitoring only when you have a substantial profile to protect.</div>
+    </div>
+    <div class="content-block">
+      <h3>How Long Until a Score Appears</h3>
+      <table class="data-table">
+        <thead><tr><th>Bureau</th><th>Trigger</th><th>Timeline</th></tr></thead>
+        <tbody>
+          <tr><td><strong style="color:#fff">Dun & Bradstreet (PAYDEX)</strong></td><td>3+ accounts reporting, 2 payment cycles each</td><td>60–90 days from first payment</td></tr>
+          <tr><td><strong style="color:#fff">Experian Business</strong></td><td>2+ accounts with payment history</td><td>45–75 days</td></tr>
+          <tr><td><strong style="color:#fff">Equifax Business</strong></td><td>Varies by lender reporting frequency</td><td>60–120 days</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(3, document.getElementById('nav-3'))">← Module 03</button>
+      <button class="btn btn-primary" onclick="showModule(5, document.getElementById('nav-5'))">Next: The No-PG Vendor Ladder →</button>
+    </div>
+  `;
+
+  // ── MODULE 5: NO-PG VENDOR LADDER ──
+  document.getElementById('module-5').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 05</div>
+      <div class="module-title-wrap"><h2>The No-PG Vendor Ladder</h2><p>The four-tier system — from starter net-30 accounts to business credit cards with no personal guarantee.</p></div>
+    </div>
+    <div class="content-block">
+      <h3>Why the Tier System Exists</h3>
+      <p>Business credit vendors and lenders use your existing business credit profile to decide whether to extend new credit. Tier 1 vendors approve on entity alone. Tier 2 vendors want to see Tier 1 history. Tier 3 requires Tier 2. This ladder structure means you cannot skip steps — but it also means each approval makes the next one easier.</p>
+    </div>
+    <div class="content-block">
+      <h3>The Four Tiers — What Each Unlocks</h3>
+      <table class="data-table">
+        <thead><tr><th>Tier</th><th>Account Type</th><th>Approval Requirement</th><th>Typical Limit</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="badge green">Tier 1</span></td>
+            <td>Net-30 vendor accounts (office, shipping, industrial)</td>
+            <td>Business entity only — no personal credit check</td>
+            <td>$100 – $1,500</td>
+          </tr>
+          <tr>
+            <td><span class="badge blue">Tier 2</span></td>
+            <td>Retail store credit (business divisions)</td>
+            <td>3+ Tier 1 accounts, 2+ payment cycles, PAYDEX 70+</td>
+            <td>$500 – $5,000</td>
+          </tr>
+          <tr>
+            <td><span class="badge yellow">Tier 3</span></td>
+            <td>Fleet cards, fuel accounts, larger store credit</td>
+            <td>Established business profile, PAYDEX 75+, Experian score 70+</td>
+            <td>$1,000 – $15,000</td>
+          </tr>
+          <tr>
+            <td><span class="badge red">Tier 4</span></td>
+            <td>Business Visa/MC with no personal guarantee</td>
+            <td>Strong multi-bureau profile, PAYDEX 80+, 2+ years history</td>
+            <td>$5,000 – $50,000+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout tip">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body"><strong>The most common mistake</strong>Applying for Tier 2 or Tier 3 accounts before Tier 1 history is fully established. Even one early rejection can slow your profile by 30–60 days. Follow the sequence exactly. Patience in the first 90 days pays dividends at Tier 4.</div>
+    </div>
+    <div class="content-block">
+      <h3>Tier 1 Timing: When to Apply for Tier 2</h3>
+      <p>Wait until you have at least 3 Tier 1 accounts, each with 2 completed payment cycles (60 days minimum), and your PAYDEX score has appeared and reached 70+. Then — and only then — move to Tier 2 applications. The Bonus module includes the full vendor list organized by tier.</p>
+    </div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(4, document.getElementById('nav-4'))">← Module 04</button>
+      <button class="btn btn-primary" onclick="showModule(6, document.getElementById('nav-6'))">Next: Bad Credit Workaround →</button>
+    </div>
+  `;
+
+  // ── MODULE 6: BAD CREDIT WORKAROUND ──
+  document.getElementById('module-6').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 06</div>
+      <div class="module-title-wrap"><h2>Bad Credit? Here's Your Workaround</h2><p>How to start building business credit even with a sub-600 personal FICO score.</p></div>
+    </div>
+    <div class="content-block">
+      <h3>Why Personal Credit Doesn't Have to Stop You</h3>
+      <p>Tier 1 vendor accounts don't check personal credit. That's the entire opportunity. Someone with a 520 FICO score can open Tier 1 accounts today, start building a PAYDEX score, and begin climbing the ladder — all while their personal credit remains exactly where it is.</p>
+      <p>The separation between personal and business credit is legal and permanent as long as you maintain it correctly. The business's credit decisions and the individual's credit decisions are made by completely different bureaus using completely different data.</p>
+    </div>
+    <div class="content-block">
+      <h3>The Legal Separation Strategy</h3>
+      <ul class="checklist">
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span>Every business purchase goes through a business account — never personal cards</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span>Every vendor or creditor sees the EIN first, not your SSN</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span>Business bank account has regular activity — not dormant</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span>All vendor applications list business address, not home address</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span>Business income and personal income are accounted for separately</li>
+      </ul>
+    </div>
+    <div class="callout danger">
+      <div class="callout-icon">🚨</div>
+      <div class="callout-body"><strong>The separation killer</strong>Mixing business and personal finances — even occasionally — weakens your legal separation argument and can cause vendors to pull personal credit on future applications. Once you start, stay disciplined about keeping everything separate.</div>
+    </div>
+    <div class="content-block">
+      <h3>Entry Points That Ignore Personal FICO</h3>
+      <p>Beyond Tier 1 vendor accounts, there are a small number of business credit products designed to approve on business profile and revenue alone — specifically for businesses with established entity history but poor personal credit. These are detailed in Module 05 (vendor ladder) and the Bonus vendor list. The key criteria they look at instead: business age, business bank account balance, monthly revenue, and existing business tradelines.</p>
+    </div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(5, document.getElementById('nav-5'))">← Module 05</button>
+      <button class="btn btn-primary" onclick="showModule(7, document.getElementById('nav-7'))">Next: 90-Day Fast Track →</button>
+    </div>
+  `;
+
+  // ── MODULE 7: 90-DAY FAST TRACK ──
+  document.getElementById('module-7').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 07</div>
+      <div class="module-title-wrap"><h2>The 90-Day Fast Track Playbook</h2><p>The exact sequence, week by week, to build a fundable business credit profile as fast as possible.</p></div>
+    </div>
+    <div class="content-block">
+      <h3>The 90-Day Roadmap</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="time-label">Week 1–2</div>
+          <h4>Foundation Setup</h4>
+          <p>Complete the full entity credibility checklist from Module 02. Obtain DUNS number. Open business bank account if not done. Verify business phone is 411-listed. Set up domain email.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time-label">Week 2–4</div>
+          <h4>Open 3–5 Tier 1 Accounts</h4>
+          <p>Apply for 3–5 Tier 1 net-30 vendor accounts from the Bonus vendor list. Make a small first purchase on each. Do NOT apply for anything beyond Tier 1 yet.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time-label">Day 30</div>
+          <h4>First Payment Cycle — Pay Early</h4>
+          <p>Pay all Tier 1 invoices 5–10 days before the due date. Early payment is what builds PAYDEX above 80. On-time is not enough for the accelerated sequence.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time-label">Day 45–60</div>
+          <h4>Check PAYDEX / Experian Business</h4>
+          <p>By day 45–60, a PAYDEX score should be appearing. If it hasn't, verify that your vendors are reporting correctly. Check your D&B file directly for any reporting issues.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time-label">Day 60</div>
+          <h4>Second Payment Cycle — Pay Early Again</h4>
+          <p>Complete the second early-payment cycle on all Tier 1 accounts. Two completed cycles with early payment typically brings PAYDEX to 80+.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time-label">Day 60–75</div>
+          <h4>Apply for Tier 2 Accounts</h4>
+          <p>With 3+ Tier 1 accounts and PAYDEX 80+, begin Tier 2 applications. Apply for 2–3 Tier 2 accounts using the vendor list. Do not apply for more than 3 in a 30-day window.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time-label">Day 75–90</div>
+          <h4>Tier 2 First Purchases + Payment Prep</h4>
+          <p>Make small purchases on Tier 2 accounts. Set payment reminders to pay early. Continue making regular small purchases on all Tier 1 accounts to maintain activity.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time-label">Day 90</div>
+          <h4>Profile Assessment + Tier 3 Planning</h4>
+          <p>At 90 days with the correct execution, you should have: 5+ accounts across Tier 1–2, PAYDEX 80+, Experian Business score established, Equifax Business file active. Tier 3 applications become viable at this point.</p>
+        </div>
+      </div>
+    </div>
+    <div class="callout info">
+      <div class="callout-icon">ℹ️</div>
+      <div class="callout-body"><strong>What if an account doesn't report?</strong>Some vendors take 30–60 days to report. If an account hasn't appeared on your bureau profile after 60 days, contact the vendor's credit department directly and ask them to confirm they reported the account. Most will correct this quickly.</div>
+    </div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(6, document.getElementById('nav-6'))">← Module 06</button>
+      <button class="btn btn-primary" onclick="showModule(8, document.getElementById('nav-8'))">Next: Bank Relationships →</button>
+    </div>
+  `;
+
+  // ── MODULE 8: BANK RELATIONSHIPS ──
+  document.getElementById('module-8').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 08</div>
+      <div class="module-title-wrap"><h2>Bank Relationships & Credit Lines</h2><p>Moving from vendor accounts to revolving credit lines and business credit cards without a personal guarantee.</p></div>
+    </div>
+    <div class="content-block">
+      <h3>The Bank Relationship Strategy</h3>
+      <p>Once your business credit profile is established with 3+ months of clean history across multiple bureaus, you become eligible for the most valuable products: revolving business credit lines and business credit cards without a personal guarantee.</p>
+      <p>The fastest path to these products is through banks and credit unions where your business already has a deposit relationship. A bank that holds your business checking account has visibility into your business's cash flow — information that supplements your bureau profile and often tips marginal approvals in your favor.</p>
+    </div>
+    <div class="content-block">
+      <h3>How to Build a Bank Relationship That Leads to Credit</h3>
+      <div class="card-grid">
+        <div class="card"><div class="card-icon">🏦</div><h4>Maintain Active Balances</h4><p>A business checking account with consistent positive balances signals a healthy business. Keep it active with regular deposits and transactions.</p></div>
+        <div class="card"><div class="card-icon">📞</div><h4>Talk to Your Business Banker</h4><p>Most branches have a dedicated small business banker. Introduce yourself, explain your business, and ask about business credit products. Relationships move decisions.</p></div>
+        <div class="card"><div class="card-icon">💳</div><h4>Start With a Business CD</h4><p>Some banks offer secured business credit lines backed by a business CD. This is different from a personal secured card — it builds your profile with the bank and doesn't require a PG in most cases.</p></div>
+        <div class="card"><div class="card-icon">📈</div><h4>Revenue-Based Products</h4><p>Fintech lenders (Kabbage, Bluevine, Fundbox) underwrite based on business bank account activity and revenue — not personal credit. These often don't require a PG and report to business bureaus.</p></div>
+      </div>
+    </div>
+    <div class="content-block">
+      <h3>Timing for Tier 4 Applications</h3>
+      <p>Business credit cards without a personal guarantee (true Tier 4 products) typically require a business that is 2+ years old with a strong multi-bureau profile. If your business is under 2 years old, the focus should be on building the profile so that when you hit the 2-year mark, Tier 4 approvals follow quickly.</p>
+      <p>Some newer business credit programs — particularly from fintech lenders and charge card products — approve businesses with 1+ year of history and strong cash flow. These are worth exploring once your Tier 1–3 profile is established.</p>
+    </div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(7, document.getElementById('nav-7'))">← Module 07</button>
+      <button class="btn btn-primary" onclick="showModule(9, document.getElementById('nav-9'))">Next: Protect What You Built →</button>
+    </div>
+  `;
+
+  // ── MODULE 9: PROTECT WHAT YOU BUILT ──
+  document.getElementById('module-9').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">Module 09</div>
+      <div class="module-title-wrap"><h2>Protecting What You Built</h2><p>The corporate veil, ongoing monitoring, and the mistakes that undo months of progress.</p></div>
+    </div>
+    <div class="content-block">
+      <h3>Maintaining the Corporate Veil</h3>
+      <p>The "corporate veil" is the legal separation between you and your business. If it's pierced — by a court or by a lender's underwriter — the business credit separation you've built can collapse, and creditors can pursue your personal assets.</p>
+      <p>The corporate veil is maintained by treating the business like a real, separate entity: separate bank accounts, separate contracts, separate taxes, documented decisions. It's not complicated, but it requires consistency.</p>
+      <ul class="checklist">
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span>Never comingle business and personal funds</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span>Hold annual meetings (even if you're a single-member LLC)</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span>Maintain a registered agent and keep it current</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span>Sign all business contracts as "Name, Title, Business Name" — not personally</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span>File business taxes separately from personal taxes</li>
+        <li onclick="toggleCheck(this)"><span class="checkbox"></span>Keep an operating agreement (LLC) or bylaws (Corp) updated</li>
+      </ul>
+    </div>
+    <div class="content-block">
+      <h3>Ongoing Bureau Monitoring</h3>
+      <p>Once your profile is established, monitor it quarterly at minimum. Errors on business credit files are more common than most people realize — a vendor can report incorrect payment dates, a wrong account balance, or even report to the wrong file entirely.</p>
+      <p>Both D&B and Experian Business offer free monitoring tools. Equifax Business has a paid option. Dispute errors directly with each bureau — the process is similar to personal credit disputes and most are resolved within 30 days.</p>
+    </div>
+    <div class="callout warn">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body"><strong>The biggest mistake after building your profile</strong>Going dormant. If you stop using your business credit accounts — even the Tier 1 vendor accounts — they may stop reporting. Inactivity can cause scores to stagnate or decline. Keep all accounts active with regular small purchases, even after you've moved to higher tiers.</div>
+    </div>
+    <div class="content-block">
+      <h3>You're Done — Here's What Comes Next</h3>
+      <p>With a complete business credit profile across all three bureaus, a PAYDEX score of 80+, and active accounts across Tier 1–3, you are in the top tier of small business creditworthiness. You have access to credit products that most business owners never know exist — on the business's terms, not yours personally.</p>
+      <p>Check your Bonus module for the full No-PG Vendor Master List organized by tier. Refer back to it whenever you're ready to apply for the next account.</p>
+    </div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(8, document.getElementById('nav-8'))">← Module 08</button>
+      <button class="btn btn-primary" onclick="showModule(10, document.getElementById('nav-bonus'))">Bonus: Vendor Master List →</button>
+    </div>
+  `;
+
+  // ── BONUS: VENDOR MASTER LIST ──
+  document.getElementById('module-bonus').innerHTML = `
+    <div class="module-header">
+      <div class="module-num">★ Bonus</div>
+      <div class="module-title-wrap"><h2>No-PG Vendor Master List</h2><p>Your complete reference: vendors organized by tier, bureau reporting, and approval requirements.</p></div>
+    </div>
+    <div class="content-block">
+      <h3>How to Use This List</h3>
+      <p>This list is organized by tier. Start at Tier 1. Apply for 3–5 accounts and build 2 payment cycles before moving to Tier 2. Use the "Reports To" column to confirm the account will build your target bureau profile. Use the "First Purchase" column to plan your minimum spend.</p>
+    </div>
+    <div class="content-block">
+      <h3><span class="badge green">Tier 1</span> — Starter Vendors (No Credit Check, No PG)</h3>
+      <table class="data-table">
+        <thead><tr><th>Category</th><th>Reports To</th><th>Min. Purchase</th><th>Terms</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><strong style="color:#fff">Office/Cleaning Supplies</strong></td><td><span class="badge green">D&B</span></td><td>$0</td><td>Net-30</td><td>Apply using EIN + business address. Instant approval for established entities.</td></tr>
+          <tr><td><strong style="color:#fff">Industrial/Safety Supply</strong></td><td><span class="badge green">D&B</span> <span class="badge blue">Exp</span></td><td>$0</td><td>Net-30</td><td>Approve new entities. No minimum order. Reports within 30 days.</td></tr>
+          <tr><td><strong style="color:#fff">Shipping & Packaging</strong></td><td><span class="badge green">D&B</span></td><td>$0</td><td>Net-30</td><td>High approval rate. Pay early for maximum PAYDEX impact.</td></tr>
+          <tr><td><strong style="color:#fff">Business Forms / Print</strong></td><td><span class="badge blue">Exp</span></td><td>$25</td><td>Net-30</td><td>Good for Experian Business file establishment. Reports monthly.</td></tr>
+          <tr><td><strong style="color:#fff">Automotive Supplies</strong></td><td><span class="badge green">D&B</span></td><td>$0</td><td>Net-30</td><td>Broad product range. Easy approval for any legitimate LLC.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout tip" style="margin-top:1rem;"><div class="callout-icon">📌</div><div class="callout-body"><strong>Get the full vendor list with specific company names</strong>The exact vendor names, application URLs, and current approval requirements are provided in the downloadable PDF companion to this course. Check your enrollment confirmation email for the download link.</div></div>
+    </div>
+    <div class="content-block">
+      <h3><span class="badge blue">Tier 2</span> — Retail & Store Credit</h3>
+      <table class="data-table">
+        <thead><tr><th>Category</th><th>Reports To</th><th>Requirement</th><th>Typical Limit</th></tr></thead>
+        <tbody>
+          <tr><td><strong style="color:#fff">Office Retail (Business Account)</strong></td><td><span class="badge green">D&B</span> <span class="badge blue">Exp</span></td><td>3+ Tier 1, PAYDEX 70+</td><td>$1,000 – $3,000</td></tr>
+          <tr><td><strong style="color:#fff">Electronics Retail (Business)</strong></td><td><span class="badge blue">Exp</span></td><td>3+ Tier 1, entity 90+ days</td><td>$500 – $2,000</td></tr>
+          <tr><td><strong style="color:#fff">Home Improvement (Business)</strong></td><td><span class="badge green">D&B</span></td><td>PAYDEX 70+, 2+ Tier 1</td><td>$500 – $5,000</td></tr>
+          <tr><td><strong style="color:#fff">Restaurant Supply</strong></td><td><span class="badge green">D&B</span> <span class="badge blue">Exp</span></td><td>3+ Tier 1, entity 60+ days</td><td>$1,000 – $4,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="content-block">
+      <h3><span class="badge yellow">Tier 3</span> — Fleet & Fuel Accounts</h3>
+      <table class="data-table">
+        <thead><tr><th>Category</th><th>Reports To</th><th>Requirement</th><th>Typical Limit</th></tr></thead>
+        <tbody>
+          <tr><td><strong style="color:#fff">Business Fuel Card</strong></td><td><span class="badge green">D&B</span> <span class="badge blue">Exp</span> <span class="badge yellow">Eqfx</span></td><td>PAYDEX 75+, 5+ accounts</td><td>$2,000 – $10,000</td></tr>
+          <tr><td><strong style="color:#fff">Fleet Management Account</strong></td><td><span class="badge green">D&B</span></td><td>Established profile, revenue verification</td><td>$5,000 – $15,000</td></tr>
+          <tr><td><strong style="color:#fff">Wholesale Club (Business)</strong></td><td><span class="badge blue">Exp</span> <span class="badge yellow">Eqfx</span></td><td>PAYDEX 75+, 4+ Tier 1–2</td><td>$1,000 – $8,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="content-block">
+      <h3><span class="badge red">Tier 4</span> — Business Credit Cards (No PG)</h3>
+      <table class="data-table">
+        <thead><tr><th>Product Type</th><th>Key Requirement</th><th>Reports To</th><th>Typical Limit</th></tr></thead>
+        <tbody>
+          <tr><td><strong style="color:#fff">Business Charge Card (No PG)</strong></td><td>2+ yrs entity, PAYDEX 80+, multi-bureau profile</td><td>All 3 bureaus</td><td>$5,000 – $25,000</td></tr>
+          <tr><td><strong style="color:#fff">Fintech Business Card</strong></td><td>Revenue-based, 1+ yr entity, business bank account</td><td><span class="badge blue">Exp</span> <span class="badge yellow">Eqfx</span></td><td>$2,000 – $20,000</td></tr>
+          <tr><td><strong style="color:#fff">Business Line of Credit</strong></td><td>Strong multi-bureau profile, cash flow documentation</td><td>All 3 bureaus</td><td>$10,000 – $50,000+</td></tr>
+        </tbody>
+      </table>
+      <div class="callout info" style="margin-top:1rem;"><div class="callout-icon">📥</div><div class="callout-body"><strong>Download the full list</strong>The complete vendor list with specific company names, current application links, and approval scripts is in the PDF companion document sent to your enrollment email. If you didn't receive it, email support@creditfasttrack10x.live.</div></div>
+    </div>
+    <div class="module-nav">
+      <button class="btn btn-secondary" onclick="showModule(9, document.getElementById('nav-9'))">← Module 09</button>
+      <button class="btn btn-primary" onclick="showModule(0, document.querySelector('.nav-item'))">↩ Back to Start</button>
+    </div>
+  `;
+
+}// end loadFullCourseContent
+
+// ── INIT ─────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof Stripe !== 'undefined') initStripe();
+  checkPurchaseStatus();
+
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  if (scrollBtn) {
+    window.addEventListener('scroll', () => {
+      scrollBtn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+  }
+
+});
+</script>
+
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+</body>
+</html>

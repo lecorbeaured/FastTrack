@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | Credit Fast Track 10X</title>
+<meta name="description" content="Get in touch with Credit Fast Track 10X. Questions about your course, billing, or refunds — we respond within 1 business day.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://creditfasttrack10x.live/contact.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700&display=swap"></noscript>
+
+<style>
+  :root {
+    --ink: #0e0e0e;
+    --paper: #faf8f3;
+    --cream: #f2ede3;
+    --accent: #1a6b3c;
+    --accent-light: #2d9e5c;
+    --gold: #c9922a;
+    --muted: #7a7265;
+    --border: #e0d9cc;
+    --white: #ffffff;
+    --red: #c0392b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-brand span { color: var(--accent); }
+  .nav-back {
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--accent); }
+
+  /* ── PAGE ── */
+  .page {
+    flex: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+    width: 100%;
+  }
+
+  .page-tag {
+    display: inline-block;
+    background: rgba(26,107,60,0.1);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 3px;
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.2;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+
+  .page-sub {
+    color: var(--muted);
+    font-size: 1rem;
+    margin-bottom: 48px;
+    max-width: 520px;
+  }
+
+  /* ── QUICK LINKS ── */
+  .quick-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+  @media (max-width: 480px) { .quick-links { grid-template-columns: 1fr; } }
+
+  .quick-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .quick-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .quick-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .quick-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
+  .quick-title { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+  .quick-desc { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+
+  /* ── FORM ── */
+  .form-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 36px;
+  }
+  @media (max-width: 480px) { .form-card { padding: 24px 20px; } }
+
+  .form-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+  }
+  .form-note {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .form-row { margin-bottom: 20px; }
+  .form-row label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .form-row label .req { color: var(--red); margin-left: 2px; }
+
+  .form-row input,
+  .form-row select,
+  .form-row textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: 'Outfit', sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    appearance: none;
+  }
+  .form-row input:focus,
+  .form-row select:focus,
+  .form-row textarea:focus {
+    border-color: var(--accent);
+    background: var(--white);
+  }
+  .form-row textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+  .form-row select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a7265' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  .form-row-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 480px) { .form-row-grid { grid-template-columns: 1fr; } }
+
+  /* ── HONEYPOT — hidden from humans, catches bots ── */
+  .bot-field { display: none; }
+
+  /* ── SUBMIT ── */
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 8px;
+    letter-spacing: 0.02em;
+  }
+  .submit-btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .form-legal {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── SUCCESS STATE ── */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .success-screen.show { display: block; }
+  .form-fields.hidden { display: none; }
+
+  .success-icon { font-size: 3rem; margin-bottom: 16px; }
+  .success-screen h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .success-screen p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 13px;
+    line-height: 2;
+  }
+  footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  footer a:hover { color: #fff; }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+
+  /* ── SCROLL TO TOP ── */
+  .scroll-top {
+    position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px;
+    border-radius: 50%; background: rgba(26,107,60,0.85); color: #fff;
+    border: none; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; font-size: 1rem; opacity: 0;
+    transform: translateY(10px); transition: opacity 0.3s, transform 0.3s, background 0.2s;
+    z-index: 999; backdrop-filter: blur(4px); box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .scroll-top.visible { opacity: 1; transform: translateY(0); }
+  .scroll-top:hover { background: rgba(26,107,60,1); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-brand">Credit Fast Track <span>10X</span></a>
+  <a href="/" class="nav-back">← Back to home</a>
+</nav>
+
+<main class="page">
+
+  <span class="page-tag">Support</span>
+  <h1>How can we help?</h1>
+  <p class="page-sub">We respond to every message within 1 business day. For fastest help, select the topic that best matches your question.</p>
+
+  <!-- QUICK SELF-SERVE LINKS -->
+  <div class="quick-links">
+    <a href="/course-updated.html" class="quick-card">
+      <div class="quick-icon">📚</div>
+      <div>
+        <div class="quick-label">Access</div>
+        <div class="quick-title">Credit Fast Track 10X</div>
+        <div class="quick-desc">Go directly to your $37 course</div>
+      </div>
+    </a>
+    <a href="/credit-repair-course.html" class="quick-card">
+      <div class="quick-icon">📋</div>
+      <div>
+        <div class="quick-label">Access</div>
+        <div class="quick-title">Credit Repair Accelerator</div>
+        <div class="quick-desc">Go directly to your $127 course</div>
+      </div>
+    </a>
+    <a href="/business-credit-course.html" class="quick-card">
+      <div class="quick-icon">🏢</div>
+      <div>
+        <div class="quick-label">Access</div>
+        <div class="quick-title">Business Credit Unleashed</div>
+        <div class="quick-desc">Go directly to your $197 course</div>
+      </div>
+    </a>
+    <a href="/privacy.html" class="quick-card">
+      <div class="quick-icon">🔒</div>
+      <div>
+        <div class="quick-label">Legal</div>
+        <div class="quick-title">Privacy Policy</div>
+        <div class="quick-desc">How we handle your data</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- CONTACT FORM — Netlify Forms -->
+  <div class="form-card">
+    <h2>Send us a message</h2>
+    <p class="form-note">Refund requests are honored within 30 days of purchase, no questions asked.</p>
+
+    <div class="form-fields" id="formFields">
+
+      <!--
+        Netlify Forms:
+        - data-netlify="true" tells Netlify to capture submissions
+        - name="contact" is the form name shown in your Netlify dashboard
+        - netlify-honeypot="bot-field" filters spam automatically
+        - action="/contact.html?success=true" redirects after submit (JS intercepts first)
+      -->
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        action="/contact.html?success=true"
+        id="contactForm"
+      >
+        <!-- Hidden Netlify fields -->
+        <input type="hidden" name="form-name" value="contact">
+
+        <!-- Honeypot — bots fill this, humans don't see it -->
+        <div class="bot-field">
+          <label>Don't fill this out: <input name="bot-field"></label>
+        </div>
+
+        <div class="form-row-grid">
+          <div class="form-row">
+            <label for="firstName">First Name <span class="req">*</span></label>
+            <input type="text" id="firstName" name="first-name" placeholder="Jane" required autocomplete="given-name">
+          </div>
+          <div class="form-row">
+            <label for="lastName">Last Name <span class="req">*</span></label>
+            <input type="text" id="lastName" name="last-name" placeholder="Smith" required autocomplete="family-name">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="email">Email Address <span class="req">*</span></label>
+          <input type="email" id="email" name="email" placeholder="jane@email.com" required autocomplete="email">
+        </div>
+
+        <div class="form-row">
+          <label for="topic">Topic <span class="req">*</span></label>
+          <select id="topic" name="topic" required>
+            <option value="" disabled selected>Select a topic…</option>
+            <option value="course-access">Course Access Issue</option>
+            <option value="refund">Refund Request</option>
+            <option value="billing">Billing Question</option>
+            <option value="credit-fast-track">Question — Credit Fast Track 10X ($37)</option>
+            <option value="credit-repair">Question — Credit Repair Accelerator ($127)</option>
+            <option value="business-credit">Question — Business Credit Unleashed ($197)</option>
+            <option value="affiliate">Affiliate / Partnership</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="message">Message <span class="req">*</span></label>
+          <textarea id="message" name="message" placeholder="Tell us what you need help with…" required></textarea>
+        </div>
+
+        <div class="form-row">
+          <label for="orderId">Order / Transaction ID <span style="color:var(--muted); font-weight:400;">(optional — speeds up refund requests)</span></label>
+          <input type="text" id="orderId" name="order-id" placeholder="pi_3abc… or ch_3abc…">
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Send Message →</button>
+        <p class="form-legal">We respond within 1 business day · Your info is never shared or sold</p>
+
+      </form>
+    </div>
+
+    <!-- Success State -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">✅</div>
+      <h3>Message received!</h3>
+      <p>Thanks for reaching out. We'll get back to you at your email address within 1 business day.<br><br>
+      If you need a refund, it will be processed within 2–3 business days of our reply.</p>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <p class="footer-brand">Credit Fast Track 10X</p>
+  <nav style="margin-bottom:6px;">
+    <a href="/">Home</a> &nbsp;·&nbsp;
+    <a href="/credit-repair.html">Credit Repair</a> &nbsp;·&nbsp;
+    <a href="/business-credit.html">Business Credit</a>
+  </nav>
+  <p>
+    <a href="/privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="/advertiser-disclosure.html">Advertiser Disclosure</a> &nbsp;·&nbsp;
+    <a href="/editorial-disclosure.html">Editorial Disclosure</a>
+  </p>
+  <p style="margin-top:10px;">© <span id="footer-year"></span> Credit Fast Track 10X · creditfasttrack10x.live</p>
+</footer>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+<script>
+document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+// Scroll to top
+const scrollBtn = document.getElementById('scrollTopBtn');
+window.addEventListener('scroll', () => {
+  scrollBtn.classList.toggle('visible', window.scrollY > 400);
+}, { passive: true });
+
+// Handle form submission — show success state without page reload
+const form = document.getElementById('contactForm');
+const submitBtn = document.getElementById('submitBtn');
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  // Validate
+  const required = form.querySelectorAll('[required]');
+  let valid = true;
+  required.forEach(field => {
+    if (!field.value.trim()) {
+      field.style.borderColor = '#c0392b';
+      valid = false;
+    } else {
+      field.style.borderColor = '';
+    }
+  });
+  if (!valid) return;
+
+  submitBtn.textContent = 'Sending…';
+  submitBtn.disabled = true;
+
+  try {
+    // Encode form data for Netlify
+    const formData = new FormData(form);
+    const encoded = new URLSearchParams(formData).toString();
+
+    const res = await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encoded,
+    });
+
+    if (res.ok) {
+      document.getElementById('formFields').classList.add('hidden');
+      document.getElementById('successScreen').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      throw new Error('Network error');
+    }
+  } catch (err) {
+    // Fallback — let the form submit normally (Netlify handles it server-side)
+    form.submit();
+  }
+});
+
+// Clear red borders on input
+form.querySelectorAll('input, select, textarea').forEach(field => {
+  field.addEventListener('input', () => { field.style.borderColor = ''; });
+});
+
+// Show success if redirected back with ?success=true (fallback for no-JS)
+if (window.location.search.includes('success=true')) {
+  document.getElementById('formFields').classList.add('hidden');
+  document.getElementById('successScreen').classList.add('show');
+}
+</script>
+
+</body>
+</html>
