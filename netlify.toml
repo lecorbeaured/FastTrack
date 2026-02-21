@@ -1,14 +1,24 @@
 [build]
-  publish = "."
+  publish   = "."
   functions = "netlify/functions"
 
-# Route /api/create-payment-intent → serverless function
+# ── API routes ────────────────────────────────────────────────────
 [[redirects]]
   from = "/api/create-payment-intent"
   to   = "/.netlify/functions/create-payment-intent"
   status = 200
 
-# Security & performance headers on all pages
+[[redirects]]
+  from = "/api/verify-token"
+  to   = "/.netlify/functions/verify-token"
+  status = 200
+
+[[redirects]]
+  from = "/api/stripe-webhook"
+  to   = "/.netlify/functions/stripe-webhook"
+  status = 200
+
+# ── Security & performance headers ───────────────────────────────
 [[headers]]
   for = "/*"
   [headers.values]
@@ -18,13 +28,11 @@
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
     Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
 
-# Cache HTML pages — short TTL so updates propagate fast
 [[headers]]
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# Cache static assets aggressively
 [[headers]]
   for = "/*.js"
   [headers.values]
@@ -32,5 +40,20 @@
 
 [[headers]]
   for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.svg"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"

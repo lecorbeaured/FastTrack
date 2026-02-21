@@ -1567,8 +1567,8 @@
     <div class="success-screen" id="successScreen">
       <div class="success-icon">🎉</div>
       <h3>You're In!</h3>
-      <p>Your payment was successful. Check your email for your receipt and access link. Click below to start your first module.</p>
-      <a href="/course" class="btn-access">Start the Course →</a>
+      <p>Your payment was successful! <strong>Check your email</strong> — your personal access link is on its way. It arrives within 1 minute.</p>
+      <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">Didn't get it? Check spam or email support@creditfasttrack10x.live</p>
     </div>
 
     <!-- FORM STATE -->
@@ -1694,7 +1694,7 @@ async function handlePayment() {
     const res = await fetch(PAYMENT_INTENT_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: 6700, currency: 'usd', email, name })
+      body: JSON.stringify({ amount: 6700, currency: 'usd', email, name, product: 'Credit Fast Track 10X' })
     });
 
     const { clientSecret, error: backendError } = await res.json();

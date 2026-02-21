@@ -415,6 +415,73 @@
 </style>
 </head>
 <body>
+<script>
+// ── TOKEN GATE ─────────────────────────────────────────────────────
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const token  = params.get('token');
+
+  // Store token in sessionStorage so page refreshes keep access
+  if (token) {
+    sessionStorage.setItem('cft_token', token);
+  }
+
+  const storedToken = token || sessionStorage.getItem('cft_token');
+
+  if (!storedToken) {
+    showGate('no_token');
+    return;
+  }
+
+  // Verify token with backend
+  fetch('/api/verify-token?token=' + encodeURIComponent(storedToken))
+    .then(r => r.json())
+    .then(data => {
+      if (data.valid) {
+        // Valid — clean URL and show course
+        if (token) {
+          const clean = window.location.pathname;
+          window.history.replaceState({}, '', clean);
+        }
+        document.getElementById('token-gate')?.remove();
+        document.getElementById('course-content')?.style.setProperty('display', 'block');
+      } else {
+        showGate(data.reason || 'invalid');
+      }
+    })
+    .catch(() => {
+      // Network error — fail open to avoid locking out legit buyers
+      document.getElementById('token-gate')?.remove();
+      document.getElementById('course-content')?.style.setProperty('display', 'block');
+    });
+
+  function showGate(reason) {
+    document.getElementById('token-gate')?.style.setProperty('display', 'flex');
+    document.getElementById('course-content')?.style.setProperty('display', 'none');
+  }
+})();
+</script>
+
+<div id="token-gate" style="display:none; position:fixed; inset:0; background:#0e0e0e; z-index:9999; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:2rem; font-family:'Outfit',sans-serif;">
+  <div style="max-width:440px; background:#1a1a1a; border:1px solid #333; border-radius:16px; padding:2.5rem;">
+    <div style="font-size:2.5rem; margin-bottom:1rem;">🔒</div>
+    <h2 style="color:#fff; font-size:1.4rem; margin-bottom:0.75rem;">Course Access Required</h2>
+    <p style="color:rgba(255,255,255,0.55); font-size:0.9rem; line-height:1.7; margin-bottom:1.5rem;">
+      Your personal access link was sent to your email after purchase.<br>
+      Check your inbox (and spam folder) for a message from<br>
+      <strong style="color:#fff;">support@creditfasttrack10x.live</strong>
+    </p>
+    <a href="/business-credit.html" style="display:inline-block; background:#1a6b3c; color:#fff; text-decoration:none; padding:0.8rem 1.75rem; border-radius:8px; font-weight:700; font-size:0.9rem; margin-bottom:1rem;">
+      ← Enroll Now
+    </a>
+    <p style="color:rgba(255,255,255,0.35); font-size:0.78rem; margin:0;">
+      Already purchased? <a href="mailto:support@creditfasttrack10x.live" style="color:#2d9e5c;">Email us</a> and we'll resend your link.
+    </p>
+  </div>
+</div>
+
+<div id="course-content" style="display:none;">
+
 
 <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
 
@@ -1309,3 +1376,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+</div><!-- /course-content -->
