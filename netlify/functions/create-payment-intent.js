@@ -2,7 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 // Product registry — amounts in cents
 const PRODUCTS = {
-  'Credit Fast Track 10X':          { amount: 3700,  currency: 'usd', name: 'Credit Fast Track 10X' },
+  'Credit Fast Track 10X':          { amount: 6700,  currency: 'usd', name: 'Credit Fast Track 10X' },
   'Credit Repair Accelerator':      { amount: 12700, currency: 'usd', name: 'Credit Repair Accelerator' },
   'Business Credit Unleashed':      { amount: 19700, currency: 'usd', name: 'Business Credit Unleashed' },
 };
