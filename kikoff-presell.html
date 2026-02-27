@@ -793,6 +793,34 @@
   footer .footer-brand { font-family: 'Playfair Display', serif; color: #fff; font-size: 1rem; margin-bottom: 8px; display: block; }
   footer nav { background: none !important; border: none !important; padding: 0 !important; display: block !important; position: static !important; box-shadow: none !important; margin-bottom: 4px; }
 </style>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DZPEXPBG11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DZPEXPBG11', {
+      page_title: document.title,
+      page_location: window.location.href,
+      send_page_view: true
+    });
+
+    // ── Affiliate link click tracking ──────────────────────────────
+    // Fires a GA4 event every time a Kikoff or IdentityIQ affiliate
+    // link is clicked — shows up in GA under Events → affiliate_click
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('a[href*="kikoff.pxf.io"], a[href*="identityiq.com"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          var partner = link.href.includes('kikoff') ? 'Kikoff' : 'IdentityIQ';
+          gtag('event', 'affiliate_click', {
+            affiliate_partner: partner,
+            link_url: link.href,
+            page_path: window.location.pathname
+          });
+        });
+      });
+    });
+  </script>
 </head>
 <body>
 

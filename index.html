@@ -1132,6 +1132,34 @@
   ]
 }
 </script>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DZPEXPBG11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DZPEXPBG11', {
+      page_title: document.title,
+      page_location: window.location.href,
+      send_page_view: true
+    });
+
+    // ── Affiliate link click tracking ──────────────────────────────
+    // Fires a GA4 event every time a Kikoff or IdentityIQ affiliate
+    // link is clicked — shows up in GA under Events → affiliate_click
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('a[href*="kikoff.pxf.io"], a[href*="identityiq.com"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          var partner = link.href.includes('kikoff') ? 'Kikoff' : 'IdentityIQ';
+          gtag('event', 'affiliate_click', {
+            affiliate_partner: partner,
+            link_url: link.href,
+            page_path: window.location.pathname
+          });
+        });
+      });
+    });
+  </script>
 </head>
 <body>
 
