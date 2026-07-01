@@ -1063,7 +1063,7 @@
   <div class="article-meta">
     <span>By <strong>Credit Fast Track 10X</strong></span>
     <span>·</span>
-    <span>Updated February 2026</span>
+    <span>Updated February <span class="dyn-year"></span></span>
     <span>·</span>
     <span>12 min read</span>
   </div>
@@ -1571,8 +1571,8 @@ function initReveal() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const yearEl = document.getElementById('footer-year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  const yr = new Date().getFullYear();
+  document.querySelectorAll('#footer-year, .dyn-year').forEach(el => el.textContent = yr);
 
   const scrollBtn = document.getElementById('scrollTopBtn');
   if (scrollBtn) {

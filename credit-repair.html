@@ -517,13 +517,13 @@
 ══════════════════════════════════════════ -->
 
 <header class="article-hero">
-  <span class="article-tag">Free Guide · 2026</span>
+  <span class="article-tag">Free Guide · <span class="dyn-year"></span></span>
   <h1>How to Dispute Credit Report Errors, Understand Collections, and Get Your Free Credit Report</h1>
   <p class="lead">Most people have errors on their credit report and don't know it. Under federal law, you have the right to dispute anything — and the bureau has 30 days to verify it or remove it. No explanations required. Here's how the whole system works.</p>
   <div class="article-meta">
     <span>By <strong>Credit Fast Track 10X</strong></span>
     <span>·</span>
-    <span>Updated February 2026</span>
+    <span>Updated February <span class="dyn-year"></span></span>
     <span>·</span>
     <span>14 min read</span>
   </div>
@@ -1067,8 +1067,8 @@ function initReveal() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const yearEl = document.getElementById('footer-year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  const yr = new Date().getFullYear();
+  document.querySelectorAll('#footer-year, .dyn-year').forEach(el => el.textContent = yr);
 
   const scrollBtn = document.getElementById('scrollTopBtn');
   if (scrollBtn) {
