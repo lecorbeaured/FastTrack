@@ -10,8 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Credit Repair Accelerator | Course</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-<script src="https://js.stripe.com/v3/">  document.getElementById('footer-year').textContent = new Date().getFullYear();
-</script>
+<script src="https://js.stripe.com/v3/"></script>
 <style>
   :root {
     --bg: #0e0a0a;
@@ -392,7 +391,7 @@
   <a class="nav-item" onclick="showModule(2,this)" href="#"><span class="num">02</span> Read Your Report<span class="check">✓</span></a>
   <a class="nav-item" onclick="showModule(3,this)" href="#"><span class="num">03</span> What Is a Collection<span class="check">✓</span></a>
 
-  <div class="nav-section-label">Full Course — $127</div>
+  <div class="nav-section-label">Full Course — $97</div>
   <a class="nav-item locked-nav" id="nav-4" onclick="requiresUnlock(event)"><span class="num">04</span> The Dispute System<span class="lock-icon">🔒</span></a>
   <a class="nav-item locked-nav" id="nav-5" onclick="requiresUnlock(event)"><span class="num">05</span> The Maximum Method<span class="lock-icon">🔒</span></a>
   <a class="nav-item locked-nav" id="nav-6" onclick="requiresUnlock(event)"><span class="num">06</span> Dispute Letters That Work<span class="lock-icon">🔒</span></a>
@@ -403,7 +402,7 @@
   <a class="nav-item locked-nav" id="nav-bonus" onclick="requiresUnlock(event)"><span class="num">★</span> Letter Template Pack<span class="lock-icon">🔒</span></a>
 
   <div class="sidebar-upgrade" id="sidebarUpgrade">
-    <p>Unlock all modules + <strong>6 dispute letter templates</strong> for one-time <strong>$127</strong>.</p>
+    <p>Unlock all modules + <strong>6 dispute letter templates</strong> for one-time <strong>$97</strong>.</p>
     <button class="btn-upgrade-sm" onclick="openModal()">Unlock Full Course →</button>
   </div>
 
@@ -418,7 +417,7 @@
   <section class="hero">
     <div class="hero-eyebrow">Credit Repair Course</div>
     <h1>Dispute. Delete. <span>Rebuild.</span></h1>
-    <p class="hero-sub">Modules 00–03 are free. Unlock the full dispute system, collection takedown playbook, and letter templates for a one-time $127.</p>
+    <p class="hero-sub">Modules 00–03 are free. Unlock the full dispute system, collection takedown playbook, and letter templates for a one-time $97.</p>
     <div class="free-badge">✦ Free access to the first 4 modules — no account required</div>
   </section>
 
@@ -611,10 +610,10 @@
             <li>Bonus — 6 Ready-to-Send Dispute Letter Templates</li>
           </ul>
           <div class="paywall-price">
-            <div class="now">$127</div>
+            <div class="now">$97</div>
             <div class="once">one-time · lifetime access</div>
           </div>
-          <button class="btn-unlock" onclick="openModal()">🔒 Unlock All Modules — $127</button>
+          <button class="btn-unlock" onclick="openModal()">🔒 Unlock All Modules — $97</button>
           <div class="paywall-guarantee">🛡️ 30-Day Money-Back Guarantee · No Questions Asked</div>
         </div>
       </div>
@@ -638,13 +637,13 @@
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-form" id="modalForm">
       <h3>Credit Repair Accelerator</h3>
-      <p class="modal-sub">One-time $127 · Lifetime access · 30-day money-back guarantee</p>
+      <p class="modal-sub">One-time $97 · Lifetime access · 30-day money-back guarantee</p>
       <div class="form-group"><label>Full Name</label><input type="text" id="fullName" placeholder="Jane Smith" autocomplete="name"></div>
       <div class="form-group"><label>Email Address</label><input type="email" id="emailAddr" placeholder="jane@email.com" autocomplete="email"></div>
       <div class="form-group"><label>Card Details</label><div id="card-element"></div></div>
       <div id="card-errors" role="alert"></div>
-      <div class="modal-total"><span>Credit Repair Accelerator — Full Access</span><span class="amount">$127</span></div>
-      <button class="btn-pay" id="payBtn" onclick="handlePayment()">🔒 Pay $127 — Unlock Full Course</button>
+      <div class="modal-total"><span>Credit Repair Accelerator — Full Access</span><span class="amount">$97</span></div>
+      <button class="btn-pay" id="payBtn" onclick="handlePayment()">🔒 Pay $97 — Unlock Full Course</button>
       <div class="modal-secure">🔒 Secured by Stripe · 256-bit SSL · 30-Day Guarantee</div>
     </div>
     <div class="success-screen" id="successScreen">
@@ -719,11 +718,11 @@ async function handlePayment() {
   if (!stripe || !cardElement) { showSuccess(); return; }
   errEl.textContent = ''; btn.textContent = 'Processing...'; btn.classList.add('loading'); btn.disabled = true;
   try {
-    const res = await fetch(PAYMENT_INTENT_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ amount: 12700, currency: 'usd', email, name, product: 'Credit Repair Accelerator' }) });
+    const res = await fetch(PAYMENT_INTENT_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ amount: 9700, currency: 'usd', email, name, product: 'Credit Repair Accelerator' }) });
     const { clientSecret, error: backendError } = await res.json();
     if (backendError) throw new Error(backendError);
     const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, { payment_method: { card: cardElement, billing_details: { name, email } } });
-    if (error) { errEl.textContent = error.message; btn.textContent = '🔒 Pay $127 — Unlock Full Course'; btn.classList.remove('loading'); btn.disabled = false; }
+    if (error) { errEl.textContent = error.message; btn.textContent = '🔒 Pay $97 — Unlock Full Course'; btn.classList.remove('loading'); btn.disabled = false; }
     else if (paymentIntent.status === 'succeeded') { showSuccess(); }
   } catch(err) { console.warn('Backend unavailable — demo mode'); showSuccess(); }
 }
@@ -917,7 +916,7 @@ function loadFullCourseContent() {
           <div class="upsell-title">Build to 700+ — The Complete System</div>
           <p class="upsell-desc">Credit Repair Accelerator cleans up your report. Credit Fast Track 10X builds what comes next — from zero or cleaned-up history to 700+ using a proven 9-module system covering secured cards, authorized user strategy, utilization management, and the 30-60-90 day action plan.</p>
           <p class="upsell-desc" style="margin-bottom: 0.75rem;">If you've already started disputing, you're 30–60 days away from needing exactly what Credit Fast Track 10X teaches. Get it now while the momentum is fresh.</p>
-          <a href="/" target="_blank" class="upsell-btn blue-btn">Get Credit Fast Track 10X — $67 →</a>
+          <a href="/" target="_blank" class="upsell-btn blue-btn">Get Credit Fast Track 10X — $47 →</a>
         </div>
       </div>
 
@@ -1066,7 +1065,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <footer>
   <p class="footer-brand">Credit Fast Track 10X</p>
   <nav>
-    <a href="/">Personal Credit — $67</a> &nbsp;·&nbsp;
+    <a href="/">Personal Credit — $47</a> &nbsp;·&nbsp;
     <a href="/business-credit.html">Business Credit — $197</a> &nbsp;·&nbsp;
     <a href="/kikoff-presell.html">Build Credit Free</a> &nbsp;·&nbsp;
     <a href="/identityiq.html">Credit Monitoring</a>
