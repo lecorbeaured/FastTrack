@@ -23,6 +23,11 @@
   to   = "/.netlify/functions/subscribe"
   status = 200
 
+[[redirects]]
+  from = "/blog"
+  to   = "/blog/index.html"
+  status = 200
+
 # ── Security & performance headers ───────────────────────────────
 [[headers]]
   for = "/*"

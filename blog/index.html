@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Fast Track 10X — Blog</title>
+<meta name="description" content="Practical guides on building business credit, disputing errors, and reaching 700+ faster. No fluff — just the steps that work.">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f4ee;
+    --white: #ffffff;
+    --ink: #1a1814;
+    --ink2: #3d3a34;
+    --muted: #7a7060;
+    --border: #e2ddd4;
+    --accent: #1d6b3e;
+    --accent-light: #2a9657;
+    --accent-pale: #eef6f1;
+    --amber: #b45309;
+    --amber-pale: #fef3c7;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Bricolage Grotesque', sans-serif; font-size: 17px; line-height: 1.7; }
+
+  .site-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-links a { font-size: 0.85rem; color: var(--ink2); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta { background: var(--accent); color: #fff !important; padding: 0.5rem 1.1rem; border-radius: 6px; font-weight: 700 !important; }
+  .nav-cta:hover { background: var(--accent-light) !important; }
+
+  .hero-bar {
+    background: var(--ink);
+    color: rgba(255,255,255,0.9);
+    text-align: center;
+    padding: 3.5rem 2rem;
+  }
+  .hero-bar .eyebrow {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #6ee7b7;
+    margin-bottom: 0.75rem;
+  }
+  .hero-bar h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+  .hero-bar p { color: rgba(255,255,255,0.6); font-size: 1rem; max-width: 520px; margin: 0 auto; }
+
+  .blog-wrap { max-width: 1060px; margin: 0 auto; padding: 4rem 2rem; }
+
+  .category-nav {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .cat-btn {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .cat-btn:hover, .cat-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .post-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+  }
+  .post-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  }
+
+  .post-thumb {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  }
+  .thumb-green { background: linear-gradient(135deg, #0f4c2a, #1d6b3e); }
+  .thumb-blue  { background: linear-gradient(135deg, #0c2a4c, #1d4ed8); }
+  .thumb-amber { background: linear-gradient(135deg, #4c2a0c, #b45309); }
+  .thumb-purple{ background: linear-gradient(135deg, #2a0c4c, #7c3aed); }
+
+  .post-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .post-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+  }
+  .tag-biz   { background: #dbeafe; color: #1d4ed8; }
+  .tag-repair{ background: var(--accent-pale); color: var(--accent); }
+  .tag-score { background: var(--amber-pale); color: var(--amber); }
+  .tag-review{ background: #f3e8ff; color: #7c3aed; }
+
+  .post-date { font-size: 0.72rem; color: var(--muted); }
+
+  .post-card h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+  }
+  .post-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; flex: 1; }
+  .post-read-more {
+    margin-top: 1.25rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .featured-card {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .featured-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  }
+  .featured-thumb {
+    height: 100%;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+  }
+  .featured-body { padding: 2rem; display: flex; flex-direction: column; justify-content: center; }
+  .featured-kicker {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .featured-body h2 {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+  .featured-body p { font-size: 0.9rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem; }
+  .featured-read {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  @media (max-width: 640px) {
+    .featured-card { grid-template-columns: 1fr; }
+    .featured-thumb { min-height: 140px; }
+    .nav-links { display: none; }
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3rem 0 1.5rem;
+  }
+  .section-divider span {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  footer {
+    background: #0e0e0e;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 36px 24px;
+    font-size: 13px;
+    line-height: 2;
+    margin-top: 4rem;
+  }
+  footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  footer a:hover { color: #fff; }
+  footer .footer-brand { font-family: 'Lora', serif; color: #fff; font-size: 1rem; margin-bottom: 8px; display: block; font-style: italic; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="/" class="logo"><span>Credit</span> Fast Track 10X</a>
+  <nav class="nav-links">
+    <a href="/">Personal Credit</a>
+    <a href="/credit-repair.html">Credit Repair</a>
+    <a href="/business-credit.html">Business Credit</a>
+    <a href="/blog/" class="active" style="color:var(--accent)">Blog</a>
+    <a href="/" class="nav-cta">Get Free Templates →</a>
+  </nav>
+</header>
+
+<div class="hero-bar">
+  <div class="eyebrow">Credit Fast Track 10X — Resource Library</div>
+  <h1>The Credit Builder's Blog</h1>
+  <p>Step-by-step guides on building business credit, removing negatives, and hitting 700+ faster. No fluff.</p>
+</div>
+
+<div class="blog-wrap">
+
+  <nav class="category-nav">
+    <a href="#" class="cat-btn active">All Posts</a>
+    <a href="#" class="cat-btn">Business Credit</a>
+    <a href="#" class="cat-btn">Credit Repair</a>
+    <a href="#" class="cat-btn">Score Building</a>
+    <a href="#" class="cat-btn">Reviews</a>
+  </nav>
+
+  <!-- FEATURED -->
+  <a href="/blog/business-credit-without-personal-guarantee.html" class="featured-card">
+    <div class="featured-thumb thumb-blue">🏢</div>
+    <div class="featured-body">
+      <div class="featured-kicker">⭐ Featured · Business Credit</div>
+      <h2>Business Credit Without a Personal Guarantee: The Complete 2026 Guide</h2>
+      <p>Most business owners sign personal guarantees without realizing what they're giving up. Here's exactly which credit products don't require one — and the step-by-step path to qualify for them.</p>
+      <div class="featured-read">Read the guide →</div>
+    </div>
+  </a>
+
+  <div class="section-divider"><span>Latest Posts</span></div>
+
+  <div class="posts-grid">
+
+    <a href="/blog/best-net-30-accounts-for-new-business.html" class="post-card">
+      <div class="post-thumb thumb-green">📋</div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag tag-biz">Business Credit</span>
+          <span class="post-date">July 2026</span>
+        </div>
+        <h2>Best Net-30 Accounts for New Businesses (No Credit Check)</h2>
+        <p>The 8 easiest net-30 vendor accounts to open with a new LLC — including which ones report to D&B, Experian, and Equifax Business.</p>
+        <div class="post-read-more">Read the guide →</div>
+      </div>
+    </a>
+
+    <a href="/blog/business-credit-without-personal-guarantee.html" class="post-card">
+      <div class="post-thumb thumb-blue">🛡️</div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag tag-biz">Business Credit</span>
+          <span class="post-date">July 2026</span>
+        </div>
+        <h2>Business Credit Without a Personal Guarantee: Complete Guide</h2>
+        <p>What a PG actually costs you, which products skip it entirely, and the exact milestones you need to reach to qualify.</p>
+        <div class="post-read-more">Read the guide →</div>
+      </div>
+    </a>
+
+    <div class="post-card" style="opacity:0.55; cursor:default; pointer-events:none;">
+      <div class="post-thumb thumb-amber">✉️</div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag tag-repair">Credit Repair</span>
+          <span class="post-date">Coming Soon</span>
+        </div>
+        <h2>609 Dispute Letter Template (Free, FCRA-Compliant)</h2>
+        <p>The exact letter format that works, what Section 609 actually says, and how to send it for maximum impact.</p>
+        <div class="post-read-more">Coming soon</div>
+      </div>
+    </div>
+
+    <div class="post-card" style="opacity:0.55; cursor:default; pointer-events:none;">
+      <div class="post-thumb thumb-amber">💰</div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag tag-repair">Credit Repair</span>
+          <span class="post-date">Coming Soon</span>
+        </div>
+        <h2>Pay for Delete Letter That Actually Works</h2>
+        <p>Is pay-for-delete legal? Does it work in 2026? Here's the exact letter, how to send it, and what to do when they say no.</p>
+        <div class="post-read-more">Coming soon</div>
+      </div>
+    </div>
+
+    <div class="post-card" style="opacity:0.55; cursor:default; pointer-events:none;">
+      <div class="post-thumb thumb-purple">⭐</div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag tag-review">Review</span>
+          <span class="post-date">Coming Soon</span>
+        </div>
+        <h2>Kikoff Review 2026: Does It Actually Build Credit?</h2>
+        <p>We tested every Kikoff plan. Here's what actually works, what the $750 really means, and whether it's worth $5/month.</p>
+        <div class="post-read-more">Coming soon</div>
+      </div>
+    </div>
+
+    <div class="post-card" style="opacity:0.55; cursor:default; pointer-events:none;">
+      <div class="post-thumb thumb-green">📊</div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag tag-score">Score Building</span>
+          <span class="post-date">Coming Soon</span>
+        </div>
+        <h2>How to Get a DUNS Number and Build Your Paydex Score</h2>
+        <p>Step-by-step from EIN to Paydex 80 — the exact sequence that makes business lenders take your file seriously.</p>
+        <div class="post-read-more">Coming soon</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <span class="footer-brand">Credit Fast Track 10X</span>
+  <nav style="margin-bottom:6px;">
+    <a href="/">Personal Credit — $47</a> &nbsp;·&nbsp;
+    <a href="/credit-repair.html">Credit Repair — $97</a> &nbsp;·&nbsp;
+    <a href="/business-credit.html">Business Credit — $197</a>
+  </nav>
+  <p>
+    <a href="/privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="/advertiser-disclosure.html">Advertiser Disclosure</a> &nbsp;·&nbsp;
+    <a href="/contact.html">Contact</a>
+  </p>
+  <p style="margin-top:10px;">© <span id="footer-year"></span> Credit Fast Track 10X · creditfasttrack10x.live</p>
+</footer>
+<script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
