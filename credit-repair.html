@@ -56,7 +56,7 @@
   "description": "A 10-module step-by-step course teaching students how to dispute credit report errors, remove collections, and rebuild their credit score using FCRA rights.",
   "url": "/credit-repair",
   "provider": { "@type": "Organization", "name": "Credit Fast Track 10X", "url": "https://creditfasttrack10x.live" },
-  "offers": { "@type": "Offer", "price": "127.00", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "category": "Financial Education" },
+  "offers": { "@type": "Offer", "price": "97.00", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "category": "Financial Education" },
   "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "Online", "inLanguage": "en-US" },
   "numberOfCredits": 10
 }
@@ -500,12 +500,12 @@
 <body>
 
 <div class="announce">
-  <strong>Tax Season Special:</strong> Credit Repair Accelerator — <strong>$127 One-Time</strong> · Dispute Errors · Remove Collections · Rebuild Fast
+  🎁 Free Download: <strong>10 Dispute Letter Templates</strong> — Join the early access list for the course.
 </div>
 
 <nav class="nav">
   <a href="/" class="nav-brand">Credit Fast Track <span>10X</span></a>
-  <button class="nav-cta" onclick="openModal()">Enroll Now — $127</button>
+  <button class="nav-cta" onclick="openModal()">Get Free Templates →</button>
 </nav>
 
 <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -517,7 +517,7 @@
 ══════════════════════════════════════════ -->
 
 <header class="article-hero">
-  <span class="article-tag">Free Guide · Tax Season 2026</span>
+  <span class="article-tag">Free Guide · 2026</span>
   <h1>How to Dispute Credit Report Errors, Understand Collections, and Get Your Free Credit Report</h1>
   <p class="lead">Most people have errors on their credit report and don't know it. Under federal law, you have the right to dispute anything — and the bureau has 30 days to verify it or remove it. No explanations required. Here's how the whole system works.</p>
   <div class="article-meta">
@@ -735,7 +735,7 @@
         <li><span class="check">✓</span>Your score is below 650 and you want to change that</li>
         <li><span class="check">✓</span>You've been denied credit, an apartment, or a loan</li>
         <li><span class="check">✓</span>You want to do this yourself — not pay a repair company</li>
-        <li><span class="check">✓</span>You just got your tax refund and want to put it to work</li>
+        <li><span class="check">✓</span>You're ready to take control of your credit right now</li>
       </ul>
     </div>
     <div class="for-card red">
@@ -850,7 +850,7 @@
     </div>
     <div class="testi-card">
       <div class="stars">★★★★★</div>
-      <p class="testi-text">"I used my tax refund to buy this course and I'm glad I did. Followed the modules exactly, sent mail disputes, and waited. Three items removed. Now I'm in Module 9 building positive history. Best investment I made this year."</p>
+      <p class="testi-text">"Best investment I've made in myself. Followed the modules exactly, sent mail disputes, and waited. Three items removed. Now I'm in Module 9 building positive history. Wish I had done this sooner."</p>
       <div class="testi-name">Brianna M.</div>
       <div class="testi-detail">Detroit, MI · 3 negative items removed</div>
     </div>
@@ -859,7 +859,7 @@
   <!-- PRICING -->
   <div class="pricing-box reveal">
     <span class="pricing-tag">One-Time Investment</span>
-    <div class="price-main"><sup>$</sup>127</div>
+    <div class="price-main"><sup>$</sup>97</div>
     <p class="price-note">One-time payment · Lifetime access · No subscription</p>
     <ul class="price-includes">
       <li>10 complete course modules</li>
@@ -870,8 +870,8 @@
       <li>Lifetime access + all future updates</li>
       <li>30-day money-back guarantee</li>
     </ul>
-    <button class="cta-btn" onclick="openModal()">🔒 Enroll Now — Get Instant Access</button>
-    <p class="cta-security">🔒 Secured by Stripe · 256-bit SSL · 30-Day Money-Back Guarantee</p>
+    <button class="cta-btn" onclick="openModal()">📄 Get Free Templates + Join Early Access</button>
+    <p class="cta-security">No spam, ever. Unsubscribe anytime.</p>
   </div>
 
   <!-- GUARANTEE -->
@@ -986,13 +986,13 @@
   </p>
 </footer>
 
-<!-- PAYMENT MODAL -->
+<!-- EMAIL CAPTURE MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal-box">
     <div class="modal-head">
       <button class="modal-close" onclick="closeModal()">✕</button>
-      <h3>Credit Repair Accelerator</h3>
-      <p>One-time $127 · Lifetime Access · 30-Day Guarantee</p>
+      <h3>Get Your Free Templates</h3>
+      <p>10 certified-mail-ready FCRA dispute letter templates — free.</p>
     </div>
     <div class="modal-body">
       <div class="modal-form" id="modalForm">
@@ -1004,70 +1004,58 @@
           <label for="emailAddr">Email Address</label>
           <input type="email" id="emailAddr" placeholder="jane@email.com" autocomplete="email">
         </div>
-        <div class="form-row">
-          <label>Card Details</label>
-          <div id="card-element"></div>
-        </div>
-        <div id="card-errors" role="alert"></div>
-        <button class="pay-btn" id="payBtn" onclick="handlePayment()">🔒 Pay $127 — Get Instant Access</button>
-        <p class="modal-secure">🔒 Secured by Stripe · 256-bit SSL Encryption · 30-Day Money-Back Guarantee</p>
+        <div id="form-errors" role="alert" style="color:#c0392b;font-size:13px;margin-bottom:10px;min-height:18px;"></div>
+        <button class="pay-btn" id="subBtn" onclick="handleSubscribe()">📄 Send Me the Free Templates →</button>
+        <p class="modal-secure">No spam, ever. Unsubscribe anytime.</p>
       </div>
       <div class="success-screen" id="successScreen">
-        <div class="success-icon">🎉</div>
-        <h3>You're In — Let's Fix Your Credit!</h3>
-        <p>Your payment was successful! <strong>Check your email</strong> — your personal access link is on its way within 1 minute.<br><small style="opacity:0.7">Didn't get it? Check spam or email support@creditfasttrack10x.live</small></p>
+        <div class="success-icon">📬</div>
+        <h3>Templates Sent!</h3>
+        <p><strong>Check your email</strong> — your 10 dispute letter templates are on their way within 1 minute.<br><small style="opacity:0.7">Didn't get it? Check spam or email support@creditfasttrack10x.live</small></p>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-const STRIPE_PUBLISHABLE_KEY  = 'pk_live_REPLACE_WITH_YOUR_PUBLISHABLE_KEY';
-const PAYMENT_INTENT_ENDPOINT = '/api/create-payment-intent';
-let stripe, cardElement;
-
-function initStripe() {
-  try {
-    stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-    const elements = stripe.elements({ fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Outfit:wght@400;500&display=swap' }] });
-    cardElement = elements.create('card', {
-      style: { base: { fontFamily: "'Outfit', sans-serif", fontSize: '15px', color: '#0e0e0e', '::placeholder': { color: '#a09890' } }, invalid: { color: '#c0392b' } }
-    });
-    cardElement.mount('#card-element');
-    cardElement.on('change', e => { document.getElementById('card-errors').textContent = e.error ? e.error.message : ''; });
-  } catch(e) { console.warn('Stripe not initialized — demo mode'); }
-}
+const SUBSCRIBE_ENDPOINT = '/api/subscribe';
 
 function openModal() {
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
-  if (!stripe) { loadStripe(initStripe); } 
 }
 function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
 function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
 
-async function handlePayment() {
+async function handleSubscribe() {
   const name  = document.getElementById('fullName').value.trim();
   const email = document.getElementById('emailAddr').value.trim();
-  const errEl = document.getElementById('card-errors');
-  const btn   = document.getElementById('payBtn');
+  const errEl = document.getElementById('form-errors');
+  const btn   = document.getElementById('subBtn');
+
   if (!name)  { errEl.textContent = 'Please enter your name.'; return; }
   if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email.'; return; }
-  if (!stripe || !cardElement) { showSuccess(); return; }
-  errEl.textContent = ''; btn.textContent = 'Processing...'; btn.classList.add('loading'); btn.disabled = true;
+
+  errEl.textContent = '';
+  btn.textContent   = 'Sending...';
+  btn.classList.add('loading');
+  btn.disabled = true;
+
   try {
-    const res = await fetch(PAYMENT_INTENT_ENDPOINT, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: 12700, currency: 'usd', email, name, product: 'Credit Repair Accelerator' })
+    const res  = await fetch(SUBSCRIBE_ENDPOINT, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ name, email, source: 'credit-repair' }),
     });
-    const { clientSecret, error: backendError } = await res.json();
-    if (backendError) throw new Error(backendError);
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, { payment_method: { card: cardElement, billing_details: { name, email } } });
-    if (error) {
-      errEl.textContent = error.message;
-      btn.textContent = '🔒 Pay $127 — Get Instant Access'; btn.classList.remove('loading'); btn.disabled = false;
-    } else if (paymentIntent.status === 'succeeded') { showSuccess(); }
-  } catch(err) { console.warn('Backend unavailable — demo mode'); showSuccess(); }
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+    showSuccess();
+  } catch (err) {
+    errEl.textContent = err.message || 'Something went wrong. Please try again.';
+    btn.textContent   = '📄 Send Me the Free Templates →';
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
 }
 
 function showSuccess() { document.getElementById('modalForm').classList.add('hidden'); document.getElementById('successScreen').classList.add('show'); }
@@ -1079,10 +1067,9 @@ function initReveal() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (typeof Stripe !== 'undefined') initStripe();
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  const yearEl = document.getElementById('footer-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // ── SCROLL TO TOP ──
   const scrollBtn = document.getElementById('scrollTopBtn');
   if (scrollBtn) {
     window.addEventListener('scroll', () => {

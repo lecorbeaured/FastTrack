@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10 Dispute Letter Templates — Credit Fast Track 10X</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600&display=swap');
+
+  :root {
+    --green: #1a6b3c;
+    --gold: #c9922a;
+    --ink: #0e0e0e;
+    --muted: #5a5550;
+    --border: #d0c9bc;
+    --cream: #faf8f3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', Arial, sans-serif;
+    color: var(--ink);
+    background: #fff;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  /* ── COVER PAGE ── */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--ink);
+    color: #fff;
+    page-break-after: always;
+  }
+
+  .cover-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 3rem;
+  }
+
+  .cover-badge {
+    display: inline-block;
+    border: 1px solid rgba(201,146,42,0.5);
+    color: #f0b842;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.4rem 1.2rem;
+    border-radius: 99px;
+    margin-bottom: 2rem;
+  }
+
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.1;
+    max-width: 640px;
+    margin-bottom: 1.5rem;
+  }
+
+  .cover h1 em {
+    font-style: italic;
+    color: #f0b842;
+  }
+
+  .cover-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
+    max-width: 500px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .cover-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 0 auto 3rem;
+  }
+
+  .cover-toc {
+    text-align: left;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    max-width: 480px;
+    width: 100%;
+  }
+
+  .cover-toc h3 {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 1rem;
+  }
+
+  .cover-toc ol {
+    list-style: none;
+    counter-reset: toc;
+  }
+
+  .cover-toc li {
+    counter-increment: toc;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.75);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .cover-toc li:last-child { border-bottom: none; }
+
+  .cover-toc li::before {
+    content: counter(toc, decimal-leading-zero);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--gold);
+    background: rgba(201,146,42,0.15);
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    font-family: monospace;
+  }
+
+  .cover-footer {
+    margin-top: 3rem;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── LETTER PAGE ── */
+  .letter-page {
+    padding: 3rem 3.5rem;
+    page-break-after: always;
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .letter-page:last-child { page-break-after: auto; }
+
+  .letter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--green);
+  }
+
+  .letter-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .letter-brand span { color: var(--gold); }
+
+  .letter-num {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.75rem;
+    border-radius: 4px;
+  }
+
+  .letter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+  }
+
+  .letter-subtitle {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1.75rem;
+    font-weight: 400;
+  }
+
+  .use-when {
+    background: var(--cream);
+    border-left: 3px solid var(--green);
+    padding: 0.85rem 1.25rem;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 1.75rem;
+    font-size: 0.82rem;
+  }
+
+  .use-when strong {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .letter-body {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem 2.25rem;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #1a1a1a;
+  }
+
+  .letter-body .placeholder {
+    background: rgba(201,146,42,0.12);
+    border: 1px dashed rgba(201,146,42,0.5);
+    border-radius: 3px;
+    padding: 0 4px;
+    color: #8a5e10;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  .letter-body p { margin-bottom: 0.9rem; }
+  .letter-body p:last-child { margin-bottom: 0; }
+
+  .letter-body .re-line {
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .letter-body .sign-block {
+    margin-top: 1.5rem;
+  }
+
+  .letter-tips {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: rgba(26,107,60,0.05);
+    border: 1px solid rgba(26,107,60,0.15);
+    border-radius: 8px;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .letter-tips strong {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .letter-tips ul { padding-left: 1.2rem; }
+  .letter-tips li { margin-bottom: 0.25rem; }
+
+  /* ── PRINT STYLES ── */
+  @media print {
+    body { font-size: 12px; }
+    .cover { min-height: auto; padding: 4rem 2rem; }
+    .letter-page { padding: 2rem 2.5rem; }
+    .no-print { display: none; }
+  }
+
+  /* ── SCREEN PRINT BUTTON ── */
+  .print-bar {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999;
+  }
+
+  .print-btn {
+    background: var(--green);
+    color: #fff;
+    border: none;
+    padding: 0.85rem 1.75rem;
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(26,107,60,0.4);
+    transition: background 0.2s;
+  }
+
+  .print-btn:hover { background: #2d9e5c; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════
+     COVER PAGE
+══════════════════════════ -->
+<div class="cover">
+  <div class="cover-brand">Credit Fast Track 10X · creditfasttrack10x.live</div>
+
+  <div class="cover-badge">Free Resource Pack</div>
+
+  <h1>10 Dispute Letter<br><em>Templates</em></h1>
+  <p class="cover-sub">Certified-mail-ready FCRA dispute letters covering every major credit report error. Copy, customize, send.</p>
+
+  <div class="cover-divider"></div>
+
+  <div class="cover-toc">
+    <h3>What's Inside</h3>
+    <ol>
+      <li>Account Not Mine</li>
+      <li>Incorrect Account Status</li>
+      <li>Duplicate Entry</li>
+      <li>Outdated Item (7-Year Rule)</li>
+      <li>Incorrect Balance</li>
+      <li>Late Payment Dispute</li>
+      <li>Pay for Delete Letter</li>
+      <li>Goodwill Late Removal Request</li>
+      <li>Debt Validation Request</li>
+      <li>Escalation Letter (Bureau Non-Response)</li>
+    </ol>
+  </div>
+
+  <p class="cover-footer">creditfasttrack10x.live &nbsp;·&nbsp; For personal use only. Not legal advice.</p>
+</div>
+
+
+<!-- ══════════════════════
+     LETTER 01
+══════════════════════════ -->
+<div class="letter-page">
+  <div class="letter-header">
+    <div class="letter-brand">Credit Fast <span>Track 10X</span></div>
+    <div class="letter-num">Template 01 of 10</div>
+  </div>
+
+  <h2 class="letter-title">Account Not Mine</h2>
+  <p class="letter-subtitle">Dispute an account you don't recognize or never opened</p>
+
+  <div class="use-when">
+    <strong>Use When</strong>
+    An account appears on your report that you never opened — possible identity theft, mixed file, or data error.
+  </div>
+
+  <div class="letter-body">
+    <p><em class="placeholder">[Your Full Name]</em><br>
+    <em class="placeholder">[Your Address]</em><br>
+    <em class="placeholder">[City, State ZIP]</em><br>
+    <em class="placeholder">[Date]</em></p>
+
+    <p><em class="placeholder">[Bureau Name]</em> — Consumer Dispute Center<br>
+    <em class="placeholder">[Bureau Address]</em></p>
+
+    <p class="re-line">RE: Formal Dispute — Account Not Mine<br>
+    SSN: <em class="placeholder">[Last 4 digits only]</em> &nbsp;·&nbsp; DOB: <em class="placeholder">[MM/DD/YYYY]</em></p>
+
+    <p>To Whom It May Concern,</p>
+
+    <p>I am writing to dispute the following account appearing on my credit report. I have no knowledge of this account and did not open, authorize, or use it. Its presence on my report is inaccurate and I am requesting its immediate investigation and removal.</p>
+
+    <p><strong>Account in Dispute:</strong><br>
+    Creditor Name: <em class="placeholder">[Creditor Name]</em><br>
+    Account Number: <em class="placeholder">[Account # or last 4]</em><br>
+    Reported Balance: <em class="placeholder">[Amount]</em></p>
+
+    <p>Under the Fair Credit Reporting Act (FCRA) § 611, you are required to conduct a reasonable investigation of this dispute within 30 days of receipt. If the information cannot be verified, it must be deleted from my report.</p>
+
+    <p>Enclosed: Copy of government-issued ID and proof of address (SSN card if applicable).</p>
+
+    <p>Please send written confirmation of the results of your investigation to the address above.</p>
+
+    <div class="sign-block">
+      <p>Sincerely,</p>
+      <p><em class="placeholder">[Your Signature]</em><br>
+      <em class="placeholder">[Your Printed Name]</em></p>
+    </div>
+  </div>
+
+  <div class="letter-tips">
+    <strong>Pro Tips</strong>
+    <ul>
+      <li>Send via USPS Certified Mail with Return Receipt — this creates a legal timestamp.</li>
+      <li>Keep your tracking number. The 30-day clock starts from the date of receipt, not the date you mailed it.</li>
+      <li>Dispute each bureau separately — errors on one report may not appear on others.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     LETTER 02
+══════════════════════════ -->
+<div class="letter-page">
+  <div class="letter-header">
+    <div class="letter-brand">Credit Fast <span>Track 10X</span></div>
+    <div class="letter-num">Template 02 of 10</div>
+  </div>
+
+  <h2 class="letter-title">Incorrect Account Status</h2>
+  <p class="letter-subtitle">Dispute an account reported with the wrong status (e.g., open when closed, delinquent when current)</p>
+
+  <div class="use-when">
+    <strong>Use When</strong>
+    An account shows an incorrect status — for example, listed as open/delinquent when it was closed/paid, or showing as a charge-off when it was settled.
+  </div>
+
+  <div class="letter-body">
+    <p><em class="placeholder">[Your Full Name]</em><br>
+    <em class="placeholder">[Your Address]</em><br>
+    <em class="placeholder">[Date]</em></p>
+
+    <p><em class="placeholder">[Bureau Name]</em> — Consumer Dispute Center</p>
+
+    <p class="re-line">RE: Dispute — Incorrect Account Status</p>
+
+    <p>To Whom It May Concern,</p>
+
+    <p>I am formally disputing the following account, which is reporting an incorrect status on my credit report:</p>
+
+    <p><strong>Account in Dispute:</strong><br>
+    Creditor: <em class="placeholder">[Creditor Name]</em><br>
+    Account #: <em class="placeholder">[Account #]</em><br>
+    Reported Status: <em class="placeholder">[e.g., "Open / Delinquent"]</em><br>
+    Correct Status: <em class="placeholder">[e.g., "Closed / Paid in Full — Date"]</em></p>
+
+    <p>This inaccurate status is damaging my credit score and does not reflect the true state of this account. Pursuant to FCRA § 611, I request that you conduct a reasonable investigation and correct or remove this entry within 30 days.</p>
+
+    <p>Enclosed: <em class="placeholder">[e.g., final statement showing $0 balance, closure letter, payment confirmation]</em></p>
+
+    <div class="sign-block">
+      <p>Sincerely,<br><em class="placeholder">[Your Name]</em></p>
+    </div>
+  </div>
+
+  <div class="letter-tips">
+    <strong>Pro Tips</strong>
+    <ul>
+      <li>Attach any documentation you have: final statements, closure letters, payment receipts.</li>
+      <li>Be specific about what is wrong and what the correct information should be.</li>
+      <li>If a paid account still shows delinquent, attach proof of payment as your primary evidence.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     LETTER 03
+══════════════════════════ -->
+<div class="letter-page">
+  <div class="letter-header">
+    <div class="letter-brand">Credit Fast <span>Track 10X</span></div>
+    <div class="letter-num">Template 03 of 10</div>
+  </div>
+
+  <h2 class="letter-title">Duplicate Entry</h2>
+  <p class="letter-subtitle">Dispute the same debt appearing on your report more than once</p>
+
+  <div class="use-when">
+    <strong>Use When</strong>
+    The same debt appears multiple times — common when a debt is sold from one collector to another and both continue reporting it.
+  </div>
+
+  <div class="letter-body">
+    <p><em class="placeholder">[Your Full Name]</em><br>
+    <em class="placeholder">[Your Address]</em><br>
+    <em class="placeholder">[Date]</em></p>
+
+    <p><em class="placeholder">[Bureau Name]</em> — Consumer Dispute Center</p>
+
+    <p class="re-line">RE: Dispute — Duplicate Entry / Double Reporting</p>
+
+    <p>To Whom It May Concern,</p>
+
+    <p>I am disputing the following accounts because they represent the same underlying debt reported more than once. This is inaccurate and is artificially inflating the negative impact on my credit score.</p>
+
+    <p><strong>Duplicate Entry #1:</strong><br>
+    Creditor: <em class="placeholder">[Original Creditor or Collector Name]</em><br>
+    Account #: <em class="placeholder">[Account #]</em><br>
+    Balance: <em class="placeholder">[Amount]</em></p>
+
+    <p><strong>Duplicate Entry #2:</strong><br>
+    Creditor: <em class="placeholder">[Second Collector Name]</em><br>
+    Account #: <em class="placeholder">[Account #]</em><br>
+    Balance: <em class="placeholder">[Amount]</em></p>
+
+    <p>These entries refer to the same original debt. Per the FCRA, a single debt may only be reported once. I request that the duplicate entry be removed immediately.</p>
+
+    <div class="sign-block">
+      <p>Sincerely,<br><em class="placeholder">[Your Name]</em></p>
+    </div>
+  </div>
+
+  <div class="letter-tips">
+    <strong>Pro Tips</strong>
+    <ul>
+      <li>Pull all three bureau reports — duplicates often appear differently on each one.</li>
+      <li>Request removal of the collection account, not the original creditor's entry.</li>
+      <li>If the original creditor sold the debt, the new collector should be the one removed.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     LETTER 04
+══════════════════════════ -->
+<div class="letter-page">
+  <div class="letter-header">
+    <div class="letter-brand">Credit Fast <span>Track 10X</span></div>
+    <div class="letter-num">Template 04 of 10</div>
+  </div>
+
+  <h2 class="letter-title">Outdated Item — 7-Year Rule</h2>
+  <p class="letter-subtitle">Remove negative items that have passed the legal reporting limit</p>
+
+  <div class="use-when">
+    <strong>Use When</strong>
+    A negative item is still on your report more than 7 years after the original delinquency date. Most negatives must be removed after 7 years under the FCRA.
+  </div>
+
+  <div class="letter-body">
+    <p><em class="placeholder">[Your Full Name]</em><br>
+    <em class="placeholder">[Your Address]</em><br>
+    <em class="placeholder">[Date]</em></p>
+
+    <p><em class="placeholder">[Bureau Name]</em> — Consumer Dispute Center</p>
+
+    <p class="re-line">RE: Dispute — Item Exceeds 7-Year Reporting Limit (FCRA § 605)</p>
+
+    <p>To Whom It May Concern,</p>
+
+    <p>I am writing to request the immediate removal of the following item, which has exceeded the maximum reporting period allowed under FCRA § 605(a). This item is legally required to be removed from my credit report.</p>
+
+    <p><strong>Account in Dispute:</strong><br>
+    Creditor: <em class="placeholder">[Creditor Name]</em><br>
+    Account #: <em class="placeholder">[Account #]</em><br>
+    Original Delinquency Date: <em class="placeholder">[Date]</em><br>
+    Date of First Delinquency + 7 Years: <em class="placeholder">[Calculated removal date]</em></p>
+
+    <p>As of the date of this letter, this item has been on my report for more than 7 years from the date of first delinquency. Its continued reporting is a violation of federal law. I demand its immediate deletion.</p>
+
+    <div class="sign-block">
+      <p>Sincerely,<br><em class="placeholder">[Your Name]</em></p>
+    </div>
+  </div>
+
+  <div class="letter-tips">
+    <strong>Pro Tips</strong>
+    <ul>
+      <li>The 7-year clock starts from the "date of first delinquency" on the original account — not when a collector re-reported it.</li>
+      <li>Collectors sometimes re-age debts to extend their reporting window. This is illegal.</li>
+      <li>Chapter 7 bankruptcies can stay for 10 years; Chapter 13 for 7 years.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     LETTER 05
+══════════════════════════ -->
+<div class="letter-page">
+  <div class="letter-header">
+    <div class="letter-brand">Credit Fast <span>Track 10X</span></div>
+    <div class="letter-num">Template 05 of 10</div>
+  </div>
+
+  <h2 class="letter-title">Incorrect Balance</h2>
+  <p class="letter-subtitle">Dispute an account reporting a balance higher than the actual amount owed</p>
+
+  <div class="use-when">
+    <strong>Use When</strong>
+    An account shows a balance that is higher than what you actually owe — including fees or interest that were improperly added.
+  </div>
+
+  <div class="letter-body">
+    <p><em class="placeholder">[Your Full Name]</em><br>
+    <em class="placeholder">[Your Address]</em><br>
+    <em class="placeholder">[Date]</em></p>
+
+    <p><em class="placeholder">[Bureau Name]</em> — Consumer Dispute Center</p>
+
+    <p class="re-line">RE: Dispute — Incorrect Balance Reported</p>
+
+    <p>To Whom It May Concern,</p>
+
+    <p>I am writing to dispute an inaccurate balance being reported on the following account. The balance shown on my credit report does not match my records and is inflating my reported debt level.</p>
+
+    <p><strong>Account in Dispute:</strong><br>
+    Creditor: <em class="placeholder">[Creditor Name]</em><br>
+    Account #: <em class="placeholder">[Account #]</em><br>
+    Reported Balance: <em class="placeholder">[Amount on Report]</em><br>
+    Correct Balance: <em class="placeholder">[Actual Amount Owed]</em></p>
+
+    <p>I am requesting that you investigate this discrepancy and update the balance to reflect the accurate amount. If the balance cannot be verified, the entry must be corrected or removed per FCRA § 611.</p>
+
+    <p>Enclosed: <em class="placeholder">[Recent statement showing correct balance, payment records, etc.]</em></p>
+
+    <div class="sign-block">
+      <p>Sincerely,<br><em class="placeholder">[Your Name]</em></p>
+    </div>
+  </div>
+
+  <div class="letter-tips">
+    <strong>Pro Tips</strong>
+    <ul>
+      <li>Attach your most recent account statement as evidence of the correct balance.</li>
+      <li>An inflated balance increases your reported utilization ratio and hurts your score more than you might realize.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     LETTER 06
+══════════════════════════ -->
+<div class="letter-page">
+  <div class="letter-header">
+    <div class="letter-brand">Credit Fast <span>Track 10X</span></div>
+    <div class="letter-num">Template 06 of 10</div>
+  </div>
+
+  <h2 class="letter-title">Late Payment Dispute</h2>
+  <p class="letter-subtitle">Dispute a payment that is incorrectly marked as late</p>
+
+  <div class="use-when">
+    <strong>Use When</strong>
+    Your report shows a late payment that was actually on time, or the late payment is reported on the wrong date.
+  </div>
+
+  <div class="letter-body">
+    <p><em class="placeholder">[Your Full Name]</em><br>
+    <em class="placeholder">[Your Address]</em><br>
+    <em class="placeholder">[Date]</em></p>
+
+    <p><em class="placeholder">[Bureau Name]</em> — Consumer Dispute Center</p>
+
+    <p class="re-line">RE: Dispute — Inaccurate Late Payment Reporting</p>
+
+    <p>To Whom It May Concern,</p>
+
+    <p>I am disputing an inaccurate late payment notation on the following account. My records show that the payment in question was made on time, and the late payment designation is incorrect.</p>
+
+    <p><strong>Account in Dispute:</strong><br>
+    Creditor: <em class="placeholder">[Creditor Name]</em><br>
+    Account #: <em class="placeholder">[Account #]</em><br>
+    Reported Late Payment Month: <em class="placeholder">[Month/Year]</em><br>
+    Actual Payment Date: <em class="placeholder">[Date payment was made]</em></p>
+
+    <p>Please investigate this entry and correct the payment history to accurately reflect my on-time payment record. If you cannot verify that the payment was late, the notation must be removed per FCRA § 611.</p>
+
+    <p>Enclosed: <em class="placeholder">[Bank statement, payment confirmation, or canceled check showing payment date]</em></p>
+
+    <div class="sign-block">
+      <p>Sincerely,<br><em class="placeholder">[Your Name]</em></p>
+    </div>
+  </div>
+
+  <div class="letter-tips">
+    <strong>Pro Tips</strong>
+    <ul>
+      <li>A payment is not legally "late" until it is 30 days past due. A payment made 29 days late is still on time as far as credit bureaus are concerned.</li>
+      <li>Bank statements or screenshots showing the payment date and cleared date are your strongest evidence.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     LETTER 07
+══════════════════════════ -->
+<div class="letter-page">
+  <div class="letter-header">
+    <div class="letter-brand">Credit Fast <span>Track 10X</span></div>
+    <div class="letter-num">Template 07 of 10</div>
+  </div>
+
+  <h2 class="letter-title">Pay for Delete Letter</h2>
+  <p class="letter-subtitle">Negotiate removal of a collection account in exchange for payment</p>
+
+  <div class="use-when">
+    <strong>Use When</strong>
+    You owe a legitimate debt to a collection agency and want to negotiate its removal from your report in exchange for paying it.
+  </div>
+
+  <div class="letter-body">
+    <p><em class="placeholder">[Your Full Name]</em><br>
+    <em class="placeholder">[Your Address]</em><br>
+    <em class="placeholder">[Date]</em></p>
+
+    <p><em class="placeholder">[Collection Agency Name]</em><br>
+    <em class="placeholder">[Collection Agency Address]</em></p>
+
+    <p class="re-line">RE: Account # <em class="placeholder">[Account #]</em> — Settlement and Deletion Request</p>
+
+    <p>To Whom It May Concern,</p>
+
+    <p>I am writing regarding the above-referenced account, which I understand your agency is currently reporting to the major credit bureaus. I am prepared to resolve this account with a one-time payment, contingent on your written agreement to delete this account from all three credit bureaus (Equifax, Experian, and TransUnion) upon receipt of payment.</p>
+
+    <p>I am offering a settlement of <em class="placeholder">[$Amount — typically 40–60% of balance]</em> as payment in full in exchange for complete deletion of this tradeline from my credit report.</p>
+
+    <p>This offer is contingent on your written confirmation prior to any payment being made. Please respond in writing to the address above. Upon receipt of your signed agreement, I will send payment via <em class="placeholder">[money order / certified check]</em>.</p>
+
+    <p><strong>This letter is not an acknowledgment of the debt.</strong> I reserve all rights under the FDCPA and FCRA.</p>
+
+    <div class="sign-block">
+      <p>Sincerely,<br><em class="placeholder">[Your Name]</em></p>
+    </div>
+  </div>
+
+  <div class="letter-tips">
+    <strong>Pro Tips</strong>
+    <ul>
+      <li>Never pay before getting the agreement in writing — once you pay, your leverage is gone.</li>
+      <li>Pay for delete is more likely to work with smaller collection agencies than large national ones.</li>
+      <li>Start with an offer of 40–50% of the balance. Many collectors will accept it.</li>
+      <li>Send payment only after receiving a signed deletion letter — money order is safest.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     LETTER 08
+══════════════════════════ -->
+<div class="letter-page">
+  <div class="letter-header">
+    <div class="letter-brand">Credit Fast <span>Track 10X</span></div>
+    <div class="letter-num">Template 08 of 10</div>
+  </div>
+
+  <h2 class="letter-title">Goodwill Late Removal Request</h2>
+  <p class="letter-subtitle">Request removal of a legitimate late payment as a goodwill gesture</p>
+
+  <div class="use-when">
+    <strong>Use When</strong>
+    You have a real late payment that you can't dispute, but you have an otherwise good history with the creditor and want to ask them to remove it as a courtesy.
+  </div>
+
+  <div class="letter-body">
+    <p><em class="placeholder">[Your Full Name]</em><br>
+    <em class="placeholder">[Your Address]</em><br>
+    <em class="placeholder">[Date]</em></p>
+
+    <p><em class="placeholder">[Creditor Name]</em> — Customer Relations<br>
+    <em class="placeholder">[Creditor Address]</em></p>
+
+    <p class="re-line">RE: Goodwill Adjustment Request — Account # <em class="placeholder">[Account #]</em></p>
+
+    <p>Dear <em class="placeholder">[Creditor Name]</em> Customer Relations Team,</p>
+
+    <p>I have been a customer with <em class="placeholder">[Creditor Name]</em> since <em class="placeholder">[Year]</em> and have always valued our relationship. I am writing to respectfully request a goodwill adjustment regarding a late payment reported in <em class="placeholder">[Month/Year]</em>.</p>
+
+    <p>I acknowledge that this payment was late. At the time, <em class="placeholder">[brief, honest explanation — job loss, medical emergency, family situation, oversight]</em>. This does not reflect my normal payment behavior, and since then I have maintained a perfect payment record.</p>
+
+    <p>I am in the process of <em class="placeholder">[applying for a mortgage / working to improve my credit / etc.]</em> and this single notation is having a significant impact. I would greatly appreciate your consideration in removing it as a goodwill gesture, given my overall positive history with your company.</p>
+
+    <p>Thank you sincerely for your time and consideration.</p>
+
+    <div class="sign-block">
+      <p>Respectfully,<br><em class="placeholder">[Your Name]</em><br>
+      <em class="placeholder">[Phone or Email]</em></p>
+    </div>
+  </div>
+
+  <div class="letter-tips">
+    <strong>Pro Tips</strong>
+    <ul>
+      <li>Tone matters here — this is a request, not a demand. Be polite and personal.</li>
+      <li>Works best with creditors you have a long relationship with.</li>
+      <li>Try calling first, then follow up in writing. Some creditors have goodwill adjustment policies.</li>
+      <li>One genuine reason (medical, job loss) works better than a long list of excuses.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     LETTER 09
+══════════════════════════ -->
+<div class="letter-page">
+  <div class="letter-header">
+    <div class="letter-brand">Credit Fast <span>Track 10X</span></div>
+    <div class="letter-num">Template 09 of 10</div>
+  </div>
+
+  <h2 class="letter-title">Debt Validation Request</h2>
+  <p class="letter-subtitle">Force a collection agency to prove the debt is valid before you pay anything</p>
+
+  <div class="use-when">
+    <strong>Use When</strong>
+    A collection agency contacts you or is reporting a debt you don't recognize, and you want to force them to prove they have the legal right to collect before you pay or acknowledge anything.
+  </div>
+
+  <div class="letter-body">
+    <p><em class="placeholder">[Your Full Name]</em><br>
+    <em class="placeholder">[Your Address]</em><br>
+    <em class="placeholder">[Date]</em></p>
+
+    <p><em class="placeholder">[Collection Agency Name]</em><br>
+    <em class="placeholder">[Collection Agency Address]</em></p>
+
+    <p class="re-line">RE: Debt Validation Request — Account # <em class="placeholder">[Account #]</em></p>
+
+    <p>To Whom It May Concern,</p>
+
+    <p>I recently became aware that your agency is reporting/attempting to collect on the above-referenced account. I am exercising my right under the Fair Debt Collection Practices Act (FDCPA) § 809(b) to request validation of this debt.</p>
+
+    <p>Please provide the following within 30 days:</p>
+
+    <p>1. The name and address of the original creditor<br>
+    2. The original account number<br>
+    3. The amount of the original debt and a complete payment history<br>
+    4. Proof that your agency is licensed to collect debts in my state<br>
+    5. Proof that the statute of limitations on this debt has not expired<br>
+    6. A copy of the original signed agreement creating the debt</p>
+
+    <p>Until you provide full validation, you must cease all collection activity, including credit reporting. If you cannot validate this debt, you must remove it from all credit bureaus immediately.</p>
+
+    <p><strong>This is not a refusal to pay. This is a formal request for debt validation as provided by federal law.</strong></p>
+
+    <div class="sign-block">
+      <p>Sincerely,<br><em class="placeholder">[Your Name]</em></p>
+    </div>
+  </div>
+
+  <div class="letter-tips">
+    <strong>Pro Tips</strong>
+    <ul>
+      <li>Send within 30 days of first contact from the collector for maximum legal protection.</li>
+      <li>Many collectors can't produce the original agreement — if they can't validate, they must stop collecting and remove the account.</li>
+      <li>Do NOT acknowledge the debt in writing — it can restart the statute of limitations.</li>
+      <li>Certified mail with return receipt only. Keep every document.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     LETTER 10
+══════════════════════════ -->
+<div class="letter-page">
+  <div class="letter-header">
+    <div class="letter-brand">Credit Fast <span>Track 10X</span></div>
+    <div class="letter-num">Template 10 of 10</div>
+  </div>
+
+  <h2 class="letter-title">Escalation Letter</h2>
+  <p class="letter-subtitle">Escalate when a bureau verifies an item you know is inaccurate, or fails to respond</p>
+
+  <div class="use-when">
+    <strong>Use When</strong>
+    You've already submitted a dispute and the bureau either didn't respond within 30 days, or responded by "verifying" an item you believe is still inaccurate.
+  </div>
+
+  <div class="letter-body">
+    <p><em class="placeholder">[Your Full Name]</em><br>
+    <em class="placeholder">[Your Address]</em><br>
+    <em class="placeholder">[Date]</em></p>
+
+    <p><em class="placeholder">[Bureau Name]</em> — Consumer Dispute Center</p>
+
+    <p class="re-line">RE: Escalated Dispute — FCRA § 611 Violation / Failure to Investigate<br>
+    Original Dispute Sent: <em class="placeholder">[Date]</em> &nbsp;·&nbsp; Certified Mail #: <em class="placeholder">[Tracking #]</em></p>
+
+    <p>To Whom It May Concern,</p>
+
+    <p>On <em class="placeholder">[Date]</em>, I submitted a formal dispute regarding the following item via Certified Mail (tracking # <em class="placeholder">[#]</em>). <em class="placeholder">[Either: I have not received a response within the required 30-day window / OR: Your response stated the item was "verified," but you have not provided proof of the investigation method used.]</em></p>
+
+    <p><strong>Account in Dispute:</strong><br>
+    Creditor: <em class="placeholder">[Creditor Name]</em><br>
+    Account #: <em class="placeholder">[Account #]</em></p>
+
+    <p>Under FCRA § 611(a)(1), you are required to conduct a reasonable investigation within 30 days. Under § 611(a)(7), I am entitled to a description of the procedure used to determine the accuracy of the disputed information, including the name and address of any furnisher contacted.</p>
+
+    <p>I am formally requesting: (1) immediate deletion of this item, or (2) the complete method of verification in writing. If this matter is not resolved within 15 days, I will file a complaint with the Consumer Financial Protection Bureau (CFPB) and the Federal Trade Commission (FTC), and reserve the right to pursue legal remedies under FCRA § 616–617, which provides for actual damages, statutory damages, and attorney's fees.</p>
+
+    <div class="sign-block">
+      <p>Sincerely,<br><em class="placeholder">[Your Name]</em></p>
+    </div>
+  </div>
+
+  <div class="letter-tips">
+    <strong>Pro Tips</strong>
+    <ul>
+      <li>Filing a CFPB complaint (consumerfinance.gov/complaint) often gets faster results than letters alone.</li>
+      <li>The mention of legal remedies is not a bluff — under the FCRA, you can sue and collect attorney's fees if they violated the law.</li>
+      <li>Keep a paper trail: every letter sent, every tracking number, every response received.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- PRINT BUTTON (screen only) -->
+<div class="print-bar no-print">
+  <button class="print-btn" onclick="window.print()">🖨️ Save as PDF</button>
+</div>
+
+</body>
+</html>

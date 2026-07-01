@@ -18,6 +18,11 @@
   to   = "/.netlify/functions/stripe-webhook"
   status = 200
 
+[[redirects]]
+  from = "/api/subscribe"
+  to   = "/.netlify/functions/subscribe"
+  status = 200
+
 # ── Security & performance headers ───────────────────────────────
 [[headers]]
   for = "/*"

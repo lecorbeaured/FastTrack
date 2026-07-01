@@ -67,7 +67,7 @@
   },
   "offers": {
     "@type": "Offer",
-    "price": "37.00",
+    "price": "47.00",
     "priceCurrency": "USD",
     "availability": "https://schema.org/InStock",
     "validFrom": "2025-01-01",
@@ -98,7 +98,6 @@
   "educationalLevel": "Beginner",
   "numberOfCredits": 9
 }
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
 </script>
 
 <!-- ═══════════════════════════════════════
@@ -1164,12 +1163,12 @@
 <body>
 
 <!-- ANNOUNCEMENT -->
-<div class="announce">🔥 Launch Special: <strong>Save $60</strong> — Only $67 today (regular $97). Ends soon.</div>
+<div class="announce">🎁 Free Download: <strong>10 Dispute Letter Templates</strong> — Join the early access list for the course.</div>
 
 <!-- NAV -->
 <header><nav>
   <a class="nav-brand" href="#"><span>Credit</span> Fast Track <em style="font-style:italic; color:var(--gold);">10X</em></a>
-  <a class="nav-cta" href="#" onclick="openModal(); return false;">Get Instant Access — $67</a>
+  <a class="nav-cta" href="#" onclick="openModal(); return false;">Get Free Templates →</a>
 </nav></header>
 
 <!-- ══════════════════════════════════════════
@@ -1194,11 +1193,11 @@
     <div class="hero-cta-box">
       <div class="price-display">
         <span class="price-was">$97</span>
-        <span class="price-now">$67</span>
+        <span class="price-now">$47</span>
       </div>
-      <p class="price-tag">One-time payment. Lifetime access. <strong>62% off — launch pricing.</strong></p>
+      <p class="price-tag">Course opening soon. <strong>Grab your free guide now to get first access.</strong></p>
       <button class="btn-buy" onclick="openModal()">
-        ✦ Yes, I Want to Build My Credit Now
+        ✦ Get Free Templates + Join Early Access
       </button>
       <div class="hero-guarantee">
         🔒 Secure checkout &nbsp;·&nbsp; 30-day money-back guarantee &nbsp;·&nbsp; Instant access
@@ -1551,10 +1550,10 @@
 
       <div class="value-stack"><span>Course Total Value</span><span>$97</span></div>
       <div class="value-stack"><span>Bonus Bundle Value</span><span>$141</span></div>
-      <div class="value-total"><span>Your Price Today</span><span style="text-decoration:none; color: var(--gold-light);">$67 — One Time</span></div>
+      <div class="value-total"><span>Your Price Today</span><span style="text-decoration:none; color: var(--gold-light);">$47 — One Time</span></div>
 
       <button class="btn-buy" onclick="openModal()">
-        ✦ Get Instant Access for $67
+        ✦ Get Free Templates + Join Early Access
       </button>
 
       <div class="hero-guarantee" style="margin-top:1rem; color: rgba(255,255,255,0.4);">
@@ -1594,16 +1593,16 @@
 
     <!-- SUCCESS STATE -->
     <div class="success-screen" id="successScreen">
-      <div class="success-icon">🎉</div>
-      <h3>You're In!</h3>
-      <p>Your payment was successful! <strong>Check your email</strong> — your personal access link is on its way. It arrives within 1 minute.</p>
+      <div class="success-icon">📬</div>
+      <h3>Templates Sent!</h3>
+      <p><strong>Check your email</strong> — your 10 dispute letter templates are on their way. Arrives within 1 minute.</p>
       <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">Didn't get it? Check spam or email support@creditfasttrack10x.live</p>
     </div>
 
     <!-- FORM STATE -->
     <div class="modal-form" id="modalForm">
-      <h3>Complete Your Order</h3>
-      <p class="modal-sub">Credit Fast Track 10X — Instant access after payment.</p>
+      <h3>Get Your Free Templates</h3>
+      <p class="modal-sub">10 certified-mail-ready FCRA dispute letter templates — delivered to your inbox instantly.</p>
 
       <div class="form-group">
         <label>Full Name</label>
@@ -1615,78 +1614,25 @@
         <input type="email" id="emailAddr" placeholder="jane@example.com" autocomplete="email">
       </div>
 
-      <div class="form-group">
-        <label>Card Details</label>
-        <div id="card-element"></div>
-        <div id="card-errors"></div>
-      </div>
+      <div id="form-errors" style="color:var(--red);font-size:0.8rem;margin-bottom:0.5rem;min-height:1.2em;"></div>
 
-      <div class="modal-total">
-        <span>Credit Fast Track 10X — One-Time</span>
-        <span class="amount">$67.00</span>
-      </div>
-
-      <button class="btn-buy" id="payBtn" onclick="handlePayment()">
-        🔒 Pay $67 — Get Instant Access
+      <button class="btn-buy" id="subBtn" onclick="handleSubscribe()">
+        📄 Send Me the Free Templates →
       </button>
 
       <div class="modal-secure">
-        🔒 Secured by Stripe &nbsp;·&nbsp; 256-bit SSL &nbsp;·&nbsp; 30-day guarantee
+        No spam, ever. Unsubscribe anytime.
       </div>
     </div>
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ══════════════════════════════════════════
-// STRIPE INITIALIZATION
-// Replace 'pk_test_YOUR_KEY_HERE' with your actual Stripe publishable key
-// ══════════════════════════════════════════
-const STRIPE_PUBLISHABLE_KEY = 'pk_live_REPLACE_WITH_YOUR_PUBLISHABLE_KEY';
+<script>
+const SUBSCRIBE_ENDPOINT = '/api/subscribe';
 
-// Replace with your actual Stripe Price ID (create in Stripe Dashboard > Products)
-// Price should be $67.00 USD, one-time payment
-const STRIPE_PRICE_ID = 'price_YOUR_PRICE_ID_HERE';
-
-// Your backend endpoint that creates a PaymentIntent (see backend instructions below)
-const PAYMENT_INTENT_ENDPOINT = '/api/create-payment-intent';
-
-let stripe, cardElement;
-
-function initStripe() {
-  try {
-    stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-    const elements = stripe.elements({
-      fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Outfit:wght@400;500&display=swap' }]
-    });
-
-    cardElement = elements.create('card', {
-      style: {
-        base: {
-          fontFamily: "'Outfit', sans-serif",
-          fontSize: '15px',
-          color: '#0e0e0e',
-          '::placeholder': { color: '#a09890' }
-        },
-        invalid: { color: '#c0392b' }
-      }
-    });
-
-    cardElement.mount('#card-element');
-
-    cardElement.on('change', e => {
-      document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
-    });
-  } catch(e) {
-    console.warn('Stripe not initialized — using demo mode');
-  }
-}
-
-// ── MODAL CONTROLS ──────────────────────────
 function openModal() {
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
-  if (!stripe) { loadStripe(initStripe); } 
 }
 
 function closeModal() {
@@ -1698,58 +1644,34 @@ function closeModalOutside(e) {
   if (e.target === document.getElementById('modalOverlay')) closeModal();
 }
 
-// ── PAYMENT HANDLER ──────────────────────────
-async function handlePayment() {
+async function handleSubscribe() {
   const name  = document.getElementById('fullName').value.trim();
   const email = document.getElementById('emailAddr').value.trim();
-  const errEl = document.getElementById('card-errors');
-  const btn   = document.getElementById('payBtn');
+  const errEl = document.getElementById('form-errors');
+  const btn   = document.getElementById('subBtn');
 
-  // Basic validation
   if (!name)  { errEl.textContent = 'Please enter your name.'; return; }
   if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email.'; return; }
-  if (!stripe || !cardElement) {
-    // Demo mode — show success
-    showSuccess(); return;
-  }
 
   errEl.textContent = '';
-  btn.textContent   = 'Processing...';
+  btn.textContent   = 'Sending...';
   btn.classList.add('loading');
   btn.disabled = true;
 
   try {
-    // 1. Create PaymentIntent on your backend
-    const res = await fetch(PAYMENT_INTENT_ENDPOINT, {
-      method: 'POST',
+    const res  = await fetch(SUBSCRIBE_ENDPOINT, {
+      method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: 6700, currency: 'usd', email, name, product: 'Credit Fast Track 10X' })
+      body:    JSON.stringify({ name, email, source: 'index' }),
     });
-
-    const { clientSecret, error: backendError } = await res.json();
-    if (backendError) throw new Error(backendError);
-
-    // 2. Confirm payment with Stripe
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: cardElement,
-        billing_details: { name, email }
-      }
-    });
-
-    if (error) {
-      errEl.textContent = error.message;
-      btn.textContent   = '🔒 Pay $67 — Get Instant Access';
-      btn.classList.remove('loading');
-      btn.disabled = false;
-    } else if (paymentIntent.status === 'succeeded') {
-      showSuccess();
-    }
-
-  } catch(err) {
-    // For demo/testing without backend
-    console.warn('Backend not available. Showing demo success.');
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Something went wrong.');
     showSuccess();
+  } catch (err) {
+    errEl.textContent = err.message || 'Something went wrong. Please try again.';
+    btn.textContent   = '📄 Send Me the Free Templates →';
+    btn.classList.remove('loading');
+    btn.disabled = false;
   }
 }
 
@@ -1758,29 +1680,20 @@ function showSuccess() {
   document.getElementById('successScreen').classList.add('show');
 }
 
-// ── FAQ TOGGLE ──────────────────────────
 function toggleFaq(el) {
-  const item = el.closest('.faq-item');
-  item.classList.toggle('open');
+  el.closest('.faq-item').classList.toggle('open');
 }
 
-// Init on load
 document.addEventListener('DOMContentLoaded', () => {
-  // Pre-mount Stripe so it's ready when modal opens
-  if (typeof Stripe !== 'undefined') initStripe();
-
-  // ── DYNAMIC FOOTER YEAR ──────────────────
   const yearEl = document.getElementById('footer-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // ── SCROLL TO TOP ──
   const scrollBtn = document.getElementById('scrollTopBtn');
   if (scrollBtn) {
     window.addEventListener('scroll', () => {
       scrollBtn.classList.toggle('visible', window.scrollY > 400);
     }, { passive: true });
   }
-
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
 });
 </script>
 <button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>

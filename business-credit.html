@@ -1037,13 +1037,13 @@
 
 <!-- ANNOUNCE BAR -->
 <div class="announce">
-  <strong>New Course:</strong> Build Business Credit Without a Personal Guarantee — <strong>$197 One-Time</strong> · Lifetime Access
+  🎁 Free Download: <strong>10 Dispute Letter Templates</strong> — Join the early access list for the course.
 </div>
 
 <!-- NAV -->
 <nav class="nav">
   <a href="/" class="nav-brand">Credit Fast Track <span>10X</span></a>
-  <button class="nav-cta" onclick="openModal()">Enroll Now — $197</button>
+  <button class="nav-cta" onclick="openModal()">Get Free Templates →</button>
 </nav>
 
 <!-- BREADCRUMB -->
@@ -1460,14 +1460,14 @@
 </footer>
 
 <!-- ══════════════════════════════════════════
-     PAYMENT MODAL
+     EMAIL CAPTURE MODAL
 ══════════════════════════════════════════ -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal-box">
     <div class="modal-head">
       <button class="modal-close" onclick="closeModal()">✕</button>
-      <h3>Business Credit Unleashed</h3>
-      <p>One-time $197 · Lifetime Access · 30-Day Guarantee</p>
+      <h3>Get Your Free Templates</h3>
+      <p>10 certified-mail-ready FCRA dispute letter templates — free.</p>
     </div>
 
     <div class="modal-body">
@@ -1481,19 +1481,15 @@
           <label for="emailAddr">Email Address</label>
           <input type="email" id="emailAddr" placeholder="jane@yourbusiness.com" autocomplete="email">
         </div>
-        <div class="form-row">
-          <label>Card Details</label>
-          <div id="card-element"></div>
-        </div>
-        <div id="card-errors" role="alert"></div>
-        <button class="pay-btn" id="payBtn" onclick="handlePayment()">🔒 Pay $197 — Get Instant Access</button>
-        <p class="modal-secure">🔒 Secured by Stripe · 256-bit SSL Encryption · 30-Day Money-Back Guarantee</p>
+        <div id="form-errors" role="alert" style="color:#c0392b;font-size:13px;margin-bottom:10px;min-height:18px;"></div>
+        <button class="pay-btn" id="subBtn" onclick="handleSubscribe()">📄 Send Me the Free Templates →</button>
+        <p class="modal-secure">No spam, ever. Unsubscribe anytime.</p>
       </div>
 
       <div class="success-screen" id="successScreen">
-        <div class="success-icon">🎉</div>
-        <h3>Welcome to Business Credit Unleashed!</h3>
-        <p>Your payment was successful! <strong>Check your email</strong> — your personal access link is on its way within 1 minute.<br><small style="opacity:0.7">Didn't get it? Check spam or email support@creditfasttrack10x.live</small></p>
+        <div class="success-icon">📬</div>
+        <h3>Templates Sent!</h3>
+        <p><strong>Check your email</strong> — your 10 dispute letter templates are on their way within 1 minute.<br><small style="opacity:0.7">Didn't get it? Check spam or email support@creditfasttrack10x.live</small></p>
       </div>
 
     </div>
@@ -1505,51 +1501,11 @@
 ══════════════════════════════════════════ -->
 <script>
 
-// ── STRIPE CONFIG ────────────────────────────
-// Replace with your actual Stripe publishable key
-const STRIPE_PUBLISHABLE_KEY = 'pk_live_REPLACE_WITH_YOUR_PUBLISHABLE_KEY';
+const SUBSCRIBE_ENDPOINT = '/api/subscribe';
 
-// Replace with your Stripe Price ID for the $197 product
-const STRIPE_PRICE_ID = 'price_YOUR_BUSINESS_CREDIT_PRICE_ID';
-
-// Your backend endpoint
-const PAYMENT_INTENT_ENDPOINT = '/api/create-payment-intent';
-
-let stripe, cardElement;
-
-function initStripe() {
-  try {
-    stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-    const elements = stripe.elements({
-      fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Outfit:wght@400;500&display=swap' }]
-    });
-
-    cardElement = elements.create('card', {
-      style: {
-        base: {
-          fontFamily: "'Outfit', sans-serif",
-          fontSize: '15px',
-          color: '#0e0e0e',
-          '::placeholder': { color: '#a09890' }
-        },
-        invalid: { color: '#c0392b' }
-      }
-    });
-
-    cardElement.mount('#card-element');
-    cardElement.on('change', e => {
-      document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
-    });
-  } catch(e) {
-    console.warn('Stripe not initialized — using demo mode');
-  }
-}
-
-// ── MODAL CONTROLS ───────────────────────────
 function openModal() {
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
-  if (!stripe) { loadStripe(initStripe); } 
 }
 
 function closeModal() {
@@ -1561,54 +1517,34 @@ function closeModalOutside(e) {
   if (e.target === document.getElementById('modalOverlay')) closeModal();
 }
 
-// ── PAYMENT HANDLER ───────────────────────────
-async function handlePayment() {
+async function handleSubscribe() {
   const name  = document.getElementById('fullName').value.trim();
   const email = document.getElementById('emailAddr').value.trim();
-  const errEl = document.getElementById('card-errors');
-  const btn   = document.getElementById('payBtn');
+  const errEl = document.getElementById('form-errors');
+  const btn   = document.getElementById('subBtn');
 
   if (!name)  { errEl.textContent = 'Please enter your name.'; return; }
   if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email.'; return; }
 
-  if (!stripe || !cardElement) {
-    showSuccess(); return;
-  }
-
   errEl.textContent = '';
-  btn.textContent   = 'Processing...';
+  btn.textContent   = 'Sending...';
   btn.classList.add('loading');
   btn.disabled = true;
 
   try {
-    const res = await fetch(PAYMENT_INTENT_ENDPOINT, {
-      method: 'POST',
+    const res  = await fetch(SUBSCRIBE_ENDPOINT, {
+      method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: 19700, currency: 'usd', email, name, product: 'Business Credit Unleashed' })
+      body:    JSON.stringify({ name, email, source: 'business-credit' }),
     });
-
-    const { clientSecret, error: backendError } = await res.json();
-    if (backendError) throw new Error(backendError);
-
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: cardElement,
-        billing_details: { name, email }
-      }
-    });
-
-    if (error) {
-      errEl.textContent = error.message;
-      btn.textContent   = '🔒 Pay $197 — Get Instant Access';
-      btn.classList.remove('loading');
-      btn.disabled = false;
-    } else if (paymentIntent.status === 'succeeded') {
-      showSuccess();
-    }
-
-  } catch(err) {
-    console.warn('Backend not available — demo mode.');
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Something went wrong.');
     showSuccess();
+  } catch (err) {
+    errEl.textContent = err.message || 'Something went wrong. Please try again.';
+    btn.textContent   = '📄 Send Me the Free Templates →';
+    btn.classList.remove('loading');
+    btn.disabled = false;
   }
 }
 
@@ -1617,12 +1553,10 @@ function showSuccess() {
   document.getElementById('successScreen').classList.add('show');
 }
 
-// ── FAQ TOGGLE ───────────────────────────────
 function toggleFaq(el) {
   el.closest('.faq-item').classList.toggle('open');
 }
 
-// ── SCROLL REVEAL ────────────────────────────
 function initReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -1636,12 +1570,10 @@ function initReveal() {
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
-// ── INIT ─────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  if (typeof Stripe !== 'undefined') initStripe();
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  const yearEl = document.getElementById('footer-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // ── SCROLL TO TOP ──
   const scrollBtn = document.getElementById('scrollTopBtn');
   if (scrollBtn) {
     window.addEventListener('scroll', () => {
